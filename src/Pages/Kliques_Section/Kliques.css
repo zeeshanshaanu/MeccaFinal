@@ -1,0 +1,24 @@
+.KliquesImg{
+    width: 100px;
+    position: relative;
+     top: -3rem;
+    left: 3rem;
+}
+.Content{
+    margin-top: -2.5rem;
+    margin-left: 3rem;
+}
+.TotalMembers{
+    color: rgba(91, 102, 122, 1);
+}
+.Gray{
+    background-color: rgba(196, 196, 196, 1);
+    width: 40px;
+    padding: 1.2rem;
+    border-radius: 50%;
+}
+.ViewAllMembers:hover{
+cursor: pointer;
+color: red;
+text-decoration: underline;
+}

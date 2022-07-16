@@ -1,0 +1,94 @@
+.CertificationImg {
+  width: 250px;
+  height: 170px;
+  border: 1.8px dashed black;
+}
+.Events_card {
+  position: relative;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 8px;
+  padding: 20px;
+}
+.forflex {
+  border: 0.5px solid silver;
+  border-radius: 5px;
+  display: flex !important;
+  justify-content: space-between !important;
+}
+.TestimonialsCard {
+  position: relative;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 8px;
+  width: 270px;
+  padding: 20px;
+  background: #eeb85a;
+}
+.AvailabilityHours {
+  position: relative;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: auto;
+  border-radius: 8px;
+  padding: 20px;
+  background: #eeb85a;
+}
+.PricingCard {
+  position: relative;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 250px;
+  height: auto;
+  border-radius: 8px;
+  padding: 20px;
+  background: #eeb85a;
+}
+.Exp {
+  color: rgba(113, 126, 149, 1);
+}
+.Services_card {
+  position: relative;
+  background: #eeb85a;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  width: 230px;
+  height: 200px;
+  border-radius: 8px;
+  padding: 20px;
+}
+.forscroll {
+  overflow-x: auto;
+}
+.DescriptionScroll {
+  overflow-x: scroll !important;
+}
+.ProfesProfileImg {
+  width: 50px;
+}
+.KliquesImg {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+.stylishLoader {
+  position: absolute;
+  margin: 0;
+  top: 50% !important;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+@media only screen and (max-width: 768px) {
+  .TestimonialsCard {
+    width: 200px;
+    padding: 15px;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .TestimonialsCard {
+    width: 280px;
+    padding: 15px;
+  }
+}

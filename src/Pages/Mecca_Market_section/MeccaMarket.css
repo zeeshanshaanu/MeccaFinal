@@ -1,0 +1,66 @@
+.AllShopes {
+  color: black;
+  font-weight: bolder;
+}
+.Rating_Icon {
+  font-size: 20px;
+}
+.S,
+.M {
+  padding: 0.5rem 0.7rem;
+  background-color: rgba(113, 126, 149, 1);
+  border-radius: 50%;
+  color: #fff;
+}
+.Blue {
+  background-color: rgba(52, 150, 224, 1);
+  border-radius: 50%;
+  padding: 0.1rem 0.7rem;
+}
+.Orange {
+  background-color: rgba(255, 118, 41, 1);
+  border-radius: 50%;
+  padding: 0.1rem 0.7rem;
+}
+.Green {
+  background-color: rgba(117, 162, 66, 1);
+  border-radius: 50%;
+  padding: 0.1rem 0.7rem;
+}
+.Available {
+  padding: 0.5rem 1.5rem;
+  background-color: rgba(117, 162, 66, 0.15);
+  border-radius: 8px;
+  color: rgba(117, 162, 66, 1);
+  font-weight: bolder;
+}
+.UnAvailable {
+  padding: 0.5rem 1.5rem;
+  background-color: rgba(235, 87, 87, 0.15);
+  border-radius: 8px;
+  color: rgba(235, 87, 87, 1);
+  font-weight: bolder;
+}
+.icons {
+  cursor: pointer;
+}
+.AllShopsgridView {
+  display: none;
+}
+.KliquesImg {
+  position: relative;
+  top: -4rem;
+  left: 1rem;
+}
+.ProductCardTextColor {
+  color: rgba(192, 32, 38, 1);
+}
+.ViewLocation {
+  cursor: pointer;
+}
+.ViewLocation:hover {
+  color: rgba(192, 32, 38, 1);
+}
+.input_field {
+  padding-left: 2rem;
+}

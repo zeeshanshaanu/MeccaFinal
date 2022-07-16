@@ -1,0 +1,104 @@
+.addicon {
+  width: 5rem;
+  height: 5rem;
+  border: 1px dashed #ba0000;
+}
+.icon {
+  margin-top: 35%;
+}
+.sizehide {
+  display: none !important;
+}
+.sizeshow {
+  color: #c87517;
+}
+.Text_Editor {
+  border-radius: 7px;
+  padding: 10px;
+  min-height: 300px;
+}
+.iconsColor:hover {
+  cursor: pointer;
+  color: #c87517;
+  transition: 0.4s;
+}
+.forHeight {
+  height: 200px;
+}
+/*  */
+/*  */
+/*  */
+.addBlogicon {
+  width: 80vw;
+  height: 48vh;
+  border: 1px dashed #ba0000;
+  display: inline-block;
+  background-color: rgb(234, 234, 234) !important;
+}
+.css-1kuq5xv-MuiButtonBase-root-MuiIconButton-root:hover {
+  background-color: transparent !important;
+}
+
+.imgshow {
+  display: inline-block !important;
+  width: 80vw !important;
+  height: 50vh !important;
+}
+.Blogicon {
+  margin-top: 14%;
+}
+.Blog_card {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: 650px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 20px;
+  display: inline-block;
+}
+
+.viewblog:hover {
+  cursor: pointer;
+  color: #ba0000;
+}
+.Completed {
+  height: 25%;
+  /* width: 100%; */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: block;
+  margin: 0%;
+}
+.pagination {
+  float: right;
+  margin-top: 0.5rem;
+}
+.forflaotright {
+  float: right;
+}
+.pagination a {
+  color: #8c30f5;
+  float: left;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.paginationA.active {
+  background-color: #8c30f5;
+  color: white;
+  height: 45px;
+  margin-top: 0.7rem;
+}
+
+.pagination a:hover:not(.active) {
+  color: #000;
+}
+@media screen and (max-width: 1440px) {
+  .Blog_card {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: 530px;
+    width: 100%;
+  }
+  .Completed {
+    height: 29%;
+  }
+}

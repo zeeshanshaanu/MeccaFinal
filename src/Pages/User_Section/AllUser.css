@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.for_Form {
+  border: 0.5px solid rgb(202, 184, 184);
+  border-radius: 15px;
+  padding: 2rem 1rem;
+}
+.ContentColor {
+  color: rgba(113, 126, 149, 1);
+}
+.for_text_align {
+  text-align: end;
+}
+.UserDetailPhoto {
+  width: 150px;
+}
+.Active {
+  padding: 0.5rem 1.5rem;
+  background-color: rgba(117, 162, 66, 0.15);
+  border-radius: 8px;
+  color: rgba(117, 162, 66, 1);
+  font-weight: bolder;
+}
+.Download {
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
+  border-radius: 7px;
+  border: 1.5px solid rgba(0, 0, 0, 1);
+}
+.Download:hover {
+  background-color: #fff;
+  color: black;
+  border: 1.5px solid rgba(0, 0, 0, 1);
+}
+.AllUsersBredCrumbs:hover {
+  cursor: pointer;
+  color: #f11139;
+}
+.foractive {
+  color: #f19c0f;
+}
+.view {
+  cursor: pointer;
+  color: #f19c0f;
+  font-size: 18px;
+}
+.view:hover {
+  color: #f11139;
+  transition: all 0.2s ease;
+}

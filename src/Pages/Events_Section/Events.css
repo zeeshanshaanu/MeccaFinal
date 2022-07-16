@@ -1,0 +1,218 @@
+.Buttons {
+  position: relative;
+  top: -4rem;
+  margin-left: 1rem;
+}
+.Download2 {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+}
+.Triatholon {
+  background: rgb(181, 190, 204);
+  color: rgb(56, 68, 91);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+}
+
+.avatar img {
+  border: 3px solid #000;
+  border-radius: 50%;
+  position: relative;
+  left: -2px;
+  margin-left: -20px;
+  z-index: -1;
+}
+.avatars {
+  direction: rtl;
+  text-align: left;
+  padding-left: 25px;
+}
+/*  */
+/*  */
+/*  */
+.dragcontent {
+  border: 1.5px dashed black;
+  width: 4rem;
+  height: 4rem;
+  background-color: azure;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+.setposition {
+  position: relative;
+  top: -3.5rem;
+}
+.crowicon {
+  cursor: pointer;
+}
+/* propertyDetail */
+/* propertyDetail */
+/* propertyDetail */
+.propertyDetailIMg {
+  width: 100%;
+  height: 100%;
+}
+.forjustify {
+  text-align: justify;
+}
+.posted {
+  border: 1.5px solid black;
+  width: 200px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+.icons_position {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  float: right;
+  padding: 1rem;
+  cursor: pointer;
+  right: 5%;
+}
+.forcolor {
+  color: #f3322f;
+}
+.forcolor:hover {
+  color: #d14229;
+}
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+.properties {
+  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(62, 73, 84, 0.18);
+  border-radius: 20px;
+  margin-right: 4%;
+  margin-left: 3.5%;
+}
+@media screen and (max-width: 768px) {
+  .properties {
+    margin-top: 3%;
+    margin-right: 2.4%;
+    margin-left: 2.4%;
+  }
+  .properties h1 {
+    font-size: 25px;
+    text-align: center;
+  }
+  .circular {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .target {
+    text-align: center;
+    margin-top: 5%;
+  }
+  .properties p:nth-child(2) {
+    text-align: center;
+  }
+}
+@media screen and (min-width: 769px) {
+  .circular {
+    margin-left: auto;
+    margin-top: -15%;
+  }
+  .target {
+    margin-top: -5%;
+  }
+}
+
+.properties h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 32px;
+  line-height: 37.5px;
+  font-weight: 900;
+}
+.properties p:nth-child(2) {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 18.75px;
+  font-weight: 600;
+}
+.target {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 16.41px;
+  color: #717579;
+  font-weight: 500;
+}
+.selected {
+  background-color: #014876;
+  color: white;
+
+  font-size: 18px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 0;
+  outline: 1px solid;
+  border-right: 16px solid transparent;
+}
+.firstdrop {
+  width: 15%;
+}
+.likhai {
+  color: white;
+}
+
+.search_Agent {
+  position: absolute;
+  left: 30rem;
+  top: 6.3rem;
+}
+.maindiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.searchbar {
+  margin-left: 2rem;
+  overflow: auto;
+}
+.toggle {
+  cursor: pointer;
+
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  background-color: #c7d4dc;
+
+  box-shadow: 0px 4px 20px rgba(94, 132, 194, 0.06);
+  border-radius: 10px;
+}
+.icon {
+  color: #f11139;
+}
+.likhai {
+  padding: 12rem;
+  border-radius: 10px;
+  margin-top: 5rem;
+}
+.filter {
+  background-color: #014876;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 2rem;
+}
+@media screen and (min-width: 1957px) {
+  .properties {
+    height: 164px;
+  }
+}
+@media screen and (min-width: 2301px) and (max-width: 2685px) {
+  .target {
+    margin-top: 1% !important;
+  }
+}

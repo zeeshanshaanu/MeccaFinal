@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Metrophobic&display=swap");
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  font-family: "Metrophobic", sans-serif;
+}
+.css-zxtyt4-MuiPaper-root-MuiAppBar-root,
+.css-1t29gy6-MuiToolbar-root {
+  background-color: #e5e5e5 !important;
+}
+.drawer {
+  background-image: linear-gradient(to bottom, #fba40f 10%, #f11139 95%);
+  min-height: 120%;
+}
+
+.buttonTwo {
+  margin: 2rem 5rem 3rem 1.4rem;
+  padding: 8px 4rem;
+  transition: 0.8s;
+  background-color: rgba(192, 32, 38, 1);
+  color: #e5e5e5;
+  border-radius: 8px;
+  display: block;
+  border: none !important;
+  font-weight: bolder;
+  font-family: "Metrophobic", sans-serif;
+}
+.buttonTwo:hover {
+  box-shadow: 0 0 16px 0 rgb(146, 39, 43);
+}
+.css-zxdg2z {
+  padding: 0 !important;
+}
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  overflow: auto;
+  padding: 0.1rem;
+}
+
+.Jones {
+  border-left: 2px solid #f11139;
+  margin-left: 1.5rem !important;
+  padding: 1rem;
+}
+.topbarcontent {
+  color: #f11139;
+  position: relative;
+  left: 10%;
+  display: grid;
+  grid-auto-flow: inherit;
+}
+
+.TopIcon {
+  border-radius: 50%;
+}
+.TopSection {
+  background-color: #e5e5e5;
+}
+.ProfileLogo {
+  width: 55px;
+  margin-top: 0.1rem;
+}
+.sidebarLogo {
+  position: absolute;
+  width: 50px;
+  left: 5.5rem;
+  /* margin-left: 3.6rem; */
+}
+.sidebaritems {
+  margin-top: 5rem !important;
+}
+/* SIDEBAR CSS */
+/* SIDEBAR CSS */
+/* SIDEBAR CSS */
+/* SIDEBAR CSS */
+/* SIDEBAR CSS */
+/* SIDEBAR CSS */
+.heading {
+  background: transparent;
+}
+.css-19z1ozs-MuiPaper-root-MuiAppBar-root {
+  background-color: white !important;
+  box-shadow: none !important;
+}
+.css-1191obr-MuiPaper-root-MuiAppBar-root {
+  background-color: white !important;
+  box-shadow: none !important;
+}
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+  border: 0px solid white !important;
+}
+
+.bottom-login-realstate {
+  margin-top: 3%;
+}
+
+.dashboardheading {
+  font-family: "Playfair Display";
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 45.32px;
+  color: #000000;
+}
+.Dashboardnavbar {
+  cursor: pointer;
+  margin-left: auto;
+}
+.Dashboardnavbar:hover {
+  animation: shake 1s forwards;
+}
+@keyframes shake {
+  10% {
+    transform: rotate(15deg);
+  }
+  20% {
+    transform: rotate(-15deg);
+  }
+  30% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+}
+
+.Dashboardparanavbar {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 28.33px;
+  font-family: "Saira", sans-serif;
+  color: #000000;
+  margin: 0px 13px;
+}
+/*  */
+/*  */
+/* notificationbox */
+.notificationbox {
+  width: 300px;
+  height: auto;
+  padding: 2rem;
+  display: none;
+}
+@media only screen and (max-width: 1440px) {
+  .drawer {
+    min-height: 130%;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .drawer {
+    min-height: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .drawer {
+    min-height: 130%;
+  }
+}
+.baton {
+  position: absolute;
+  left: 12rem;
+  height: 20px;
+}

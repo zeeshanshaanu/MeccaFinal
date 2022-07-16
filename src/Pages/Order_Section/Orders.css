@@ -1,0 +1,22 @@
+.forwidth{
+    width: 300px;
+}
+.Rating_content{
+    width: 500px;
+    border-radius: 10px;
+}
+.yellowstar{
+    width: 15px!important;
+}
+.ratingIMg{
+    width: 55px;
+    margin-right: .5rem;
+}
+.textHeight{
+    line-height:1rem;
+    margin-top: -.8rem;
+}
+.ReviewierName{
+    color: 
+    rgba(0, 0, 0, 1);
+}

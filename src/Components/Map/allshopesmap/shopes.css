@@ -1,0 +1,19 @@
+.map {
+  font-family: "Roboto", sans-serif;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+}
+#unit {
+  color: #717579;
+}
+.map-properties {
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.progress-bar {
+  background-color: #014876 !important;
+}

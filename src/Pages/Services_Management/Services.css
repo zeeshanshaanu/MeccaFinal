@@ -1,0 +1,26 @@
+.categoryinput {
+  border-radius: 5px;
+  /* padding-left: 3px; */
+  border: 1.5px solid rgba(192, 32, 38, 1);
+}
+.actions {
+  cursor: pointer;
+}
+.DeleteIcon {
+  cursor: pointer;
+}
+.SelectCategories {
+  color: #f22035 !important;
+  font-weight: 600 !important;
+}
+.hovereffect:hover {
+  color: #f22035;
+  font-weight: bolder;
+}
+.ServicesSearch_icon {
+  position: absolute;
+  color: #f11139;
+  left: -1ch;
+  width: 8% !important;
+  top: 7.5px;
+}

@@ -1,0 +1,142 @@
+import React, { useState, useEffect } from "react";
+import KliquesImg from "../../Assets/Images/KliquesImg.png";
+import KliquesDetailBGIMg from "../../Assets/Images/KliquesDetailBGIMg.png";
+import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Row, Col } from "react-bootstrap";
+import MeccaMarket_data from "../../Pages/Mecca_Market_section/For_mockup_data/MeccaMarket_data.json";
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
+const drawerWidth = 100;
+
+const ShopDetail = () => {
+  const [togle, settogle] = useState(true);
+  const [status, setstatus] = useState("Published");
+  const [viewtoggle, setviewtoggle] = useState(true);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [users, setUsers] = useState(MeccaMarket_data.slice(0, 50));
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 9;
+  const pagesVisited = pageNumber * usersPerPage;
+  useEffect(() => {
+    togle ? setstatus("Published") : setstatus("UnPublished");
+  }, [togle]);
+  const displayUsers = users
+    .slice(pagesVisited, pagesVisited + usersPerPage)
+    .map((user) => {
+      return (
+        <>
+          <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
+            <div className="Product_card mb-5">
+              <div className="card_image">
+                <img
+                  src={KliquesDetailBGIMg}
+                  alt="KliquesDetailBGIMg.png"
+                  className="ProductImg"
+                />
+              </div>
+              <div className="mt-2">
+                <p class="">{user.ShopName}</p>
+                <p class="fw-bolder ProductCardTextColor">{user.Price}</p>
+              </div>
+            </div>
+          </Col>
+        </>
+      );
+    });
+
+  ///
+  const pageCount = Math.ceil(users.length / usersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
+  return (
+    <div className="TopDiv px-3 pb-5 mt-5">
+      <Box sx={{ display: "flex" }}>
+        <div className="for_drawer">
+          <ResponsiveDrawer heading="Kliques" className="alluser" />
+        </div>
+        <AppBar
+          className="fortrans"
+          position="fixed"
+          sx={{
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            ml: { sm: `${drawerWidth}px` },
+          }}
+        ></AppBar>
+        <Box
+          sx={{
+            flexGrow: 1,
+            my: 5,
+            mx: 1,
+            mt: 5,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+          }}
+        >
+          <div className="">
+            <img
+              src={KliquesDetailBGIMg}
+              alt="KliquesDetailBGIMg.png"
+              className="w-100"
+            />
+            <img src={KliquesImg} alt="KliquesImg.png" className="KliquesImg" />
+          </div>
+          <div className="Content">
+            <div className="d-flex justify-content-between">
+              <p className="fw-bolder">Shop Name</p>
+            </div>
+            <div className="">
+              <small>
+                Category:&nbsp;<span className="fw-bolder">Sports</span>
+              </small>
+            </div>
+          </div>
+          <div className="Description mt-4">
+            <p className="fw-bolder">Description</p>
+            <div className="pe-5">
+              <small>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Sagittis egestas pulvinar sit aliquet morbi dolor, facilisi
+                vitae. Cursus a eu eget nunc feugiat fringilla eget a. Massa
+                adipiscing vitae nec tempor vitae, pulvinar fringilla ac. Ut
+                curabitur gravida vitae viverra sed.
+              </small>
+            </div>
+            <div className="mt-4">
+              <p className="fw-bolder">
+                <LocationOnIcon style={{ color: "#F11D35" }} />
+                Location:&nbsp;
+                <span>XYZ</span>
+              </p>
+            </div>
+            <div className="">
+              <h4 className="mt-5 fw-bolder"> Products:</h4>
+            </div>
+          </div>
+          <div className="row ">{displayUsers}</div>
+          <div className="mt-5">
+            <ReactPaginate
+              previousLabel={<ArrowCircleLeftRoundedIcon />}
+              nextLabel={<ArrowCircleRightRoundedIcon />}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+          </div>
+        </Box>
+      </Box>
+    </div>
+  );
+};
+
+export default ShopDetail;

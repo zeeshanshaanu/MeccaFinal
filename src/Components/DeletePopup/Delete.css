@@ -1,0 +1,16 @@
+.ContactSupportRoundedIcon {
+  font-size: 200px !important;
+  color: #f11139;
+}
+.cancel {
+  background-color: #f11139;
+  border-radius: 8px;
+  border: 1.5px solid #f11139;
+  color: #fff;
+  font-weight: bolder;
+}
+.cancel:hover {
+  background-color: #fff;
+  border: 1.5px solid #f11139;
+  color: #f11139;
+}
