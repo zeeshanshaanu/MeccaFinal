@@ -69,6 +69,7 @@ const drawerWidth = 100;
   const [name, setName] = useState("")
   const [categ, setCateg] = useState("")
   const [Description, setDescription] = useState("")
+  const [added_by, setadded_by] = useState("")
   const [cover_image, setcover_image] = useState("")
   const GetShopDetail = () => {
     axios
@@ -80,6 +81,8 @@ const drawerWidth = 100;
       .then((response) => {
         setName(response.data.data.name);
         setCateg(response.data.data.category);
+        setDescription(response.data.data.description);
+        setadded_by(response.data.data.added_by);
         setcover_image(response.data.data.cover_image);
          setdone(false);
       })
@@ -125,9 +128,11 @@ const drawerWidth = 100;
             <img src={KliquesImg} alt="KliquesImg.png" className="KliquesImg" />
           </div>
           <div className="Content">
-            <div className="d-flex justify-content-between">
-              <p className="fw-bolder">{name}</p>
-            </div>
+            <div className="">
+              <p >Market Owner:&nbsp;<span className="fw-bolder">{added_by}</span></p>
+              <p >User Type:&nbsp;<span className="fw-bolder">{added_by}</span></p>
+              <p >Shop Name:&nbsp;<span className="fw-bolder">{name}</span></p>
+             </div>
             <div className="">
               <small>
                 Category:&nbsp;<span className="fw-bolder">Sports</span>
