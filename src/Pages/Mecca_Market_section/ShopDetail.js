@@ -10,9 +10,14 @@ import MeccaMarket_data from "../../Pages/Mecca_Market_section/For_mockup_data/M
 import ReactPaginate from "react-paginate";
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+// 
+// 
+// 
+// 
 const drawerWidth = 100;
-
-const ShopDetail = () => {
+  const ShopDetail = () => {
   const [togle, settogle] = useState(true);
   const [status, setstatus] = useState("Published");
   const [viewtoggle, setviewtoggle] = useState(true);
@@ -20,9 +25,15 @@ const ShopDetail = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [users, setUsers] = useState(MeccaMarket_data.slice(0, 50));
   const [pageNumber, setPageNumber] = useState(0);
+  const [done, setdone] = useState(false);
+  const { id } = useParams();
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
   useEffect(() => {
+    sessionStorage.setItem("id", "4");
+    GetShopDetail();
+    setdone(true);
+    sessionStorage.setItem("id", "4");
     togle ? setstatus("Published") : setstatus("UnPublished");
   }, [togle]);
   const displayUsers = users
@@ -48,14 +59,39 @@ const ShopDetail = () => {
         </>
       );
     });
-
-  ///
   const pageCount = Math.ceil(users.length / usersPerPage);
-
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-
+  // 
+  // 
+  // 
+  const [name, setName] = useState("")
+  const [categ, setCateg] = useState("")
+  const [Description, setDescription] = useState("")
+  const [cover_image, setcover_image] = useState("")
+  const GetShopDetail = () => {
+    axios
+      .get(`/shop/view?shop_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        setName(response.data.data.name);
+        setCateg(response.data.data.category);
+        setcover_image(response.data.data.cover_image);
+         setdone(false);
+      })
+      .catch((err) => console.log(err));
+  };
+  // 
+  // 
+  // 
+  // 
+  // 
+  // 
+  // 
   return (
     <div className="TopDiv px-3 pb-5 mt-5">
       <Box sx={{ display: "flex" }}>
@@ -80,16 +116,17 @@ const ShopDetail = () => {
           }}
         >
           <div className="">
+          <div className="">
             <img
-              src={KliquesDetailBGIMg}
+              src={cover_image}
               alt="KliquesDetailBGIMg.png"
-              className="w-100"
+              className="w-100 KliquesDetailBGIMg"
             />
             <img src={KliquesImg} alt="KliquesImg.png" className="KliquesImg" />
           </div>
           <div className="Content">
             <div className="d-flex justify-content-between">
-              <p className="fw-bolder">Shop Name</p>
+              <p className="fw-bolder">{name}</p>
             </div>
             <div className="">
               <small>
@@ -101,20 +138,16 @@ const ShopDetail = () => {
             <p className="fw-bolder">Description</p>
             <div className="pe-5">
               <small>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Sagittis egestas pulvinar sit aliquet morbi dolor, facilisi
-                vitae. Cursus a eu eget nunc feugiat fringilla eget a. Massa
-                adipiscing vitae nec tempor vitae, pulvinar fringilla ac. Ut
-                curabitur gravida vitae viverra sed.
+                {Description}
               </small>
             </div>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <p className="fw-bolder">
                 <LocationOnIcon style={{ color: "#F11D35" }} />
                 Location:&nbsp;
                 <span>XYZ</span>
               </p>
-            </div>
+            </div> */}
             <div className="">
               <h4 className="mt-5 fw-bolder"> Products:</h4>
             </div>
@@ -132,6 +165,7 @@ const ShopDetail = () => {
               disabledClassName={"paginationDisabled"}
               activeClassName={"paginationActive"}
             />
+          </div>
           </div>
         </Box>
       </Box>

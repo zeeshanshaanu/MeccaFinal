@@ -2,7 +2,8 @@
   position: relative;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 8px;
-  padding: 20px;
+  padding: 17px;
+  /* height: 580px; */
 }
 .Product_card {
   position: relative;
@@ -24,6 +25,9 @@
 .KliquesDetailBGIMg {
   width: 100%;
   height: 28vh;
+}
+.KliquesDetailBGIMg{
+  height: 450px !important;
 }
 .details {
   position: absolute;
@@ -127,6 +131,7 @@
 .forscroll {
   overflow-x: scroll;
 }
+ 
 
 /*  */
 /*  */

@@ -39,13 +39,13 @@ const AllShopsgridView = () => {
   const [GetShopes, setGetShopes] = useState([]);
   const GetServices = () => {
     axios
-      .get(`/shop/view_all`, {
+      .get(`/shop/view-all`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
-        setgridShops(response.data.data);
+        setgridShops(response.data.data.shops);
         setdone(false);
       });
     // .catch((err) => console.log(err));
@@ -59,10 +59,10 @@ const AllShopsgridView = () => {
     sessionStorage.setItem("id", "12");
     GetServices();
     setdone(true);
-
     togle ? setstatus("Published") : setstatus("UnPublished");
   }, [togle]);
-  const [gridShops, setgridShops] = useState(GetShopes.slice(0, 20));
+  // const [gridShops, setgridShops] = useState(GetShopes.slice(0, 20));
+  const [gridShops, setgridShops] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
@@ -106,16 +106,20 @@ const AllShopsgridView = () => {
                       <p class="text-left det"> {getShopesData.name}</p>
                     </div>
                   </div>
-                  <div className="forscroll  ">
-                    <p class="text-left para det fw-bolder">Address:</p>
-                    <p class="det ">{getShopesData.address}</p>
+                  <div className="forscroll">
+                    <p class="text-left fw-bolder">Address:</p>
+
+                    <p class="forElipse">
+                      {getShopesData.address}
+                    </p>
+
                   </div>
                   <div className=" d-flex justify-content-between">
                     <p class="text-left para det fw-bolder">Catagory:</p>
                     <p class="det">{getShopesData.category}</p>
                   </div>
                   <div className="d-flex justify-content-between">
-                    <div className="d-flex">
+                    {/* <div className="d-flex">
                       <div className="">
                         <LocationOnIcon className="icon mt-2" />
                       </div>
@@ -131,7 +135,7 @@ const AllShopsgridView = () => {
                           <small>{getShopesData.location_long}</small>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="Rating">
                       {getShopesData.total_ratings === 0 ? (
                         <div className="">
@@ -151,11 +155,11 @@ const AllShopsgridView = () => {
                       )}
                     </div>
                   </div>
-                  <div className="mt-2 d-flex justify-content-end">
+                  <div className="mt-2">
                     <p
-                      className="button1   px-2"
+                      className="button1 px-2 mt-4"
                       onClick={() => {
-                        navigate("/ShopDetail");
+                        navigate(`/ShopDetail/${getShopesData.id}`);
                       }}
                     >
                       <small>Visit&nbsp;Shop</small>

@@ -6,8 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import AppBar from "@mui/material/AppBar";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Row, Col } from "react-bootstrap";
 import FormGroup from "@mui/material/FormGroup";
+import { Row, Col } from "react-bootstrap";
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 import ResponsiveDrawer from "../../Dashboard/Drawer";
@@ -47,7 +47,7 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
 }));
 ////////////=============/////////////============
 const drawerWidth = 280;
-const UpdateBlogCategory = () => {
+const UpdateQuoraFaqCategory = () => {
   const navigate = useNavigate();
   ///////////=============/////////////===========
   const [category, setcategory] = useState("");
@@ -62,7 +62,7 @@ const UpdateBlogCategory = () => {
   const ServicesUpdate = () => {
     axios
       .post(
-        `blogCategory/update?blog_category_id=${id}&name=${name}`,
+        `quoraCategory/update?quora_category_id=${id}&name=${name}&description=${description}`,
         {},
         {
           headers: {
@@ -81,7 +81,7 @@ const UpdateBlogCategory = () => {
           });
         }
         setTimeout(() => {
-          navigate("/Blogs");
+          navigate("/AllFaqs");
         }, 2000);
       })
       .catch((err) => {
@@ -110,7 +110,7 @@ const UpdateBlogCategory = () => {
   const GetServices = () => {
     console.log(id);
     axios
-      .get(`blogCategory/view-all`, {
+      .get(`/quoraCategory/view-all`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
@@ -120,15 +120,15 @@ const UpdateBlogCategory = () => {
         setServices(response.data.data);
         console.log(
           response.data.data.filter((servicess) => {
-            return id == servicess.blog_category_id;
+            return id == servicess.quora_category_id;
           })
         );
         response.data.data
           .filter((servicess) => {
-            return id == servicess.blog_category_id;
+            return id == servicess.quora_category_id;
           })
           .map((servicess) => {
-            // setDescription(servicess.description);
+            setDescription(servicess.description);
             setName(servicess.name);
             // setIsActive(servicess.isactive);
           });
@@ -145,7 +145,7 @@ const UpdateBlogCategory = () => {
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>
         <div className="for_drawer">
-          <ResponsiveDrawer heading="All Services" className="alluser" />
+          <ResponsiveDrawer heading="App Settings" className="alluser" />
         </div>
         <AppBar
           className="fortrans"
@@ -168,7 +168,7 @@ const UpdateBlogCategory = () => {
             <div class="form-group mt-5 pt-5">
               <Row>
                 <Form.Label className="text-dark mb-5 fw-bolder">
-                  Update&nbsp;Blog Category
+                  Update&nbsp;FAQ Category
                 </Form.Label>
                 {/*  */}
                 {/*  */}
@@ -205,7 +205,7 @@ const UpdateBlogCategory = () => {
                     />
                   </Form.Group>
                 </Col>
-                {/* <Col lg={4} md={4} sm={12}>
+                <Col lg={4} md={4} sm={12}>
                   <div className="">
                     <Form.Label className="text-dark">
                       Description (Optional)
@@ -225,7 +225,7 @@ const UpdateBlogCategory = () => {
                   </Form.Group>
                 </Col>
               
-                <Col lg={4} md={4} sm={12}>
+                {/* <Col lg={4} md={4} sm={12}>
                   <div className="">
                     <Form.Label className="text-dark">
                       Shop Status (Optional)
@@ -259,4 +259,4 @@ const UpdateBlogCategory = () => {
   );
 };
 
-export default UpdateBlogCategory;
+export default UpdateQuoraFaqCategory;

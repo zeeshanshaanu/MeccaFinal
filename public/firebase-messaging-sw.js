@@ -1,12 +1,6 @@
-//////
-
-//////
-// Scripts for firebase and firebase messaging
-// eslint-disable-next-line no-undef
 importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
 // eslint-disable-next-line no-undef
 importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
-
 // Initialize the Firebase app in the service worker by passing the generated config
 const firebaseConfig = {
   apiKey: "AIzaSyAI9cCLX7Wl00AXRywSB8r5BME9cIvjIW0",

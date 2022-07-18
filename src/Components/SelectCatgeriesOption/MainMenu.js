@@ -118,7 +118,7 @@ const MainMenu = () => {
         >
           <MenuItem
             onClick={() => {
-              navigate("/AllServices");
+              navigate("/AppSetings");
             }}
             disableRipple
             className="hovereffect"
@@ -181,7 +181,7 @@ const MainMenu = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              navigate("");
+              navigate("/AllFaqs");
             }}
             disableRipple
             className="hovereffect"

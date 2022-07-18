@@ -79,6 +79,8 @@ import UpdateEventCategory from "../Pages/ServicesAndCatgeory/Event Catgories/Up
 import AppSetings from "../Pages/Services_Management/AppSetings";
 import Testing from "../Testing/Testing";
 import UpdateVarient from "../Pages/ServicesAndCatgeory/Varients/UpdateVarient";
+import AllFaqs from "../Pages/ServicesAndCatgeory/FAQs Categories/AllFaqs";
+import UpdateQuoraFaqCategory from "../Pages/ServicesAndCatgeory/FAQs Categories/UpdateQuoraFaqCategory";
 // import { I18nextProvider } from "react-i18next";
 // import i18n from "./configs/i18n/i18n";
 const LazyAllProfessionals = React.lazy(() =>
@@ -101,50 +103,63 @@ const Routing = () => {
   return (
     <div className="App">
       <div className="">
+        {" "}
         {show ? (
           <Toastnotify title={notification.title} body={notification.body} />
-        ) : null}
+        ) : null}{" "}
         <Notifications />
-      </div>
+      </div>{" "}
       <BrowserRouter>
         <Routes>
-          {/* ================----------LOGIN SECTION---------=======-- */}
-          <Route exact path="/" element={<SplashScreen />} />
-          <Route path="/Login" element={<Login />} />
+          {" "}
+          {/* ================----------LOGIN SECTION---------=======-- */}{" "}
+          <Route exact path="/" element={<SplashScreen />} />{" "}
+          <Route path="/Login" element={<Login />} />{" "}
           <Route
             exact
             path="/ForgetPassword"
             element={<ForgetPassword />}
-          ></Route>
+          ></Route>{" "}
           <Route
             exact
             path="/OtpVerification"
             element={<OtpVerification />}
-          ></Route>
+          ></Route>{" "}
           <Route
             exact
             path="/ResetPassword"
             element={<ResetPassword />}
-          ></Route>
-          <Route path="/Logout" element={<Logout />}></Route>
-          {/* ============Dashboard_Section========== */}
-          <Route exact path="/Dashboard" element={<Dashboard />}></Route>
+          ></Route>{" "}
+          <Route path="/Logout" element={<Logout />}>
+            {" "}
+          </Route>{" "}
+          {/* ============Dashboard_Section========== */}{" "}
+          <Route exact path="/Dashboard" element={<Dashboard />}>
+            {" "}
+          </Route>{" "}
           {/* <Route
-            exact
-            path="/Dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          /> */}
-          {/* ============Users_Section========== */}
-          <Route exact path="/AllUsers" element={<AllUsers />}></Route>
-          <Route exact path="/AddUser" element={<AddUser />}></Route>
-          <Route exact path="/EditUser" element={<EditUser />}></Route>
-          <Route exact path="/UserDetail" element={<UserDetail />}></Route>
-          {/* ============Professionals_Section========== */}
-          {/*  */}
+                        exact
+                        path="/Dashboard"
+                        element={
+                          <PrivateRoute>
+                            <Dashboard />
+                          </PrivateRoute>
+                        }
+                      /> */}{" "}
+          {/* ============Users_Section========== */}{" "}
+          <Route exact path="/AllUsers" element={<AllUsers />}>
+            {" "}
+          </Route>{" "}
+          <Route exact path="/AddUser" element={<AddUser />}>
+            {" "}
+          </Route>{" "}
+          <Route exact path="/EditUser" element={<EditUser />}>
+            {" "}
+          </Route>{" "}
+          <Route exact path="/UserDetail" element={<UserDetail />}>
+            {" "}
+          </Route>{" "}
+          {/* ============Professionals_Section========== */} {/*  */}{" "}
           <Route
             path="/AllProfessionals"
             element={
@@ -152,102 +167,162 @@ const Routing = () => {
                 <LazyAllProfessionals />
               </React.Suspense>
             }
-          ></Route>
+          ></Route>{" "}
           <Route
             path="/EditProfessionals"
             element={<EditProfessionals />}
-          ></Route>
+          ></Route>{" "}
           <Route
             path="/AddProfessionals"
             element={<AddProfessionals />}
-          ></Route>
+          ></Route>{" "}
           <Route
             path="/ProfessionalsDetail/:id"
             element={<ProfessionalsDetail />}
-          ></Route>
-          {/* ============Mecca_Market========== */}
-          <Route path="/AllShopes" element={<AllShopes />}></Route>
-          <Route path="/AllItems" element={<AllItems />}></Route>
-          <Route path="/ShopDetail" element={<ShopDetail />}></Route>
+          ></Route>{" "}
+          {/* ============Mecca_Market========== */}{" "}
+          <Route path="/AllShopes" element={<AllShopes />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/AllItems" element={<AllItems />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/ShopDetail/:id" element={<ShopDetail />}>
+            {" "}
+          </Route>{" "}
           <Route
             path="/AllShopsgridView"
             element={<AllShopsgridView />}
-          ></Route>
+          ></Route>{" "}
           <Route
             path="/EditProductDetails"
             element={<EditProductDetails />}
-          ></Route>
-          <Route path="/EditShopDetails" element={<EditShopDetails />}></Route>
-          {/* ============Kliques_Section========== */}
-          <Route path="/AllKliques" element={<AllKliques />}></Route>
-          <Route path="/KliquesDetail" element={<KliquesDetail />}></Route>
-          <Route path="/AddKalique" element={<AddKalique />}></Route>
-          <Route path="/UpdateKlique" element={<UpdateKlique />}></Route>
-          {/* ============Services_Section========== */}
-          <Route path="/AppSetings" element={<AppSetings />}></Route>
+          ></Route>{" "}
+          <Route path="/EditShopDetails" element={<EditShopDetails />}>
+            {" "}
+          </Route>{" "}
+          {/* ============Kliques_Section========== */}{" "}
+          <Route path="/AllKliques" element={<AllKliques />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/KliquesDetail" element={<KliquesDetail />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/AddKalique" element={<AddKalique />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/UpdateKlique" element={<UpdateKlique />}>
+            {" "}
+          </Route>{" "}
+          {/* ============Services_Section========== */}{" "}
+          <Route path="/AppSetings" element={<AppSetings />}>
+            {" "}
+          </Route>{" "}
           <Route
             path="/UpdateService/:service_id"
             element={<UpdateService />}
-          ></Route>
-          {/* ============Events_Section========== */}
-          <Route path="/All_Events" element={<All_Events />}></Route>
-          <Route path="/AddNewEvent" element={<AddNewEvent />}></Route>
-          <Route path="/EventDetail" element={<EventDetail />}></Route>
-          {/* ============Blog_Section========== */}
-          <Route path="/AllBlogs" element={<AllBlogs />}></Route>
-          <Route path="/AddNewBlog" element={<AddNewBlog />}></Route>
-          <Route path="/UpdateBlog/:id" element={<UpdateBlog />}></Route>
-          <Route path="/ViewBlog" element={<ViewBlog />}></Route>
-          {/* ============Orders_Section========== */}
-          <Route path="/All_Orders" element={<All_Orders />}></Route>
-          <Route path="/OrderDetail" element={<OrderDetail />}></Route>
-          {/* ============SETTING========== */}
-          <Route path="/Setting" element={<Setting />}></Route>
-          {/* ============EmailVerifySuccessful========== */}
+          ></Route>{" "}
+          {/* ============Events_Section========== */}{" "}
+          <Route path="/All_Events" element={<All_Events />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/AddNewEvent" element={<AddNewEvent />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/EventDetail" element={<EventDetail />}>
+            {" "}
+          </Route>{" "}
+          {/* ============Blog_Section========== */}{" "}
+          <Route path="/AllBlogs" element={<AllBlogs />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/AddNewBlog" element={<AddNewBlog />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/UpdateBlog/:id" element={<UpdateBlog />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/ViewBlog" element={<ViewBlog />}>
+            {" "}
+          </Route>{" "}
+          {/* ============Orders_Section========== */}{" "}
+          <Route path="/All_Orders" element={<All_Orders />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/OrderDetail" element={<OrderDetail />}>
+            {" "}
+          </Route>{" "}
+          {/* ============SETTING========== */}{" "}
+          <Route path="/Setting" element={<Setting />}>
+            {" "}
+          </Route>{" "}
+          {/* ============EmailVerifySuccessful========== */}{" "}
           <Route
             path="/EmailVerifySuccessful"
             element={<EmailVerifySuccessful />}
-          ></Route>
-          <Route path="/LinkExpire" element={<LinkExpire />}></Route>
-          {/* ============Categories and services========== */}
-          <Route path="/Varients" element={<Varients />}></Route>
-          <Route path="/UpdateVarient/:id" element={<UpdateVarient />}></Route>
-          <Route path="/Tags" element={<Tags />}></Route>
-          <Route path="/Testing" element={<Testing />}></Route>
+          ></Route>{" "}
+          <Route path="/LinkExpire" element={<LinkExpire />}>
+            {" "}
+          </Route>{" "}
+          {/* ============Categories and services========== */}{" "}
+          <Route path="/Varients" element={<Varients />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/UpdateVarient/:id" element={<UpdateVarient />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/Tags" element={<Tags />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/Testing" element={<Testing />}>
+            {" "}
+          </Route>{" "}
           <Route
             path="/UpdateShopCategory/:id"
             element={<UpdateShopCategory />}
-          ></Route>
+          ></Route>{" "}
           <Route
             path="/AllProductCategories"
             element={<AllProductCategories />}
-          ></Route>
+          ></Route>{" "}
           <Route
             path="/AllShopCategories"
             element={<AllShopCategories />}
-          ></Route>
-          <Route path="/Blogs" element={<Blogs />}></Route>
+          ></Route>{" "}
+          <Route path="/Blogs" element={<Blogs />}>
+            {" "}
+          </Route>{" "}
           <Route
             path="/UpdateBlogCategory/:id"
             element={<UpdateBlogCategory />}
-          ></Route>
+          ></Route>{" "}
+          <Route path="/AllFaqs" element={<AllFaqs />}></Route>{" "}
           <Route
             path="/AllEventCategories"
             element={<AllEventCategories />}
-          ></Route>
+          ></Route>{" "}
+          <Route
+            path="/UpdateQuoraFaqCategory/:id"
+            element={<UpdateQuoraFaqCategory />}
+          ></Route>{" "}
           <Route
             path="/UpdateEventCategory/:id"
             element={<UpdateEventCategory />}
-          ></Route>
-          {/* ============Categories and services========== */}
-          {/* ============PageNotFound========== */}
-          <Route path="*" element={<PageNotFound />}></Route>
-          <Route path="/MeccaFitMap" element={<MapRealEstate />}></Route>
-        </Routes>
-      </BrowserRouter>
+          ></Route>{" "}
+          {/* ============Categories and services========== */}{" "}
+          {/* ============PageNotFound========== */}{" "}
+          <Route path="*" element={<PageNotFound />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/MeccaFitMap" element={<MapRealEstate />}>
+            {" "}
+          </Route>{" "}
+        </Routes>{" "}
+      </BrowserRouter>{" "}
     </div>
   );
 };
+
 function App() {
   return (
     <UserProvider>

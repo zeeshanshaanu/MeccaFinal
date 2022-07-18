@@ -60,14 +60,7 @@
   cursor: pointer;
   color: #ba0000;
 }
-.Completed {
-  height: 25%;
-  /* width: 100%; */
-  overflow-y: scroll;
-  overflow-x: hidden;
-  display: block;
-  margin: 0%;
-}
+
 .pagination {
   float: right;
   margin-top: 0.5rem;
@@ -91,6 +84,10 @@
 
 .pagination a:hover:not(.active) {
   color: #000;
+}
+.forBorderSet{
+  border: 1px solid silver;
+  border-radius: 5px;
 }
 @media screen and (max-width: 1440px) {
   .Blog_card {

@@ -12,8 +12,6 @@ import "./Blog.css";
 import { Hint } from "react-autocomplete-hint";
 import AppBar from "@mui/material/AppBar";
 import { FloraEditor } from "./FloraEditor";
-//
-//
 const options = [];
 const drawerWidth = 100;
 const Input = styled("input")({
@@ -52,15 +50,9 @@ const AddNewBlog = () => {
       setupload(true);
     }
   };
-  //
-  //
-  //
-  //
-  //
   const [title, settitle] = useState("");
   const [date, setdate] = useState("");
   const [category_id, setcategory_id] = useState("");
-
   const AddBlog = () => {
     console.log(sessionStorage.getItem("description"));
     const formData = new FormData();
@@ -100,7 +92,6 @@ const AddNewBlog = () => {
       });
   };
   const [Text, setText] = useState("");
-
   useEffect(() => {
     seterrormessage("");
   }, [category_id]);
@@ -123,7 +114,7 @@ const AddNewBlog = () => {
   const HandleSubmit = async (e) => {
     e.preventDefault();
     setdone(true);
-
+    AddBlog();
     let response = await axios.get(`/blogCategory/view-all`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
@@ -131,7 +122,7 @@ const AddNewBlog = () => {
     });
     setdone(false);
     console.log(response);
-    // let result = await response..data.data.filter(
+    // let result = await response.data.data.filter(
     //   (data) => data.name.toLowerCase() == name.toLowerCase()
     // );
     // console.log(result);
@@ -247,21 +238,12 @@ const AddNewBlog = () => {
                       <Form.Label>
                         <small className="text fw-bold">Category</small>
                       </Form.Label>
-                      {/* <Form.Control
-                        type="title"
-                        name="title"
-                        placeholder="ID"
-                        className="py-2"
-                        required
-                        onChange={(e) => setcategory_id(e.target.value)}
-                      /> */}
                       <Hint options={options}>
                         <input
-                          className="w-100 py-1 ps-2"
+                          className="w-100 py-2 ps-2 forBorderSet"
                           value={Text}
                           onChange={(e) => setText(e.target.value)}
-                          // onChange={(e) => setcategory_id(e.target.value)}
-                        />
+                         />
                       </Hint>
                       <small className="text-danger">{errormessage}</small>
                     </Form.Group>

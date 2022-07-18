@@ -139,8 +139,6 @@ const columns = [
 ];
 const drawerWidth = 100;
 const AllShopes = () => {
-  //
-  //
   const [showList, setshowList] = useState(false);
   const [showGrid, setshowGrid] = useState(true);
   const HandleList = () => {
@@ -152,7 +150,6 @@ const AllShopes = () => {
     setshowGrid(true);
     setshowList(false);
   };
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -161,7 +158,6 @@ const AllShopes = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -169,7 +165,6 @@ const AllShopes = () => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -188,13 +183,14 @@ const AllShopes = () => {
 
   const GetServices = () => {
     axios
-      .get(`/shop/view_all`, {
+      .get(`/shop/view-all`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
-        setGetShopes(response.data.data);
+        setGetShopes(response.data.data.shops);
+        console.log(response.data.data.shops);
         setdone(false);
       })
       .catch((err) => console.log(err));
