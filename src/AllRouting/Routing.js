@@ -242,7 +242,7 @@ const Routing = () => {
           <Route path="/UpdateBlog/:id" element={<UpdateBlog />}>
             {" "}
           </Route>{" "}
-          <Route path="/ViewBlog" element={<ViewBlog />}>
+          <Route path="/ViewBlog/:id" element={<ViewBlog />}>
             {" "}
           </Route>{" "}
           {/* ============Orders_Section========== */}{" "}

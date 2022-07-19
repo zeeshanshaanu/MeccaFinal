@@ -1,12 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
 import Box from "@mui/material/Box";
 import KliquesDetailBGIMg from "../../Assets/Images/KliquesDetailBGIMg.png";
 import AppBar from "@mui/material/AppBar";
-const drawerWidth = 100;
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import CircularIndeterminate from "../../Components/Loader/LoginLoader";
 
+const drawerWidth = 100;
 const ViewBlog = () => {
+  const { id } = useParams();
+  const [done, setdone] = useState(false);
+  const [title, settitle] = useState([]);
+  const [created_at, setcreated_at] = useState([]);
+  const [description, setdescription] = useState([]);
+  const [category, setcategory] = useState([]);
+  const [Image, setImage] = useState([]);
+  const GetShopDetail = () => {
+    axios
+      .get(`blog/view?blog_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        settitle(response.data.data.title);
+        setcreated_at(response.data.data.created_at);
+        setdescription(response.data.data.description);
+        setcategory(response.data.data.category);
+        setImage(response.data.data.cover_image);
+               setdone(false);
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
+    GetShopDetail();
+    setdone(true);
     sessionStorage.setItem("id", "7");
   }, []);
   return (
@@ -32,35 +61,43 @@ const ViewBlog = () => {
             width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
+          {done ? (
+            <div className="stylishLoader">
+              <CircularIndeterminate className="allagentsLoader" />
+            </div>
+          ) : (
+            <>
           <div className="">
             <img
-              src={KliquesDetailBGIMg}
+              src={Image}
               alt="KliquesDetailBGIMg.png"
-              className="w-100"
+              className="w-100 KliquesDetailBGIMg"
             />
           </div>
           <div className="Content mt-5">
             <div className="d-flex">
               <p className="fw-bolder">Title :</p>
-              <p className="ms-4">How to Manage</p>
+              <p className="ms-4">{title}</p>
             </div>
             <div className="d-flex">
-              <p className="fw-bolder">Author :</p>
-              <p className="ms-4">Ema Watson</p>
+              <p className="fw-bolder">Category :</p>
+              <p className="ms-4">{category}</p>
+            </div>
+            <div className="d-flex">
+              <p className="fw-bolder">Date :</p>
+              <p className="ms-4">{created_at}</p>
             </div>
           </div>
           <div className="Description ps-5 mt-4">
             <p className="fw-bolder">Description</p>
             <div className="pe-5">
               <small>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Sagittis egestas pulvinar sit aliquet morbi dolor, facilisi
-                vitae. Cursus a eu eget nunc feugiat fringilla eget a. Massa
-                adipiscing vitae nec tempor vitae, pulvinar fringilla ac. Ut
-                curabitur gravida vitae viverra sed.
+                {description}
               </small>
             </div>
           </div>
+          </>
+          )}
         </Box>
       </Box>
     </div>

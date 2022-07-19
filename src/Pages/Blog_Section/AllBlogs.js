@@ -15,6 +15,10 @@ import TickIcon from "../../Assets/Images/TickIcon.png";
 ///////=========//////////////==========//////////////===========
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import Notification from "../../Components/AlertNotification/Message";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
+import CircularIndeterminate from "../../Components/Loader/Loader";
 ///////=========//////////////==========//////////////===========
 ///////=========//////////////==========//////////////===========
 const AllBlogs = () => {
@@ -35,6 +39,11 @@ const AllBlogs = () => {
   const [currentPage, setcurrentPage] = useState(1);
   const [Categoryblog, setCategoryblog] = useState([]);
   const [category, setcategory] = useState("all");
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
   //
   const GetAllProf = () => {
     axios
@@ -71,6 +80,44 @@ const AllBlogs = () => {
         console.log(err);
       });
   };
+  ////////////=============/////////////============
+  ////////////=============/////////////============
+  ////////////=============/////////////============
+  const handleDelete = (blog_id) => {
+    console.log(sessionStorage.getItem("token_id"));
+    setdone(true);
+    axios
+      .delete(`/blog/delete?blog_id=${blog_id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setdone(false);
+        if (response.data.code === 200) {
+          setdone(false);
+          setNotify({
+            isOpen: true,
+            message: `${response.data.message}`,
+            type: "success",
+          });
+        }
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((err) => {
+        setdone(false);
+        setNotify({
+          isOpen: true,
+          message: `${err.response.message}`,
+          type: "error",
+        });
+      });
+  };
+  ////////////=============/////////////============
+  ////////////=============/////////////============
   //
   //
   //
@@ -108,18 +155,21 @@ const AllBlogs = () => {
   ).map((user) => {
     return (
       <>
-        <Col xxl={3} lg={4} md={12} sm={12}>
-          <div className="icons_position">
+         <Col lg={3} md={4} sm={6} className="mt-3">
+          <div className="icons_position-delete ms-auto me-1">
             <EditOutlinedIcon
               className="forcolor"
               onClick={() => {
                 navigate(`/UpdateBlog/${user.id}`);
               }}
             />
-            <DeleteIcon className="forcolor ms-2" />
+            <DeleteIcon className="forcolor ms-2"
+            onClick={() => {
+              handleDelete(user.id);
+            }} />
           </div>
           <div className="Blog_card mb-5">
-            <div className="card_image">
+            <div className="">
               <img
                 src={user.cover_image}
                 alt="KliquesDetailBGIMg.png"
@@ -140,11 +190,12 @@ const AllBlogs = () => {
             {/*  */}
             <div className="">
               <p class=" ">
-                <span className=" ">{user.category}</span>
+                <span className="">{user.category}</span>
               </p>{" "}
             </div>
             {/*  */}
             <hr />
+            <div class="Completed ">
             <p class="Completed">
               <small
                 dangerouslySetInnerHTML={{
@@ -153,19 +204,27 @@ const AllBlogs = () => {
               />
               {/* {user.description}</p> */}
             </p>
+                             {/* {user.description==="null"? "No Description": user.description} */}
+              {/* {user.description}</p> */}
+            </div>
             <div
-              className="viewblog fw-bolder text-danger"
-              onClick={() => {
-                navigate("/ViewBlog");
+              className="viewblog fw-bolder text-danger pt-3"
+                            onClick={() => {
+                navigate(`/ViewBlog/${user.id}`);
               }}
             >
               View&nbsp;blog
             </div>
           </div>
         </Col>
-      </>
+        </>
     );
-  });
+  })
+  
+  const pageCount = Math.ceil(GetAllBlogs.length / usersPerPage);
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return (
     <div className="TopDiv">
@@ -271,27 +330,29 @@ const AllBlogs = () => {
                   </div>
                 </div>
               </div> */}
-              {/*  */}
-              {/*  */}
-              {/*  */}
-              <div className="row ">{displayUsers}</div>
+     {done ? (
+            <div className="stylishLoader">
+              <CircularIndeterminate className="allagentsLoader" />
+            </div>
+          ) : (
+              <div className="row">{displayUsers}</div>
+          )}
               <div className="mt-5">
-                <ReactPaginate
-                  pageCount={per_page}
-                  pageRange={10}
-                  marginPagesDisplayed={2}
-                  onPageChange={handlePageChange}
-                  containerClassName={"pagination"}
-                  previousLinkClassName={"page"}
-                  breakClassName={"page"}
-                  nextLinkClassName={"page"}
-                  pageClassName={"page"}
-                  disabledClassNae={"disabled"}
-                  activeClassName={"paginationA active"}
-                />
-              </div>
+            <ReactPaginate
+              previousLabel={<ArrowCircleLeftRoundedIcon />}
+              nextLabel={<ArrowCircleRightRoundedIcon />}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+          </div>
             </Container>
           </div>
+          <Notification notify={notify} setNotify={setNotify} />
         </Box>
       </Box>
     </div>
