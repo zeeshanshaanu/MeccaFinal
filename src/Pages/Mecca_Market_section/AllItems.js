@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
 import "../../Pages/User_Section/AllUser.css";
 import Box from "@mui/material/Box";
+import axios from "axios";
+
 // table
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -207,6 +209,32 @@ const AllItems = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  // 
+  // 
+  // 
+  const [GetShopes, setGetShopes] = useState([]);
+  const [filter, setfilter] = useState("");
+  const [done, setdone] = useState(false);
+
+  const GetServices = () => {
+    axios
+      .get(`/shop/view-all`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        setGetShopes(response.data.data.shops);
+        console.log(response.data.data.shops);
+        setdone(false);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    sessionStorage.setItem("id", "4");
+    GetServices();
+    setdone(true);
+  }, []);
   return (
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>

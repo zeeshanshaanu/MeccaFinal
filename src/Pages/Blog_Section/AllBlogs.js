@@ -288,7 +288,7 @@ const AllBlogs = () => {
               </div>
               {/*  */}
               {/*  */}
-              {/* <div className="">
+              <div className="">
                 <div className="mt-5 forscrollX mx-2">
                   <h5 className="mt-1 me-3 ">Categories:</h5>
                   <div className="d-flex">
@@ -324,7 +324,7 @@ const AllBlogs = () => {
                     ))}
                   </div>
                 </div>
-              </div> */}
+              </div>
      {done ? (
             <div className="stylishLoader">
               <CircularIndeterminate className="allagentsLoader" />

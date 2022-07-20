@@ -323,16 +323,16 @@ const AllShopes = () => {
                           if (filter === "") {
                             return GetShopes;
                           } else if (
+                            (admin.name &&
+                              admin.name
+                                .toString()
+                                .includes(filter.toString().toUpperCase())) ||
                             (admin.category &&
                               admin.category
                                 .toString()
                                 .includes(filter.toString().toUpperCase())) ||
                             (admin.address &&
                               admin.address
-                                .toString()
-                                .includes(filter.toString().toUpperCase())) ||
-                            (admin.name &&
-                              admin.name
                                 .toString()
                                 .toUpperCase()
                                 .includes(filter.toString().toUpperCase()))
