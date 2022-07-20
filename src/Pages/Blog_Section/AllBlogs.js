@@ -118,9 +118,7 @@ const AllBlogs = () => {
   };
   ////////////=============/////////////============
   ////////////=============/////////////============
-  //
-  //
-  //
+  
   const [BlogCat, setBlogCat] = useState([]);
   // const GetBlogCategries = async () => {
   //   axios
@@ -202,11 +200,8 @@ const AllBlogs = () => {
                   __html: user.description,
                 }}
               />
-              {/* {user.description}</p> */}
-            </p>
-                             {/* {user.description==="null"? "No Description": user.description} */}
-              {/* {user.description}</p> */}
-            </div>
+             </p>
+           </div>
             <div
               className="viewblog fw-bolder text-danger pt-3"
                             onClick={() => {
