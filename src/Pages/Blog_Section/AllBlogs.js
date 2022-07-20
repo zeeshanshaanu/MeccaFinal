@@ -195,8 +195,8 @@ const AllBlogs = () => {
             </div>
             {/*  */}
             <hr />
-            <div class="Completed ">
-            <p class="Completed">
+            <div class="Completed">
+            <p class="">
               <small
                 dangerouslySetInnerHTML={{
                   __html: user.description,
