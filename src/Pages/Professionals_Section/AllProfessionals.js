@@ -131,7 +131,7 @@ const AllProfessionals = () => {
       })
       .then((response) => {
         setGetProfessionals(response.data.data.professionals);
-        console.log(response.data);
+        // console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));

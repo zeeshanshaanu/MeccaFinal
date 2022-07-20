@@ -67,7 +67,7 @@ const ViewBlog = () => {
             </div>
           ) : (
             <>
-              <div className="">
+              <div className="w-100">
                 <img
                   src={Image}
                   alt="KliquesDetailBGIMg.png"
@@ -76,7 +76,7 @@ const ViewBlog = () => {
               </div>
               <div className="Content mt-5">
                 <div className="d-flex">
-                  <p className="fw-bolder">Title :</p>
+                  <p className="fw-bolder">Title:</p>
                   <p className="ms-4">{title}</p>
                 </div>
                 <div className="d-flex">
@@ -88,7 +88,7 @@ const ViewBlog = () => {
                   <p className="ms-4">{created_at}</p>
                 </div>
               </div>
-              <div className="Description ps-5 mt-4">
+              <div className="Description mt-4">
                 <p className="fw-bolder">Description</p>
                 <div className="pe-5">
                   <p class="">

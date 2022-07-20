@@ -1,6 +1,5 @@
 import { Col, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
@@ -10,14 +9,13 @@ import KliquesDetailBGIMg from "../../Assets/Images/KliquesDetailBGIMg.png";
 import Carousel from "react-bootstrap/Carousel";
 import AppBar from "@mui/material/AppBar";
 import "./Professionals.css";
-
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import CircularIndeterminate from "../../Components/Loader/Loader";
 const drawerWidth = 100;
 const ProfessionalsDetail = () => {
-  const [done, setdone] = useState(false);
+const [done, setdone] = useState(false);
   //////////////////==================////////////////============
-  const { id } = useParams();
+const { id } = useParams();
   //////////////////==================////////////////============
   //////////////////==================////////////////============
   //////////////////==================////////////////============
@@ -198,7 +196,6 @@ const ProfessionalsDetail = () => {
                   })}
                 </Row>
               </div>
-
               <hr />
               <h3 className="fw-bolder mb-4">Certifications</h3>
               <div className="Certifications d-flex justify-content-between">

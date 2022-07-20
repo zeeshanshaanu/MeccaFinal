@@ -19,6 +19,7 @@ import Notification from "../../Components/AlertNotification/Message";
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import CircularIndeterminate from "../../Components/Loader/Loader";
+import Logo1 from "../../Assets/Images/Logo1.png";
 ///////=========//////////////==========//////////////===========
 ///////=========//////////////==========//////////////===========
 const AllBlogs = () => {
@@ -120,24 +121,23 @@ const AllBlogs = () => {
   ////////////=============/////////////============
   
   const [BlogCat, setBlogCat] = useState([]);
-  // const GetBlogCategries = async () => {
-  //   axios
-  //     .get(`blogCategory/view-all`, {
-  //       headers: {
-  //         Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       setBlogCat(response.data.data);
-  //       console.log(response.data);
-  //       setdone(false);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-  //
-  //
+  const GetBlogCategries = async () => {
+    axios
+      .get(`blogCategory/view-all`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        setBlogCat(response.data.data);
+        console.log(response.data);
+        setdone(false);
+      })
+      .catch((err) => console.log(err));
+  };
+ 
   useEffect(() => {
-    // GetBlogCategries();
+    GetBlogCategries();
     GetAllProf();
     setdone(true);
     sessionStorage.setItem("id", "7");
@@ -168,11 +168,21 @@ const AllBlogs = () => {
           </div>
           <div className="Blog_card mb-5">
             <div className="">
+            {user.cover_image === ""? (
               <img
-                src={user.cover_image}
-                alt="KliquesDetailBGIMg.png"
-                className="KliquesDetailBGIMg"
-              />
+                  src={Logo1}
+                  alt="KliquesDetailBGIMg.png"
+                  className="KliquesDetailBGIMg"
+                />
+              ):
+              (
+              <img
+                  src={user.cover_image}
+                  alt="KliquesDetailBGIMg.png"
+                  className="KliquesDetailBGIMg"
+                />
+            )
+            }
             </div>
             <div className="mt-4">
               <p class="text-start">
@@ -220,7 +230,9 @@ const AllBlogs = () => {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
-
+const HandleRefresh =()=>{
+  window.location.reload();
+}
   return (
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>
@@ -264,7 +276,7 @@ const AllBlogs = () => {
               <div className="d-flex justify-content-between my-4">
                 <div className="d-flex">
                   <div className="FilterIcon">
-                    <RefreshIcon className="" />
+                    <RefreshIcon className=""onClick={HandleRefresh} />
                   </div>
                   <div className="FilterIcon ms-4">
                     <FilterAltIcon className="" />
@@ -288,7 +300,7 @@ const AllBlogs = () => {
               </div>
               {/*  */}
               {/*  */}
-              <div className="">
+              {/* <div className="w-50">
                 <div className="mt-5 forscrollX mx-2">
                   <h5 className="mt-1 me-3 ">Categories:</h5>
                   <div className="d-flex">
@@ -324,7 +336,7 @@ const AllBlogs = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
      {done ? (
             <div className="stylishLoader">
               <CircularIndeterminate className="allagentsLoader" />

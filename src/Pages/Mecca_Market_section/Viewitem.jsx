@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import KliquesImg from "../../Assets/Images/KliquesImg.png";
 import KliquesDetailBGIMg from "../../Assets/Images/KliquesDetailBGIMg.png";
-import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
+import ResponsiveDrawer from "../Dashboard/Drawer";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Row, Col } from "react-bootstrap";
-import MeccaMarket_data from "../../Pages/Mecca_Market_section/For_mockup_data/MeccaMarket_data.json";
+import MeccaMarket_data from "./For_mockup_data/MeccaMarket_data.json";
 import ReactPaginate from "react-paginate";
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
@@ -17,7 +17,7 @@ import axios from "axios";
 // 
 // 
 const drawerWidth = 100;
-  const Viewitems = () => {
+const Viewitem = () => {
   const [togle, settogle] = useState(true);
   const [status, setstatus] = useState("Published");
   const [viewtoggle, setviewtoggle] = useState(true);
@@ -53,7 +53,7 @@ const drawerWidth = 100;
       .then((response) => {
         setGetAllShopProducts(response.data.data.products)
         console.log(response.data.data.products)
-         setdone(false);
+        setdone(false);
       })
       .catch((err) => console.log(err.response));
   };
@@ -72,11 +72,11 @@ const drawerWidth = 100;
           <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
             <div className="Product_card mb-5">
               <div className="card_image">
-                {/* <img
+                <img
                   src={KliquesDetailBGIMg}
                   alt="KliquesDetailBGIMg.png"
                   className="ProductImg w-100"
-                /> */}
+                />
               </div>
               <div className="">
                 <p class="">{user.title}</p>
@@ -117,7 +117,7 @@ const drawerWidth = 100;
       })
       .catch((err) => console.log(err));
   };
- 
+
   return (
     <div className="TopDiv px-3 mt-5">
       <Box sx={{ display: "flex" }}>
@@ -142,46 +142,99 @@ const drawerWidth = 100;
           }}
         >
           <div className="">
-          <div className="">
-            <img
-              src={cover_image}
-              alt="KliquesDetailBGIMg.png"
-              className="w-100 KliquesDetailBGIMg"
-            />
-            <img src={KliquesImg} alt="KliquesImg.png" className="KliquesImg" />
-          </div>
-          <div className="Content">
             <div className="">
-              <p >Market Owner:&nbsp;<span className="fw-bolder">{added_by}</span></p>
-              <p >User Type:&nbsp;<span className="fw-bolder">{added_by}</span></p>
-              <p >Shop Name:&nbsp;<span className="fw-bolder">{name}</span></p>
-             </div>
-            <div className="">
-              <small>
-                Category:&nbsp;<span className="fw-bolder">Sports</span>
-              </small>
+              <img
+                src={KliquesDetailBGIMg}
+                alt="KliquesDetailBGIMg.png"
+                className="w-100 KliquesDetailBGIMg"
+              />
+              <img src={KliquesImg} alt="KliquesImg.png" className="KliquesImg" />
             </div>
-          </div>
-          <div className="Description mt-4">
-            <p className="fw-bolder">Description</p>
-            <div className="pe-5">
-              <small>
-                {Description}
-              </small>
+            <div className="forBorderSet">
+              <div className="p-4">
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Product Name:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Category:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Link with shops:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Availabe Quantity:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Incoming Quantity:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Price:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Cost Price:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Compare at Price:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Sku:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Barcode:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Tags:</p>
+                    <p>XYZ</p>
+                  </div>
+                {/*  */}
+                {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bolder">Production Description:</p>
+                    <p>XYZ</p>
+                  </div>
+                              {/* <div className="mt-2">
+                    <span className="S">M</span>{" "}
+                    <span className="M">S</span>
+                    <span className="ms-1 M">xs</span>{" "}
+                    <span className="M">xxl</span>
+                  </div> */}
+              </div>
             </div>
-            {/* <div className="mt-4">
-              <p className="fw-bolder">
-                <LocationOnIcon style={{ color: "#F11D35" }} />
-                Location:&nbsp;
-                <span>XYZ</span>
-              </p>
-            </div> */}
-            <div className="">
-              <h4 className="mt-5 fw-bolder"> Products:</h4>
-            </div>
-          </div>
-          <div className="row ">{displayUsers}</div>
-          <div className="mt-5">
+
+            <div className="row ">{displayUsers}</div>
+            {/* <div className="mt-5">
             <ReactPaginate
               previousLabel={<ArrowCircleLeftRoundedIcon />}
               nextLabel={<ArrowCircleRightRoundedIcon />}
@@ -193,7 +246,7 @@ const drawerWidth = 100;
               disabledClassName={"paginationDisabled"}
               activeClassName={"paginationActive"}
             />
-          </div>
+          </div> */}
           </div>
         </Box>
       </Box>
@@ -201,4 +254,4 @@ const drawerWidth = 100;
   );
 };
 
-export default Viewitems;
+export default Viewitem;

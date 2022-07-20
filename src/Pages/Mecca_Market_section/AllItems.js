@@ -31,6 +31,9 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+
+import CircularIndeterminate from "../../Components/Loader/Loader";
 //
 const StyledMenu = styled((props) => (
   <Menu
@@ -90,22 +93,22 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 ));
 //
 const columns = [
-  { label: "Shopu\u00a0Name", minWidth: 170, align: "left" },
-  { label: "Rating", minWidth: 150, align: "left" },
+  { label: "Title", minWidth: 130, align: "left" },
+  // { label: "Rating", minWidth: 150, align: "left" },
   {
-    label: "Category",
+    label: "Sku",
     minWidth: 150,
     align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    label: "Address",
+    label: "Shop",
     minWidth: 100,
     align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    label: "Description",
+    label: "Category",
     minWidth: 180,
     align: "left",
     format: (value) => value.toLocaleString("en-US"),
@@ -117,19 +120,19 @@ const columns = [
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    label: "Size",
+    label: "Stock",
     minWidth: 180,
     align: "left",
     format: (value) => value.toFixed(2),
   },
   {
-    label: "Location",
+    label: "Rating",
     minWidth: 180,
     align: "left",
     format: (value) => value.toFixed(2),
   },
   {
-    label: "Color",
+    label: "Added By",
     minWidth: 100,
     align: "left",
     format: (value) => value.toFixed(2),
@@ -149,45 +152,6 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
 ];
-
-function createData(
-  img,
-  Product,
-  Description,
-  Category,
-  Pirce,
-  Size,
-  Color,
-  Status,
-  Action
-) {
-  return {
-    img,
-    Product,
-    Description,
-    Category,
-    Pirce,
-    Size,
-    Color,
-    Status,
-    Action,
-  };
-}
-
-const rows = [
-  createData(
-    <img src={Logo1} alt="Logo1.ong" className="w-25" />,
-    "john",
-    "king khaan live com",
-    "lorem",
-    "$121",
-    12,
-    "Green",
-    "Active",
-    <h2>:</h2>
-  ),
-];
-
 const drawerWidth = 100;
 const AllItems = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -198,7 +162,6 @@ const AllItems = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -212,27 +175,28 @@ const AllItems = () => {
   // 
   // 
   // 
-  const [GetShopes, setGetShopes] = useState([]);
   const [filter, setfilter] = useState("");
+  const [GetItems, setGetItems] = useState([]);
   const [done, setdone] = useState(false);
+  // const [per_page, setper_page] = useState(100);
 
-  const GetServices = () => {
+  const GetAllProductItem = () => {
     axios
-      .get(`/shop/view-all`, {
+      .get(`product/view-all?per_page=${100}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
-        setGetShopes(response.data.data.shops);
-        console.log(response.data.data.shops);
+        setGetItems(response.data.data.products);
+        // console.log(response.data.data.products);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
     sessionStorage.setItem("id", "4");
-    GetServices();
+    GetAllProductItem();
     setdone(true);
   }, []);
   return (
@@ -306,8 +270,8 @@ const AllItems = () => {
                   <Form.Control
                     type="search"
                     className="input_field"
-                    // value={filter}
-                    // onChange={(e) => setfilter(e.target.value)}
+                  // value={filter}
+                  // onChange={(e) => setfilter(e.target.value)}
                   />
                 </Form.Group>
                 <SearchIcon className="search_icon ms-2 ps-1" />
@@ -315,12 +279,17 @@ const AllItems = () => {
             </div>
           </div>
           {/* ===============TABLE================ */}
+          {done ? (
+            <div className="stylishLoader">
+              <CircularIndeterminate className="allagentsLoader" />
+            </div>
+          ) : (
           <div className="Table me-3">
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <TableContainer sx={{ maxWidth: 1080 }}>
+              <TableContainer sx={{ minWidth: 1080 }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
-                    <TableRow>
+                    <TableRow className="fw-bolder">
                       {columns.map((column) => (
                         <TableCell
                           className="fw-bolder"
@@ -334,18 +303,17 @@ const AllItems = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row) => {
+                    {GetItems.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                      .map((index) => {
                         return (
                           <TableRow
                             hover
                             role="checkbox"
                             tabIndex={-1}
-                            key={row.code}
+                            key={index.code}
                           >
                             <TableCell>
                               <img
@@ -354,44 +322,56 @@ const AllItems = () => {
                                 className="w-25"
                               />
                               &nbsp;
-                              <span>Plain josh</span>
+                              <span>{index.title}</span>
                             </TableCell>
-                            <TableCell>
+                            <TableCell>{index.sku}</TableCell>
+                            <TableCell>{index.shops.map((getshopname)=>{
+                              return(
+                                <>{getshopname.name}<br /></>
+                              )
+                            }) }</TableCell>
+                            <TableCell>{index.category}</TableCell>
+                            <TableCell>${index.price}</TableCell>
+                            {/* <TableCell>
+                              <span className="S">{index.compare_at_price}</span>{" "}
+                              <span className="M">{index.compare_at_price}</span>
+                            </TableCell> */}
+                            <TableCell>{index.available_quantity}&nbsp;<span className="fw-bolder">In stock</span></TableCell>
+                              <TableCell>
                               <GradeIcon className="text-warning Rating_Icon" />
                               <GradeIcon className="text-warning Rating_Icon" />
                               <GradeOutlinedIcon className="text-warning Rating_Icon" />
                             </TableCell>
-                            <TableCell>Electronics</TableCell>
-                            <TableCell>Address</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>$300</TableCell>
-                            <TableCell>
-                              <span className="S">S</span>{" "}
-                              <span className="M">M</span>
-                            </TableCell>
-                            <TableCell>Loaction</TableCell>
-                            <TableCell className="">
-                              <span className="Orange"></span>&nbsp;
-                              <span className="Green"></span>&nbsp;
-                              <span className="Blue"></span>
-                            </TableCell>
+                            {/* <TableCell className="">
+                              <span className="Orange">{index.compare_at_price}</span>&nbsp;
+                              <span className="Green">{index.compare_at_price}</span>&nbsp;
+                              <span className="Blue">{index.compare_at_price}</span>
+                              </TableCell> */}
+                             <TableCell>{index.added_by.first_name}&nbsp;{index.added_by.last_name}</TableCell>
+                             
+                          
                             <TableCell>
                               {" "}
-                              <span className="UnAvailable">
-                                Out&nbsp;of&nbsp;Stock
+                              <span >
+                                {index.isActive === 1 ? (
+                                  <small className="Available" >Available</small>
+                                ) :
+                                  (
+                                    <small className="UnAvailable">Out&nbsp;of&nbsp;Stock</small>
+                                  )}
                               </span>
                             </TableCell>
                             <TableCell>
                               <div className="App">
                                 <span
                                   onClick={() => {
-                                    navigate("/EditProductDetails");
+                                    navigate("/Viewitem");
                                   }}
                                   className="view"
                                 >
-                                  <EditIcon />
+                                  <VisibilityOutlinedIcon />
                                 </span>
-                                <span className="view mx-2" onClick={() => {}}>
+                                <span className="view mx-2" onClick={() => { }}>
                                   <DeleteIcon />
                                 </span>
                               </div>
@@ -405,7 +385,7 @@ const AllItems = () => {
               <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={GetItems.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
@@ -413,6 +393,7 @@ const AllItems = () => {
               />
             </Paper>
           </div>
+          )}
         </Box>
       </Box>
     </div>

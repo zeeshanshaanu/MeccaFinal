@@ -81,8 +81,8 @@ import Testing from "../Testing/Testing";
 import UpdateVarient from "../Pages/ServicesAndCatgeory/Varients/UpdateVarient";
 import AllFaqs from "../Pages/ServicesAndCatgeory/FAQs Categories/AllFaqs";
 import UpdateQuoraFaqCategory from "../Pages/ServicesAndCatgeory/FAQs Categories/UpdateQuoraFaqCategory";
-import Viewitems from "../Pages/Mecca_Market_section/Viewitems";
-// import { I18nextProvider } from "react-i18next";
+import Viewitem from "../Pages/Mecca_Market_section/Viewitem";
+   // import { I18nextProvider } from "react-i18next";
 // import i18n from "./configs/i18n/i18n";
 const LazyAllProfessionals = React.lazy(() =>
   import("../Pages/Professionals_Section/AllProfessionals")
@@ -186,8 +186,9 @@ const Routing = () => {
             {" "}
           </Route>{" "}
           <Route path="/AllItems" element={<AllItems />}>
-            {" "}
           </Route>{" "}
+          <Route path="/Viewitem" element={<Viewitem />}></Route>{" "}
+            {" "}
           <Route path="/ShopDetail/:id" element={<ShopDetail />}>
             {" "}
           </Route>{" "}
@@ -200,7 +201,6 @@ const Routing = () => {
             element={<EditProductDetails />}
           ></Route>{" "}
           <Route path="/EditShopDetails" element={<EditShopDetails />}></Route>{" "}
-          <Route path="/Viewitems" element={<Viewitems />}></Route>{" "}
           {/* ============Kliques_Section========== */}{" "}
           <Route path="/AllKliques" element={<AllKliques />}>
             {" "}
