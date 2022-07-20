@@ -52,7 +52,7 @@
 }
 .Blog_card {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  height: 640px !important;
+  height: 640px;
   width: 100%;
   border-radius: 8px;
   padding: 20px;
@@ -100,7 +100,7 @@
   }
 }
 .Completed {
-  height: 25%;
+  height: 25% !important;
 }
 .icons_position-delete{
    position: absolute;
