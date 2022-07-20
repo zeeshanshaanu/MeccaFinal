@@ -300,8 +300,8 @@ const AllItems = () => {
             </div>
             {/*  */}
             <div className="d-flex justify-content-between my-5 pt-5">
-              <small className="fw-bolder pt-1">Search&nbsp;Items</small>
-              <div className="position-relative w-100">
+              <small className="fw-bolder  my-auto">Search&nbsp;Items</small>
+              <div className="position-relative w-100 my-auto">
                 <Form.Group className="mx-3" controlId="#">
                   <Form.Control
                     type="search"
@@ -310,14 +310,14 @@ const AllItems = () => {
                     // onChange={(e) => setfilter(e.target.value)}
                   />
                 </Form.Group>
-                <SearchIcon className="search_icon" />
+                <SearchIcon className="search_icon ms-2 ps-1" />
               </div>
             </div>
           </div>
           {/* ===============TABLE================ */}
           <div className="Table me-3">
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <TableContainer sx={{ maxHeight: 500 }}>
+              <TableContainer sx={{ maxWidth: 1080 }}>
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow>
