@@ -81,6 +81,7 @@ import Testing from "../Testing/Testing";
 import UpdateVarient from "../Pages/ServicesAndCatgeory/Varients/UpdateVarient";
 import AllFaqs from "../Pages/ServicesAndCatgeory/FAQs Categories/AllFaqs";
 import UpdateQuoraFaqCategory from "../Pages/ServicesAndCatgeory/FAQs Categories/UpdateQuoraFaqCategory";
+import Viewitems from "../Pages/Mecca_Market_section/Viewitems";
 // import { I18nextProvider } from "react-i18next";
 // import i18n from "./configs/i18n/i18n";
 const LazyAllProfessionals = React.lazy(() =>
@@ -198,9 +199,8 @@ const Routing = () => {
             path="/EditProductDetails"
             element={<EditProductDetails />}
           ></Route>{" "}
-          <Route path="/EditShopDetails" element={<EditShopDetails />}>
-            {" "}
-          </Route>{" "}
+          <Route path="/EditShopDetails" element={<EditShopDetails />}></Route>{" "}
+          <Route path="/Viewitems" element={<Viewitems />}></Route>{" "}
           {/* ============Kliques_Section========== */}{" "}
           <Route path="/AllKliques" element={<AllKliques />}>
             {" "}

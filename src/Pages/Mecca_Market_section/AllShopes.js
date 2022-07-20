@@ -278,7 +278,7 @@ const AllShopes = () => {
                           onChange={(e) => setfilter(e.target.value)}
                         />
                       </Form.Group>
-                      <SearchIcon className="search_icon" />
+                      <SearchIcon className="search_icon ms-2 ps-1" />
                     </div>
                   </div>
                   <div className="FilterIcon me-3">
