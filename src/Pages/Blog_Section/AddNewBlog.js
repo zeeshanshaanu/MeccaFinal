@@ -27,6 +27,8 @@ const AddNewBlog = () => {
   const [size, setsize] = useState(false);
   const [done, setdone] = useState(false);
   const [errormessage, seterrormessage] = useState("");
+  const [Text, setText] = useState("");
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -53,14 +55,17 @@ const AddNewBlog = () => {
   const [title, settitle] = useState("");
   const [date, setdate] = useState("");
   const [category_id, setcategory_id] = useState("");
+  // 
+  // 
+  // 
   const AddBlog = () => {
     console.log(sessionStorage.getItem("description"));
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("cover_image", selectedFile.file);
     formData.append("date", date);
-    formData.append("category_id", category_id);
-    formData.append("description", sessionStorage.getItem("description"));
+    formData.append("cover_image", selectedFile.file);
+     formData.append("description", sessionStorage.getItem("description"));
+    formData.append("category_id", sessionStorage.getItem("catid"));
     axios
       .post("/blog/add", formData, {
         headers: {
@@ -79,6 +84,7 @@ const AddNewBlog = () => {
         setTimeout(() => {
           navigate("/AllBlogs");
         }, 1000);
+        sessionStorage.setItem("description", "");
       })
       .catch((err) => {
         setdone(false);
@@ -91,53 +97,60 @@ const AddNewBlog = () => {
         console.log(err);
       });
   };
-  const [Text, setText] = useState("");
+  // 
+  // 
+  // 
   useEffect(() => {
     seterrormessage("");
-  }, [category_id]);
+  }, [Text]);
+   //////==============///////==============
+  //////==============///////==============
+  const HandleSubmit = async (e) => {
+    e.preventDefault();
+    setdone(true);
+    let response = await axios.get(`/blogCategory/view-all`,
+    {headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+    }},
+    );
+    setdone(false);
+    console.log(response);
+    let result = await response.data.data.filter(
+      (data) => data.name.toLowerCase() == Text.toLowerCase()
+    );
+    console.log(result);
+    if (result.length > 0) {
+      result.map((data) => {
+        sessionStorage.setItem("catid", data.blog_category_id);
+        AddBlog();
+      });
+    } else {
+      seterrormessage("Category does'nt exist. Please add a new category.");
+    }
+  };
+  //////==============///////==============
+  ////////////=============/////////////===
   const GetCategries = async () => {
     const response = await axios.get(`/blogCategory/view-all`, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
       },
     });
-    // console.log(response.data);
-    setdone(false);
+     setdone(false);
     response.data.data.map((data) =>
       options.push(data.name && data.name.toLowerCase())
     );
   };
-  // console.log(options);
-  useEffect(() => {
+  // 
+  // 
+  // 
+     useEffect(() => {
     GetCategries();
   }, [Text]);
-  const HandleSubmit = async (e) => {
-    e.preventDefault();
-    setdone(true);
-    AddBlog();
-    let response = await axios.get(`/blogCategory/view-all`, {
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
-      },
-    });
-    setdone(false);
-    console.log(response);
-    // let result = await response.data.data.filter(
-    //   (data) => data.name.toLowerCase() == name.toLowerCase()
-    // );
-    // console.log(result);
-    // if (result.length > 0) {
-    //   result.map((data) => {
-    //     sessionStorage.setItem("catid", data._id);
-    //     AddBlog();
-    //   });
-    // } else {
-    //   seterrormessage("Category does'nt exist. Please add a new category.");
-    // }
-  };
-  //
-  //
-  return (
+  // 
+  // 
+  // 
+    return (
     <div className="Main_head TopDiv pb-5">
       <Box sx={{ display: "flex" }}>
         <div className="for_drawer">
@@ -179,7 +192,7 @@ const AddNewBlog = () => {
               </div>
             </div>
             {/*  */}
-            <div className="for_Form  mx-4">
+            <div className="">
               <Container fluid>
                 <div className="For_Image mb-5 mt-4">
                   <label htmlFor="icon-button-file">

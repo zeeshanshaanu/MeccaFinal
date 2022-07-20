@@ -23,7 +23,7 @@ const drawerWidth = 100;
   const [viewtoggle, setviewtoggle] = useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [users, setUsers] = useState(MeccaMarket_data.slice(0, 50));
+  // const [users, setUsers] = useState(MeccaMarket_data.slice(0, 50));
   const [pageNumber, setPageNumber] = useState(0);
   const [done, setdone] = useState(false);
   const { id } = useParams();
@@ -32,11 +32,39 @@ const drawerWidth = 100;
   useEffect(() => {
     sessionStorage.setItem("id", "4");
     GetShopDetail();
+    GetShopProducts();
     setdone(true);
     sessionStorage.setItem("id", "4");
     togle ? setstatus("Published") : setstatus("UnPublished");
   }, [togle]);
-  const displayUsers = users
+  // 
+  // 
+  // 
+  // 
+  // 
+  const [GetAllShopProducts, setGetAllShopProducts] = useState([])
+  const GetShopProducts = () => {
+    axios
+      .get(`/get-products-by-shop?shop_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        setGetAllShopProducts(response.data.data.products)
+        console.log(response.data.data.products)
+         setdone(false);
+      })
+      .catch((err) => console.log(err.response));
+  };
+  // 
+  // 
+  // 
+  // 
+  // 
+  // 
+  // 
+  const displayUsers = GetAllShopProducts
     .slice(pagesVisited, pagesVisited + usersPerPage)
     .map((user) => {
       return (
@@ -44,22 +72,23 @@ const drawerWidth = 100;
           <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
             <div className="Product_card mb-5">
               <div className="card_image">
-                <img
+                {/* <img
                   src={KliquesDetailBGIMg}
                   alt="KliquesDetailBGIMg.png"
-                  className="ProductImg"
-                />
+                  className="ProductImg w-100"
+                /> */}
               </div>
-              <div className="mt-2">
-                <p class="">{user.ShopName}</p>
-                <p class="fw-bolder ProductCardTextColor">{user.Price}</p>
+              <div className="">
+                <p class="">{user.title}</p>
+                <p class="fw-bolder ProductCardTextColor">{user.price}</p>
+                <p class="">{user.sku}</p>
               </div>
             </div>
           </Col>
         </>
       );
     });
-  const pageCount = Math.ceil(users.length / usersPerPage);
+  const pageCount = Math.ceil(GetAllShopProducts.length / usersPerPage);
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
@@ -84,19 +113,13 @@ const drawerWidth = 100;
         setDescription(response.data.data.description);
         setadded_by(response.data.data.added_by);
         setcover_image(response.data.data.cover_image);
-         setdone(false);
+        setdone(false);
       })
       .catch((err) => console.log(err));
   };
-  // 
-  // 
-  // 
-  // 
-  // 
-  // 
-  // 
+ 
   return (
-    <div className="TopDiv px-3 pb-5 mt-5">
+    <div className="TopDiv px-3 mt-5">
       <Box sx={{ display: "flex" }}>
         <div className="for_drawer">
           <ResponsiveDrawer heading="Kliques" className="alluser" />

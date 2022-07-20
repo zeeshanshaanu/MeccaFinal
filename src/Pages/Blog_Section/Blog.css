@@ -29,8 +29,8 @@
 /*  */
 /*  */
 .addBlogicon {
-  width: 80vw;
-  height: 48vh;
+  width: 80vw !important;
+  height: 48vh !important;
   border: 1px dashed #ba0000;
   display: inline-block;
   background-color: rgb(234, 234, 234) !important;
@@ -44,12 +44,15 @@
   width: 80vw !important;
   height: 50vh !important;
 }
+.KliquesDetailBGIMg{
+  height: 250px !important;
+}
 .Blogicon {
   margin-top: 14%;
 }
 .Blog_card {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  height: 650px;
+  height: 640px !important;
   width: 100%;
   border-radius: 8px;
   padding: 20px;
@@ -95,7 +98,12 @@
     height: 530px;
     width: 100%;
   }
-  .Completed {
-    height: 29%;
-  }
 }
+.Completed {
+  height: 25%;
+}
+.icons_position-delete{
+   position: absolute;
+margin-left: 2rem !important; 
+margin-top: 2rem !important; 
+  }

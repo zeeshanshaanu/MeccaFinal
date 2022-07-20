@@ -234,3 +234,6 @@ icon img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.forcolor{
+  cursor: pointer;
+}

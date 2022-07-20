@@ -9,15 +9,16 @@ import { EditorState } from "draft-js";
 import "react-quill/dist/quill.snow.css";
 import "./Blog.css";
 import AppBar from "@mui/material/AppBar";
-import axios from "axios";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { FloraEditor } from "./FloraEditor";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { Hint } from "react-autocomplete-hint";
 const drawerWidth = 100;
+const options = [""];
 const Input = styled("input")({
   display: "none",
 });
@@ -66,14 +67,14 @@ const UpdateBlog = () => {
   useEffect(() => {
     GetBlogs();
   }, [editorState]);
-  const handlebody = (e) => {
-    seteditor(e);
-  };
   const [uploadim, setuploadim] = useState(true);
   const [editor, seteditor] = useState("");
   const [upload, setupload] = useState(false);
   const [size, setsize] = useState(false);
   const [done, setdone] = useState(false);
+  const [errormessage, seterrormessage] = useState("");
+  const [isActive, setisActive] = useState(false);
+  const [Text, setText] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -98,16 +99,49 @@ const UpdateBlog = () => {
       setsize(false);
     }
   };
-  //
-  //
-  //
-  const HandleSubmit = (e) => {
+//  
+//  
+//  
+  const HandleSubmit = async (e) => {
     e.preventDefault();
-    setdone(true);
-    UpdateBlog();
+    setisActive(true);
+    let response = await axios.get(`/blogCategory/view-all`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+      },
+    });
+    setisActive(false);
+    let result = await response.data.data.filter((data) => data.name == Text.toLowerCase());
+    if (result.length > 0) {
+      result.map((data) => {
+        sessionStorage.setItem("cat_id", data.blog_category_id);
+        UpdateBlog();
+      });
+    } else {
+      seterrormessage("Category does'nt exist. Please add a new category.");
+    }
   };
   //
   //
+  //
+  const GetCategries = async () => {
+    const response = await axios.get(`/blogCategory/view-all`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+      },
+    });
+    setdone(false);
+    response.data.data.map((data) =>
+      options.push(data.name && data.name.toLowerCase())
+    );
+  };
+  //
+  //
+  //
+  useEffect(() => {
+    GetCategries();
+  }, [Text]);
+
   const [title, settitle] = useState([]);
   // const [date, setdate] = useState("");
   const [description, setdescription] = useState("");
@@ -158,7 +192,7 @@ const UpdateBlog = () => {
   const [Blogss, setBlogss] = useState([]);
   const GetBlogs = () => {
     axios
-      .get(`blog/view-all`, {
+      .get(`/blog/view-all`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
@@ -233,7 +267,7 @@ const UpdateBlog = () => {
               </div>
             </div>
             {/*  */}
-            <div className="for_Form mx-4">
+            <div className=" mx-4">
               <Container fluid>
                 <div className="For_Image">
                   <div className="d-inline-block">
@@ -274,21 +308,6 @@ const UpdateBlog = () => {
                   </div>
                 </div>
                 <Row xs="1" sm="1" md="2" lg="4" xl="3">
-                  {/* <Col>
-                    <Form.Group className="mb-4" controlId="#">
-                      <Form.Label>
-                        <small className="text fw-bold">Category ID</small>
-                      </Form.Label>
-                      <Form.Control
-                        type="title"
-                        name="title"
-                        placeholder="ID"
-                        className="py-2"
-                        required
-                        onChange={(e) => setcategory_id(e.target.value)}
-                      />
-                    </Form.Group>
-                  </Col> */}
                   <Col>
                     <Form.Group className="mb-4" controlId="#">
                       <Form.Label>
@@ -302,6 +321,22 @@ const UpdateBlog = () => {
                         required
                         onChange={(e) => settitle(e.target.value)}
                       />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-4" controlId="#">
+                      <Form.Label>
+                        <small className="text fw-bold">Category</small>
+                      </Form.Label>
+                      <Hint options={options}>
+                        <input
+                          className="w-100 py-2 ps-2 forBorderSet"
+                          value={Text && Text}
+                          onChange={(e) => setText(e.target.value)}
+                          // onChange={(e) => setcategorytext(e.target.value)}
+                        />
+                      </Hint>
+                      <small className="text-danger">{errormessage}</small>
                     </Form.Group>
                   </Col>
                   {/* <Col>
