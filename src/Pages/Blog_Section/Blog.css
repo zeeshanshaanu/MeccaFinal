@@ -29,11 +29,13 @@
 /*  */
 /*  */
 .addBlogicon {
-  width: 80vw !important;
+  width: 100% !important;
   height: 48vh !important;
   border: 1px dashed #ba0000;
-  display: inline-block;
+
   background-color: rgb(234, 234, 234) !important;
+  /* position: relative; */
+
 }
 .css-1kuq5xv-MuiButtonBase-root-MuiIconButton-root:hover {
   background-color: transparent !important;
@@ -48,7 +50,8 @@
   height: 250px !important;
 }
 .Blogicon {
-  margin-top: 14%;
+margin-top: 20vh !important;
+margin-left: 75vh;
 }
 .Blog_card {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

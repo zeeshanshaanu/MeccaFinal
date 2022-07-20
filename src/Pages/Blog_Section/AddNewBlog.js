@@ -55,16 +55,16 @@ const AddNewBlog = () => {
   const [title, settitle] = useState("");
   const [date, setdate] = useState("");
   const [category_id, setcategory_id] = useState("");
-  // 
-  // 
-  // 
+  //
+  //
+  //
   const AddBlog = () => {
     console.log(sessionStorage.getItem("description"));
     const formData = new FormData();
     formData.append("title", title);
     formData.append("date", date);
     formData.append("cover_image", selectedFile.file);
-     formData.append("description", sessionStorage.getItem("description"));
+    formData.append("description", sessionStorage.getItem("description"));
     formData.append("category_id", sessionStorage.getItem("catid"));
     axios
       .post("/blog/add", formData, {
@@ -97,22 +97,22 @@ const AddNewBlog = () => {
         console.log(err);
       });
   };
-  // 
-  // 
-  // 
+  //
+  //
+  //
   useEffect(() => {
     seterrormessage("");
   }, [Text]);
-   //////==============///////==============
+  //////==============///////==============
   //////==============///////==============
   const HandleSubmit = async (e) => {
     e.preventDefault();
     setdone(true);
-    let response = await axios.get(`/blogCategory/view-all`,
-    {headers: {
-      Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
-    }},
-    );
+    let response = await axios.get(`/blogCategory/view-all`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+      },
+    });
     setdone(false);
     console.log(response);
     let result = await response.data.data.filter(
@@ -136,21 +136,21 @@ const AddNewBlog = () => {
         Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
       },
     });
-     setdone(false);
+    setdone(false);
     response.data.data.map((data) =>
       options.push(data.name && data.name.toLowerCase())
     );
   };
-  // 
-  // 
-  // 
-     useEffect(() => {
+  //
+  //
+  //
+  useEffect(() => {
     GetCategries();
   }, [Text]);
-  // 
-  // 
-  // 
-    return (
+  //
+  //
+  //
+  return (
     <div className="Main_head TopDiv pb-5">
       <Box sx={{ display: "flex" }}>
         <div className="for_drawer">
@@ -194,23 +194,23 @@ const AddNewBlog = () => {
             {/*  */}
             <div className="">
               <Container fluid>
-                <div className="For_Image mb-5 mt-4">
+                <div className="addBlogicon mb-5">
                   <label htmlFor="icon-button-file">
                     <Input
                       accept="image/*"
                       id="icon-button-file"
                       type="file"
                       onChange={HandleChange}
+                      className="w-100"
                     />
                     {!upload ? (
                       <IconButton
                         color="primary"
                         aria-label="upload picture"
                         component="span"
+                        className=""
                       >
-                        <div className="addBlogicon">
-                          <AddIcon className="Blogicon" />
-                        </div>
+                        <AddIcon className="Blogicon " />
                       </IconButton>
                     ) : (
                       <img
@@ -221,12 +221,13 @@ const AddNewBlog = () => {
                     )}
                     <br />
                   </label>
-                  <div className={size ? "sizeshow" : "sizehide"}>
-                    <div className="fw-bolder">
-                      <small>File size excedded than 1MB</small>
-                    </div>
+                </div>
+                <div className={size ? "sizeshow" : "sizehide"}>
+                  <div className="fw-bolder">
+                    <small>File size excedded than 1MB</small>
                   </div>
                 </div>
+
                 {/*  */}
                 {/*  */}
                 {/*  */}
@@ -256,7 +257,7 @@ const AddNewBlog = () => {
                           className="w-100 py-2 ps-2 forBorderSet"
                           value={Text}
                           onChange={(e) => setText(e.target.value)}
-                         />
+                        />
                       </Hint>
                       <small className="text-danger">{errormessage}</small>
                     </Form.Group>
