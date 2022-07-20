@@ -11,7 +11,7 @@
 }
 .drawer {
   background-image: linear-gradient(to bottom, #fba40f 10%, #f11139 95%);
-  min-height: 120%;
+  height: 100%;
 }
 
 .buttonTwo {
@@ -144,11 +144,11 @@
   padding: 2rem;
   display: none;
 }
-@media only screen and (max-width: 1440px) {
+/* @media only screen and (max-width: 1440px) {
   .drawer {
     min-height: 130%;
   }
-}
+} */
 @media only screen and (max-width: 1024px) {
   .drawer {
     min-height: 100%;
@@ -161,6 +161,7 @@
 }
 .baton {
   position: absolute;
-  left: 12rem;
+  /* left: 12rem; */
   height: 20px;
+  color: #fba40f;
 }

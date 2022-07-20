@@ -110,9 +110,11 @@ export default function ResponsiveDrawer(props) {
   const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [show, setshow] = React.useState(false);
   const { heading } = props;
   const handleDrawerOpen = () => {
     setOpen(true);
+    setshow(false);
   };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openp = Boolean(anchorEl);
@@ -124,6 +126,7 @@ export default function ResponsiveDrawer(props) {
   };
   const handleDrawerClose = () => {
     setOpen(false);
+    setshow(true);
   };
   const [idside, setidside] = useState("1");
   const [notifyshow, setnotifyshow] = useState(true);
@@ -456,10 +459,15 @@ export default function ResponsiveDrawer(props) {
               return (
                 <div
                   className={
-                    sessionStorage.getItem("id") &&
-                    sessionStorage.getItem("id") === id
-                      ? "ps-3 clickdiv"
-                      : "ps-4"
+                    show
+                      ? sessionStorage.getItem("id") &&
+                        sessionStorage.getItem("id") === id
+                        ? "clickdivsmall text-white"
+                        : "ps-3"
+                      : sessionStorage.getItem("id") &&
+                        sessionStorage.getItem("id") === id
+                      ? "ps-1 clickdiv"
+                      : "ps-1"
                   }
                 >
                   <ListItemButton
