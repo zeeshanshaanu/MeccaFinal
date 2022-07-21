@@ -33,11 +33,12 @@ const AllBlogs = () => {
   const [done, setdone] = useState(false);
   const [GetAllBlogs, setGetAllBlogs] = useState([]);
   const [isDone, setisDone] = useState(false);
+  const [pageCount, setPageCount] = useState(1);
+
   //
   //
   //
-  const [per_page, setPageCount] = useState(0);
-  const [currentPage, setcurrentPage] = useState(1);
+  // const [per_page, setPageCount] = useState(0);
   const [Categoryblog, setCategoryblog] = useState([]);
   const [category, setcategory] = useState("all");
   const [notify, setNotify] = useState({
@@ -46,42 +47,32 @@ const AllBlogs = () => {
     type: "",
   });
   //
-  const GetAllProf = () => {
+  const GetAllProf = (currentPage) => {
+    setdone(true);
+
     axios
-      .get(`blog/view-all`, {
+      .get(`blog/view-all?per_page=12&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setGetAllBlogs(response.data.data.blogs);
-        // setcurrentPage(currentPage + 1);
-        // setPageCount(response.data.last_page_url);
+        setPageCount(response.data.data.last_page);
         console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
-  const handlePageChange = (selectedObject) => {
-    console.log(selectedObject);
-    setcurrentPage(selectedObject.selected + 1);
-    setisDone(true);
-    axios
-      .get(`/blog/view-all`)
-      .then((res) => {
-        // setclaims(res.data.otherClaims);
-        console.log(res);
-        console.log("other");
-        // setcurrentPage(currentPage + 1);
-        // setPageCount(res.data.totalPages);
-        setisDone(false);
-      })
-      .catch((err) => {
-        setisDone(false);
-        console.log(err);
-      });
+
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const blogs = await GetAllProf(currentPage);
+
+    setGetAllBlogs(blogs);
   };
   ////////////=============/////////////============
+
   ////////////=============/////////////============
   ////////////=============/////////////============
   const handleDelete = (blog_id) => {
@@ -119,8 +110,10 @@ const AllBlogs = () => {
   };
   ////////////=============/////////////============
   ////////////=============/////////////============
-  
+
   const [BlogCat, setBlogCat] = useState([]);
+  const [filter, setfilter] = useState("");
+
   const GetBlogCategries = async () => {
     axios
       .get(`blogCategory/view-all`, {
@@ -135,10 +128,10 @@ const AllBlogs = () => {
       })
       .catch((err) => console.log(err));
   };
- 
+
   useEffect(() => {
     GetBlogCategries();
-    GetAllProf();
+    GetAllProf(1);
     setdone(true);
     sessionStorage.setItem("id", "7");
     togle ? setstatus("Published") : setstatus("UnPublished");
@@ -147,92 +140,114 @@ const AllBlogs = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
-  const displayUsers = GetAllBlogs.slice(
-    pagesVisited,
-    pagesVisited + usersPerPage
-  ).map((user) => {
-    return (
-      <>
-         <Col lg={3} md={4} sm={6} className="mt-3">
-          <div className="icons_position-delete ms-auto me-1">
-            <EditOutlinedIcon
-              className="forcolor"
-              onClick={() => {
-                navigate(`/UpdateBlog/${user.id}`);
-              }}
-            />
-            <DeleteIcon className="forcolor ms-2"
-            onClick={() => {
-              handleDelete(user.id);
-            }} />
-          </div>
-          <div className="Blog_card mb-5">
-            <div className="">
-            {user.cover_image === ""? (
-              <img
-                  src={Logo1}
-                  alt="KliquesDetailBGIMg.png"
-                  className="KliquesDetailBGIMg"
+  const displayUsers =
+    GetAllBlogs &&
+    GetAllBlogs.filter((data) => {
+      if (category && category === "all") {
+        return GetAllBlogs;
+      } else if (data.category === category) {
+        return GetAllBlogs;
+      }
+    })
+      .filter((blog) => {
+        if (filter === "") {
+          return GetAllBlogs;
+        } else if (
+          (blog.category &&
+            blog.category
+              .toString()
+              .toLowerCase()
+              .includes(filter.toString().toLowerCase())) ||
+          (blog.title &&
+            blog.title
+              .toString()
+              .toLowerCase()
+              .includes(filter.toString().toLowerCase()))
+        ) {
+          return GetAllBlogs;
+        }
+      })
+      .map((user) => {
+        return (
+          <>
+            <Col lg={3} md={4} sm={6} className="mt-3">
+              <div className="icons_position-delete ms-auto me-1">
+                <EditOutlinedIcon
+                  className="forcolor"
+                  onClick={() => {
+                    navigate(`/UpdateBlog/${user.id}`);
+                  }}
                 />
-              ):
-              (
-              <img
-                  src={user.cover_image}
-                  alt="KliquesDetailBGIMg.png"
-                  className="KliquesDetailBGIMg"
+                <DeleteIcon
+                  className="forcolor ms-2"
+                  onClick={() => {
+                    handleDelete(user.id);
+                  }}
                 />
-            )
-            }
-            </div>
-            <div className="mt-4">
-              <p class="text-start">
-                <span className="text-start">
-                  <small>{user.created_at}</small>
-                </span>
-                &nbsp;
-              </p>{" "}
-            </div>
-            <div className="mt-3">
-              <p class=" det fw-bolder">{user.title}&nbsp;</p>
-            </div>
-            {/*  */}
-            <div className="">
-              <p class=" ">
-                <span className="">{user.category}</span>
-              </p>{" "}
-            </div>
-            {/*  */}
-            <hr />
-            <div class="Completed">
-            <p class="">
-              <small
-                dangerouslySetInnerHTML={{
-                  __html: user.description,
-                }}
-              />
-             </p>
-           </div>
-            <div
-              className="viewblog fw-bolder text-danger pt-3"
-                            onClick={() => {
-                navigate(`/ViewBlog/${user.id}`);
-              }}
-            >
-              View&nbsp;blog
-            </div>
-          </div>
-        </Col>
-        </>
-    );
-  })
-  
-  const pageCount = Math.ceil(GetAllBlogs.length / usersPerPage);
-  const changePage = ({ selected }) => {
-    setPageNumber(selected);
+              </div>
+              <div className="Blog_card mb-5">
+                <div className="">
+                  {user.cover_image === "" ? (
+                    <img
+                      src={Logo1}
+                      alt="KliquesDetailBGIMg.png"
+                      className="KliquesDetailBGIMg"
+                    />
+                  ) : (
+                    <img
+                      src={user.cover_image}
+                      alt="KliquesDetailBGIMg.png"
+                      className="KliquesDetailBGIMg"
+                    />
+                  )}
+                </div>
+                <div className="mt-4">
+                  <p class="text-start">
+                    <span className="text-start">
+                      <small>{user.created_at}</small>
+                    </span>
+                    &nbsp;
+                  </p>{" "}
+                </div>
+                <div className="mt-3">
+                  <p class=" det fw-bolder">{user.title}&nbsp;</p>
+                </div>
+                {/*  */}
+                <div className="">
+                  <p class=" ">
+                    <span className="">{user.category}</span>
+                  </p>{" "}
+                </div>
+                {/*  */}
+                <hr />
+                <div class="Completed">
+                  <p class="">
+                    <small
+                      dangerouslySetInnerHTML={{
+                        __html: user.description,
+                      }}
+                    />
+                  </p>
+                </div>
+                <div
+                  className="viewblog fw-bolder text-danger pt-3"
+                  onClick={() => {
+                    navigate(`/ViewBlog/${user.id}`);
+                  }}
+                >
+                  View&nbsp;blog
+                </div>
+              </div>
+            </Col>
+          </>
+        );
+      });
+
+  // const pageCount = Math.ceil(GetAllBlogs.length / usersPerPage);
+
+  const HandleRefresh = () => {
+    GetAllProf(1);
   };
-const HandleRefresh =()=>{
-  window.location.reload();
-}
   return (
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>
@@ -274,89 +289,86 @@ const HandleRefresh =()=>{
                 </div>{" "}
               </div>
               <div className="d-flex justify-content-between my-4">
-                <div className="d-flex">
+                <div className="">
                   <div className="FilterIcon">
-                    <RefreshIcon className=""onClick={HandleRefresh} />
-                  </div>
-                  <div className="FilterIcon ms-4">
-                    <FilterAltIcon className="" />
-                    <span>Filter</span>
+                    <RefreshIcon className="" onClick={HandleRefresh} />
                   </div>
                 </div>
                 <div className="d-flex">
-                  <div className="position-relative">
+                  <div className="">
                     <Form.Group className="" controlId="#">
                       <Form.Control
                         type="search"
                         className="input_field"
-                        placeholder="Search"
-                        // value={filter}
-                        // onChange={(e) => setfilter(e.target.value)}
+                        placeholder="Search by category, title"
+                        onChange={(e) => setfilter(e.target.value)}
                       />
                     </Form.Group>
-                    <SearchIcon className="search_icon" />
                   </div>
+                  <SearchIcon className="search_icon" />
                 </div>
               </div>
               {/*  */}
               {/*  */}
-              {/* <div className="w-50">
+              <div className="">
                 <div className="mt-5 forscrollX mx-2">
-                  <h5 className="mt-1 me-3 ">Categories:</h5>
-                  <div className="d-flex">
+                  {/* <h5 className="mt-1 me-3 ">Categories:</h5> */}
+                  <div className="forFlex">
                     <button
                       className={
                         category === "all"
-                          ? "EducViewActive "
+                          ? "EducViewActive"
                           : "EducNonActiveClass"
                       }
                       onClick={() => setcategory("all")}
                     >
-                      {category === "all" ? (
+                      {/* {category === "all" ? (
                         <img src={TickIcon} alt="" className="" />
-                      ) : null}
+                      ) : null} */}
                       &nbsp;All
                     </button>
-                    {BlogCat.map((data, index) => (
+                    {BlogCat.slice(0,10).map((data, index) => (
                       <div className="" key={index}>
                         <button
                           className={
-                            category === data.name
+                            category === data.name 
                               ? "EducViewActive"
                               : "EducNonActiveClass"
                           }
                           onClick={() => setcategory(data.name)}
                         >
-                          {category === data.name ? (
+                          {/* {category === data.name ? (
                             <img src={TickIcon} alt="" className="me-2" />
-                          ) : null}
-                          {data.name}
+                          ) : null} */}
+                          {data.name }
                         </button>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div> */}
-     {done ? (
-            <div className="stylishLoader">
-              <CircularIndeterminate className="allagentsLoader" />
-            </div>
-          ) : (
-              <div className="row">{displayUsers}</div>
-          )}
+              </div>
+              {done ? (
+                <div className="stylishLoader">
+                  <CircularIndeterminate className="allagentsLoader" />
+                </div>
+              ) : (
+                <div className="row">{displayUsers}</div>
+              )}
               <div className="mt-5">
-            <ReactPaginate
-              previousLabel={<ArrowCircleLeftRoundedIcon />}
-              nextLabel={<ArrowCircleRightRoundedIcon />}
-              pageCount={pageCount}
-              onPageChange={changePage}
-              containerClassName={"paginationBttns"}
-              previousLinkClassName={"previousBttn"}
-              nextLinkClassName={"nextBttn"}
-              disabledClassName={"paginationDisabled"}
-              activeClassName={"paginationActive"}
-            />
-          </div>
+                <ReactPaginate
+                  previousLabel={<ArrowCircleLeftRoundedIcon />}
+                  nextLabel={<ArrowCircleRightRoundedIcon />}
+                  pageCount={pageCount}
+                  pageRange={5}
+                  marginPagesDisplayed={2}
+                  onPageChange={handlePageChange}
+                  containerClassName={"paginationBttns"}
+                  previousLinkClassName={"previousBttn"}
+                  nextLinkClassName={"nextBttn"}
+                  disabledClassName={"paginationDisabled"}
+                  activeClassName={"paginationActive"}
+                />
+              </div>
             </Container>
           </div>
           <Notification notify={notify} setNotify={setNotify} />

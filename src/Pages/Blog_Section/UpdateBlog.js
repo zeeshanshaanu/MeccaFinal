@@ -99,9 +99,10 @@ const UpdateBlog = () => {
       setsize(false);
     }
   };
-//  
-//  
-//  
+  //
+  //
+  //
+  const [cat_id, setcat_id] = useState(0);
   const HandleSubmit = async (e) => {
     e.preventDefault();
     setisActive(true);
@@ -111,10 +112,14 @@ const UpdateBlog = () => {
       },
     });
     setisActive(false);
-    let result = await response.data.data.filter((data) => data.name == Text.toLowerCase());
+    let result = await response.data.data.filter(
+      (data) => data.name.toLowerCase() == Text.toLowerCase()
+    );
+    console.log(result && result);
     if (result.length > 0) {
       result.map((data) => {
         sessionStorage.setItem("cat_id", data.blog_category_id);
+        setcat_id(data.blog_category_id);
         UpdateBlog();
       });
     } else {
@@ -131,6 +136,7 @@ const UpdateBlog = () => {
       },
     });
     setdone(false);
+    console.log(response);
     response.data.data.map((data) =>
       options.push(data.name && data.name.toLowerCase())
     );
@@ -149,11 +155,11 @@ const UpdateBlog = () => {
   const UpdateBlog = () => {
     axios
       .post(
-        `/blog/update?blog_id=${id}&title=${title}&description=${sessionStorage.getItem(
-          "blogupdate"
-        )}&cover_image=${cover_image}`,
-        // console.log(sessionStorage.getItem(
-        //   "blogupdate"))
+        `/blog/update?blog_id=${id}&title=${title}&category_id=${
+          sessionStorage.getItem("cat_id") || (cat_id && cat_id)
+        }&description=${sessionStorage.getItem(
+          "description"
+        )}&cover_image=${selectedFile.file}`,
         {},
         {
           headers: {
@@ -200,7 +206,7 @@ const UpdateBlog = () => {
       .then((response) => {
         setdone(true);
         setBlogss(response.data.data.blogs);
-        console.log(response.data.data.blogs);
+        // console.log(response.data.data.blogs);
         console.log(
           response.data.data.blogs.filter((servicess) => {
             return id == servicess.id;
@@ -213,6 +219,7 @@ const UpdateBlog = () => {
           .map((servicess) => {
             settitle(servicess.title);
             setcover_image(servicess.cover_image);
+            setText(servicess.category);
             sessionStorage.setItem("blogupdate", servicess.description);
           });
       })
@@ -278,7 +285,7 @@ const UpdateBlog = () => {
                         type="file"
                         onChange={handleChange}
                       />
-                      {console.log(upload)}
+                      {/* {console.log(upload)} */}
                       {!upload ? (
                         <img className="previewimg" src={cover_image} alt="" />
                       ) : !uploadim ? (
@@ -300,7 +307,7 @@ const UpdateBlog = () => {
                       )}
                     </label>
                   </div>
-                  {console.log(cover_image)}
+                  {/* {console.log(cover_image)} */}
                   <div className={size ? "sizeshow" : "sizehide"}>
                     <div className="text-dark">
                       <small>File size excedded than 1MB</small>

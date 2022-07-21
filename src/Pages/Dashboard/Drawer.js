@@ -31,6 +31,8 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SideBarLogo from "../../Assets/Images/SideBarLogo.png";
 import ServicesIcon from "../../Assets/Images/ServicesIcon.png";
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+
 // notifications
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -201,11 +203,27 @@ export default function ResponsiveDrawer(props) {
       },
     },
     {
-      text: "Kliques",
+      text: "Transactions",
+      icon: (
+        <PaidOutlinedIcon
+          className={
+            sessionStorage.getItem("id") == "5" ? "clickicon" : " icon22"
+          }
+        />
+      ),
+      id: "5",
+      onClick: (id) => {
+        sessionStorage.setItem("id", "5");
+        setidside(id && id);
+        navigate("/AllKliques");
+      },
+    },
+    {
+      text: "Plans & Pricings",
       icon: (
         <GroupAddOutlinedIcon
           className={
-            sessionStorage.getItem("id") == "5" ? "clickicon" : " icon22"
+            sessionStorage.getItem("id") == "11" ? "clickicon" : " icon22"
           }
         />
       ),
