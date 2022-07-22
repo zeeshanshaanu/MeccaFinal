@@ -9,8 +9,12 @@ import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import usePasswordToggle from "../../Components/PasswordToggle/usePasswordToggle";
 import usePasswordToggleX from "../../Components/PasswordToggle/usePasswordToggleX";
-
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Stack from "@mui/material/Stack";
 import { usePasswordValidation } from "../../hooks/usePasswordValidation";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import Typography from "@mui/material/Typography";
+
 ////////////===========////////////=========
 ////////////===========////////////=========
 const drawerWidth = 100;
@@ -18,6 +22,38 @@ const Input = styled("input")({
   display: "none",
 });
 const AddUser = () => {
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
+  const breadcrumbs = [
+    <div
+      className="fw-bolder AllUsersBredCrumbs"
+      underline="hover"
+      key="2"
+      color="inherit"
+      onClick={handleClick}
+    >
+      <span
+        onClick={() => {
+          navigate("/AllUsers");
+        }}
+      >
+        All Users 
+      </span>
+    </div>,
+    <Typography
+      key="3"
+      color="text.primary"
+      className="fw-bolder AllUsersBredCrumbs "
+    >
+      <span
+        className="foractive"
+            >
+        Add user
+      </span>
+    </Typography>,
+  ];
   const navigate = useNavigate();
   const [upload, setupload] = useState(false);
   const [size, setsize] = useState(false);
@@ -91,17 +127,24 @@ const AddUser = () => {
           {/* ======FORM====== */}
           <Form>
             <div className=" d-flex justify-content-between mt-5 mx-4">
-              <h4 className="">Add&nbsp;User</h4>
+            <Stack spacing={2}>
+                <Breadcrumbs
+                  separator={<NavigateNextIcon fontSize="small" />}
+                  aria-label="breadcrumb"
+                >
+                  {breadcrumbs}
+                </Breadcrumbs>
+              </Stack>
               <div className="d-flex">
                 <button
-                  className="button1 mx-3 px-4 py-1 fw-bolder"
+                  className="button1 mx-3 px-4 py-2 fw-bolder"
                   onClick={() => {
                     navigate("/AllUsers");
                   }}
                 >
                   <small>Cancel</small>
                 </button>
-                <button type="submit" className="button1 px-5 py-1 fw-bolder">
+                <button type="submit" className="button1 px-5 py-2 fw-bolder">
                   <small>Add</small>
                 </button>
               </div>

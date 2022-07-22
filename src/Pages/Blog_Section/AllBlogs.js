@@ -20,9 +20,29 @@ import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRound
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import CircularIndeterminate from "../../Components/Loader/Loader";
 import Logo1 from "../../Assets/Images/Logo1.png";
+import Typography from "@mui/material/Typography";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Stack from "@mui/material/Stack";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import CategFilterPopup from "../../Components/All PopUps/Blogs Categ Filter Popup/CategFilterPopup";
 ///////=========//////////////==========//////////////===========
 ///////=========//////////////==========//////////////===========
 const AllBlogs = () => {
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
+  const breadcrumbs = [
+    <div
+      className="fw-bolder AllUsersBredCrumbs"
+      underline="hover"
+      key="2"
+      color="inherit"
+      onClick={handleClick}
+    >
+      <span>All Blogs</span>
+    </div>,
+  ];
   const navigate = useNavigate();
   const drawerWidth = 100;
   const [togle, settogle] = useState(true);
@@ -34,7 +54,6 @@ const AllBlogs = () => {
   const [GetAllBlogs, setGetAllBlogs] = useState([]);
   const [isDone, setisDone] = useState(false);
   const [pageCount, setPageCount] = useState(1);
-
   //
   //
   //
@@ -171,7 +190,7 @@ const AllBlogs = () => {
         return (
           <>
             <Col lg={3} md={4} sm={6} className="mt-3">
-              <div className="icons_position-delete ms-auto me-1">
+              <div className="icons_position-delete me-1">
                 <EditOutlinedIcon
                   className="forcolor"
                   onClick={() => {
@@ -242,9 +261,7 @@ const AllBlogs = () => {
           </>
         );
       });
-
   // const pageCount = Math.ceil(GetAllBlogs.length / usersPerPage);
-
   const HandleRefresh = () => {
     GetAllProf(1);
   };
@@ -275,7 +292,14 @@ const AllBlogs = () => {
             <Container fluid>
               <div className="d-flex justify-content-between ">
                 <div className="">
-                  <h4 className="">All Blogs</h4>
+                  <Stack spacing={2}>
+                    <Breadcrumbs
+                      separator={<NavigateNextIcon fontSize="small" />}
+                      aria-label="breadcrumb"
+                    >
+                      {breadcrumbs}
+                    </Breadcrumbs>
+                  </Stack>
                 </div>
                 <div className="">
                   <button
@@ -289,9 +313,12 @@ const AllBlogs = () => {
                 </div>{" "}
               </div>
               <div className="d-flex justify-content-between my-4">
-                <div className="">
+                <div className="d-flex">
                   <div className="FilterIcon">
                     <RefreshIcon className="" onClick={HandleRefresh} />
+                  </div>
+                  <div className="">
+                    <CategFilterPopup />
                   </div>
                 </div>
                 <div className="d-flex">
@@ -327,11 +354,11 @@ const AllBlogs = () => {
                       ) : null} */}
                       &nbsp;All
                     </button>
-                    {BlogCat.slice(0,10).map((data, index) => (
+                    {BlogCat.slice(0, 10).map((data, index) => (
                       <div className="" key={index}>
                         <button
                           className={
-                            category === data.name 
+                            category === data.name
                               ? "EducViewActive"
                               : "EducNonActiveClass"
                           }
@@ -340,7 +367,7 @@ const AllBlogs = () => {
                           {/* {category === data.name ? (
                             <img src={TickIcon} alt="" className="me-2" />
                           ) : null} */}
-                          {data.name }
+                          {data.name}
                         </button>
                       </div>
                     ))}

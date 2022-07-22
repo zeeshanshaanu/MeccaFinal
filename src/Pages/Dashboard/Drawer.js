@@ -199,7 +199,7 @@ export default function ResponsiveDrawer(props) {
       onClick: (id) => {
         sessionStorage.setItem("id", "4");
         setidside(id && id);
-        navigate("/AllShopes");
+        navigate("/AllShops");
       },
     },
     {
@@ -223,13 +223,13 @@ export default function ResponsiveDrawer(props) {
       icon: (
         <GroupAddOutlinedIcon
           className={
-            sessionStorage.getItem("id") == "11" ? "clickicon" : " icon22"
+            sessionStorage.getItem("id") == "13" ? "clickicon" : " icon22"
           }
         />
       ),
-      id: "5",
+      id: "13",
       onClick: (id) => {
-        sessionStorage.setItem("id", "5");
+        sessionStorage.setItem("id", "13");
         setidside(id && id);
         navigate("/AllKliques");
       },

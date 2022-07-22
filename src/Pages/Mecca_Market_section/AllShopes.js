@@ -35,6 +35,10 @@ import AllShopsgridView from "./AllShopsgridView";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CircularIndeterminate from "../../Components/Loader/Loader";
 //
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -138,7 +142,23 @@ const columns = [
   },
 ];
 const drawerWidth = 100;
-const AllShopes = () => {
+const AllShops = () => {
+  const breadcrumbs = [
+    <Typography
+      key="3"
+      color="text.primary"
+      className="fw-bolder AllUsersBredCrumbs"
+    >
+      <span
+        className="foractive"
+        onClick={() => {
+          navigate("/AllShopes");
+        }}
+      >
+        All Shops
+      </span>
+    </Typography>,
+  ];
   const [showList, setshowList] = useState(false);
   const [showGrid, setshowGrid] = useState(true);
   const HandleList = () => {
@@ -153,6 +173,8 @@ const AllShopes = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -228,10 +250,20 @@ const AllShopes = () => {
               <CircularIndeterminate className="allagentsLoader" />
             </div>
           ) : (
-            <div className="Table me-3 pt-5">
+            <div className="Table ms-3 pt-5 pb-4">
               {/* <MapRealEstate /> */}
-              <div className="d-flex justify-content-between my-5">
-                <div className="">
+              <div className="my-4">
+              <Stack spacing={2}>
+              <Breadcrumbs
+                separator={<NavigateNextIcon fontSize="small" />}
+                aria-label="breadcrumb"
+              >
+                {breadcrumbs}
+              </Breadcrumbs>
+            </Stack>
+              </div>
+              <div className="d-flex justify-content-between mb-5">
+                <div className="ps-0 ms-0">
                   <Button
                     id="demo-customized-button"
                     aria-controls={open ? "demo-customized-menu" : undefined}
@@ -265,9 +297,8 @@ const AllShopes = () => {
                     </MenuItem>
                   </StyledMenu>
                 </div>
-
                 <div className="d-flex">
-                  <div className=" ">
+                  <div className="">
                     <div className="position-relative ">
                       <Form.Group className="mx-3" controlId="#">
                         <Form.Control
@@ -469,4 +500,4 @@ const AllShopes = () => {
   );
 };
 
-export default AllShopes;
+export default AllShops;

@@ -16,14 +16,13 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import AppBar from "@mui/material/AppBar";
-import { useNavigate } from "react-router-dom";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 ////////==========MUI Breadcrumbs==========////////////============
+import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -179,7 +178,7 @@ const AllProfessionals = () => {
                 onClick={() => {
                   navigate("/AddProfessionals");
                 }}
-                className="button1 px-3 py-1 fw-bolder"
+                className="button1 px-4 py-2 fw-bolder"
               >
                 <small>Add&nbsp;New</small>
               </button>
@@ -269,12 +268,12 @@ const AllProfessionals = () => {
                               key={index.code}
                             >
                               <TableCell>
-                                <img
+                                {/* <img
                                   src={Logo1}
                                   alt="Logo1.ong"
                                   className="ProfesProfileImg"
                                 />
-                                &nbsp;
+                                &nbsp; */}
                                 <span className="">
                                   {index.first_name}&nbsp;{index.last_name}
                                 </span>
@@ -307,14 +306,14 @@ const AllProfessionals = () => {
                                   >
                                     <VisibilityOutlinedIcon />
                                   </span>{" "}
-                                  <span
+                                  {/* <span
                                     onClick={() => {
                                       navigate("/EditProfessionals");
                                     }}
                                     className="view mx-1"
                                   >
                                     <EditIcon />
-                                  </span>
+                                  </span> */}
                                   <span className="view" onClick={() => {}}>
                                     <DeleteIcon />
                                   </span>

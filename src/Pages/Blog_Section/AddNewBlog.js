@@ -28,7 +28,6 @@ const AddNewBlog = () => {
   const [done, setdone] = useState(false);
   const [errormessage, seterrormessage] = useState("");
   const [Text, setText] = useState("");
-
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",

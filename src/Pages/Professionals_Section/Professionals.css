@@ -92,3 +92,12 @@
     padding: 15px;
   }
 }
+.password-toogle-icon {
+  position: relative;
+  cursor: pointer;
+  float: right;
+  top: -1.9rem;
+  right: 1rem;
+  color: #eeb85a;
+  font-size: 17px;
+}

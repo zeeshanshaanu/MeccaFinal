@@ -12,12 +12,45 @@ import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRound
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-// 
-// 
-// 
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 // 
 const drawerWidth = 100;
 const Viewitem = () => {
+  const navigate = useNavigate();
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
+  const breadcrumbs = [
+    <Typography
+      key="3"
+      color="text.primary"
+      className="fw-bolder AllUsersBredCrumbs"
+    >
+      <span
+        className=""
+        onClick={() => {
+          navigate("/AllItems");
+        }}
+      >
+       All Items
+      </span>
+    </Typography>,
+    <Typography
+      key="3"
+      color="text.primary"
+      className="fw-bolder AllUsersBredCrumbs"
+    >
+      <span
+        className="foractive"
+             >
+         Item Details
+      </span>
+    </Typography>,
+  ];
   const [togle, settogle] = useState(true);
   const [status, setstatus] = useState("Published");
   const [viewtoggle, setviewtoggle] = useState(true);
@@ -122,7 +155,7 @@ const Viewitem = () => {
     <div className="TopDiv px-3 mt-5">
       <Box sx={{ display: "flex" }}>
         <div className="for_drawer">
-          <ResponsiveDrawer heading="Kliques" className="alluser" />
+          <ResponsiveDrawer heading="Mecca Market" className="alluser" />
         </div>
         <AppBar
           className="fortrans"
@@ -141,6 +174,18 @@ const Viewitem = () => {
             width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
+          <div className="">
+          <div className="mb-5">
+          <Stack spacing={2}>
+              <Breadcrumbs
+                separator={<NavigateNextIcon fontSize="small" />}
+                aria-label="breadcrumb"
+              >
+                {breadcrumbs}
+              </Breadcrumbs>
+            </Stack>
+          </div>
+          </div>
           <div className="">
             <div className="">
               <img

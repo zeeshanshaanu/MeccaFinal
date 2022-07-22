@@ -41,7 +41,7 @@ const EditShopDetails = () => {
                 <button
                   className="button1 mx-3 px-4"
                   onClick={() => {
-                    navigate("/AllShopes");
+                    navigate("/AllShops");
                   }}
                 >
                   <small>Cancel</small>

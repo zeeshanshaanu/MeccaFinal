@@ -12,12 +12,51 @@ import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRound
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+ import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 // 
 // 
 // 
 // 
 const drawerWidth = 100;
   const ShopDetail = () => {
+    const navigate = useNavigate();
+    function handleClick(event) {
+      event.preventDefault();
+      console.info("You clicked a breadcrumb.");
+    }
+    const breadcrumbs = [
+      <Typography
+        key="3"
+        color="text.primary"
+        className="fw-bolder AllUsersBredCrumbs"
+      >
+        <span
+          className=""
+          onClick={() => {
+            navigate("/AllShopes");
+          }}
+        >
+          All Shops
+        </span>
+      </Typography>,
+      <Typography
+        key="3"
+        color="text.primary"
+        className="fw-bolder AllUsersBredCrumbs"
+      >
+        <span
+          className="foractive"
+          onClick={() => {
+            navigate("/AllProfessionals");
+          }}
+        >
+        Shop Detail
+        </span>
+      </Typography>,
+    ];
   const [togle, settogle] = useState(true);
   const [status, setstatus] = useState("Published");
   const [viewtoggle, setviewtoggle] = useState(true);
@@ -72,16 +111,16 @@ const drawerWidth = 100;
           <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
             <div className="Product_card mb-5">
               <div className="card_image">
-                {/* <img
+                <img
                   src={KliquesDetailBGIMg}
                   alt="KliquesDetailBGIMg.png"
-                  className="ProductImg w-100"
-                /> */}
+                  className="ProductImg"
+                />
               </div>
               <div className="">
                 <p class="">{user.title}</p>
                 <p class="fw-bolder ProductCardTextColor">{user.price}</p>
-                <p class="">{user.sku}</p>
+                <p class="">{user.sku===""? "No Data" : user.sku}</p>
               </div>
             </div>
           </Col>
@@ -122,7 +161,7 @@ const drawerWidth = 100;
     <div className="TopDiv px-3 mt-5">
       <Box sx={{ display: "flex" }}>
         <div className="for_drawer">
-          <ResponsiveDrawer heading="Kliques" className="alluser" />
+          <ResponsiveDrawer heading="Mecca Market" className="alluser" />
         </div>
         <AppBar
           className="fortrans"
@@ -142,6 +181,17 @@ const drawerWidth = 100;
           }}
         >
           <div className="">
+            <div className="my-4">
+
+          <Stack spacing={2}>
+              <Breadcrumbs
+                separator={<NavigateNextIcon fontSize="small" />}
+                aria-label="breadcrumb"
+                >
+                {breadcrumbs}
+              </Breadcrumbs>
+            </Stack>
+                </div>
           <div className="">
             <img
               src={cover_image}

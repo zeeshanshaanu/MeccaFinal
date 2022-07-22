@@ -32,9 +32,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-
 import CircularIndeterminate from "../../Components/Loader/Loader";
 //
+//
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -157,6 +161,8 @@ const AllItems = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -180,6 +186,22 @@ const AllItems = () => {
   const [done, setdone] = useState(false);
   // const [per_page, setper_page] = useState(100);
 
+  const breadcrumbs = [
+    <Typography
+      key="3"
+      color="text.primary"
+      className="fw-bolder AllUsersBredCrumbs"
+    >
+      <span
+        className="foractive"
+        onClick={() => {
+          navigate("/AllShopes");
+        }}
+      >
+        All Items
+      </span>
+    </Typography>,
+  ];
   const GetAllProductItem = () => {
     axios
       .get(`product/view-all?per_page=${100}`, {
@@ -222,8 +244,18 @@ const AllItems = () => {
             width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
+           <div className="mt-5 py-4">
+              <Stack spacing={2}>
+              <Breadcrumbs
+                separator={<NavigateNextIcon fontSize="small" />}
+                aria-label="breadcrumb"
+              >
+                {breadcrumbs}
+              </Breadcrumbs>
+            </Stack>
+              </div>
           <div className="d-flex justify-content-between">
-            <div className="me-3 my-5 pt-5">
+            <div className="me-3  ">
               <Button
                 id="demo-customized-button"
                 aria-controls={open ? "demo-customized-menu" : undefined}
@@ -263,7 +295,7 @@ const AllItems = () => {
               </StyledMenu>
             </div>
             {/*  */}
-            <div className="d-flex justify-content-between my-5 pt-5">
+            <div className="d-flex justify-content-between  ">
               <small className="fw-bolder  my-auto">Search&nbsp;Items</small>
               <div className="position-relative w-100 my-auto">
                 <Form.Group className="mx-3" controlId="#">

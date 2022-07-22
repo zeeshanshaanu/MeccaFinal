@@ -75,7 +75,6 @@ const rows = [createData()];
 const drawerWidth = 100;
 const AllUsers = () => {
   const navigate = useNavigate();
-
   function handleClick(event) {
     event.preventDefault();
     console.info("You clicked a breadcrumb.");
@@ -150,7 +149,7 @@ const AllUsers = () => {
                 onClick={() => {
                   navigate("/AddUser");
                 }}
-                className="button1 px-3 py-1 fw-bolder"
+                className="button1 px-4 py-2 fw-bolder"
               >
                 <small>Add&nbsp;New</small>
               </button>

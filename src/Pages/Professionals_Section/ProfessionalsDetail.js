@@ -11,8 +11,14 @@ import AppBar from "@mui/material/AppBar";
 import "./Professionals.css";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import CircularIndeterminate from "../../Components/Loader/Loader";
-const drawerWidth = 100;
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { useNavigate } from "react-router-dom";
+ const drawerWidth = 100;
 const ProfessionalsDetail = () => {
+const navigate = useNavigate();
 const [done, setdone] = useState(false);
   //////////////////==================////////////////============
 const { id } = useParams();
@@ -35,6 +41,38 @@ const { id } = useParams();
   const [getservices, setGetservices] = useState([]);
   const [getMedia, setGetMedia] = useState([]);
   //////////////////==================////////////////============
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
+  const breadcrumbs = [
+    <Typography
+      key="3"
+      color="text.primary"
+      className="fw-bolder AllUsersBredCrumbs"
+    >
+      <span
+        className=""
+        onClick={() => {
+          navigate("/AllProfessionals");
+        }}
+      >
+        All Professionals
+      </span>
+    </Typography>,
+    <Typography
+      key="3"
+      color="text.primary"
+      className="fw-bolder AllUsersBredCrumbs"
+    >
+      <span
+        className="foractive"
+       
+      >
+         Professionals Detail
+      </span>
+    </Typography>,
+  ];
   const GetAllProfDetail = () => {
     axios
       .get(`/view-professional-profile?professional_id=${id}`, {
@@ -94,14 +132,25 @@ const { id } = useParams();
             width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
+          <div className="mb-5">
+          <Stack spacing={2}>
+              <Breadcrumbs
+                separator={<NavigateNextIcon fontSize="small" />}
+                aria-label="breadcrumb"
+              >
+                {breadcrumbs}
+              </Breadcrumbs>
+            </Stack>
+          </div>
           {done ? (
             <div className="stylishLoader">
               <CircularIndeterminate className="allagentsLoader" />
             </div>
           ) : (
             <>
-              <div className="mt-5">
-                <Carousel className="">
+            
+              <div className="pt-5">
+                {/* <Carousel className=""> */}
                   {getMedia.map((mediaImg, index) => {
                     return (
                       <>
@@ -115,7 +164,7 @@ const { id } = useParams();
                       </>
                     );
                   })}
-                </Carousel>
+                {/* </Carousel> */}
                 <img
                   src={ProflieImg && ProflieImg}
                   alt=""
