@@ -12,10 +12,22 @@
 .Triatholon {
   background: rgb(181, 190, 204);
   color: rgb(56, 68, 91);
-  padding: 0.5rem 1.5rem;
-  border-radius: 50px;
+    border-radius: 50px;
 }
-
+.TypeStyle{
+  display: inline-block;
+  position: relative; top: 4.5rem;
+  z-index: 1;
+  background-color: #f1b103a6;
+  color: #F22632;
+}
+.TypeStyleOnline{
+  display: inline-block;
+  position: relative; top: 4.5rem;
+  z-index: 1;
+  background-color: #14c96ea6;
+  color: rgb(7, 255, 7);
+}
 .avatar img {
   border: 3px solid #000;
   border-radius: 50%;
@@ -24,6 +36,19 @@
   margin-left: -20px;
   z-index: -1;
 }
+.AttendeesImgWidth{
+  width: 50px;
+  height: 50px;
+}
+.SpecficImg{
+  height: 400px;
+  display: inline-block;
+}
+.OrganizerImg{
+  width: 60px;
+  height: 60px;
+}
+
 .avatars {
   direction: rtl;
   text-align: left;
@@ -206,6 +231,16 @@
   justify-content: space-between;
   margin-left: 2rem;
 }
+.Event_Search_Icon{
+  position: absolute;
+  color: #f11139;
+  left: .5rem;
+  width: 8% !important;
+  top: 7.5px;
+}
+
+
+
 @media screen and (min-width: 1957px) {
   .properties {
     height: 164px;

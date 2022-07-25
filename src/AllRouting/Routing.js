@@ -229,7 +229,7 @@ const Routing = () => {
           <Route path="/AddNewEvent" element={<AddNewEvent />}>
             {" "}
           </Route>{" "}
-          <Route path="/EventDetail" element={<EventDetail />}>
+          <Route path="/EventDetail/:id" element={<EventDetail />}>
             {" "}
           </Route>{" "}
           {/* ============Blog_Section========== */}{" "}
@@ -249,7 +249,7 @@ const Routing = () => {
           <Route path="/All_Orders" element={<All_Orders />}>
             {" "}
           </Route>{" "}
-          <Route path="/OrderDetail" element={<OrderDetail />}>
+          <Route path="/OrderDetail/:id" element={<OrderDetail />}>
             {" "}
           </Route>{" "}
           {/* ============SETTING========== */}{" "}

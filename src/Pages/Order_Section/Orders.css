@@ -20,3 +20,7 @@
     color: 
     rgba(0, 0, 0, 1);
 }
+.OrderDetailImgWidth{
+    width: 100px;
+    height: 100px;
+}

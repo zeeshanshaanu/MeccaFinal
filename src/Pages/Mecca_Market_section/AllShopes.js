@@ -253,14 +253,14 @@ const AllShops = () => {
             <div className="Table ms-3 pt-5 pb-4">
               {/* <MapRealEstate /> */}
               <div className="my-4">
-              <Stack spacing={2}>
-              <Breadcrumbs
-                separator={<NavigateNextIcon fontSize="small" />}
-                aria-label="breadcrumb"
-              >
-                {breadcrumbs}
-              </Breadcrumbs>
-            </Stack>
+                <Stack spacing={2}>
+                  <Breadcrumbs
+                    separator={<NavigateNextIcon fontSize="small" />}
+                    aria-label="breadcrumb"
+                  >
+                    {breadcrumbs}
+                  </Breadcrumbs>
+                </Stack>
               </div>
               <div className="d-flex justify-content-between mb-5">
                 <div className="ps-0 ms-0">
@@ -458,14 +458,6 @@ const AllShops = () => {
                               </TableCell>
                               <TableCell>
                                 <div className="App">
-                                  {/* <span
-                                    onClick={() => {
-                                      navigate("/EditShopDetails");
-                                    }}
-                                    className="view"
-                                  >
-                                    <EditIcon />
-                                  </span> */}
                                   <span
                                     className="view mx-1"
                                     onClick={() => {}}

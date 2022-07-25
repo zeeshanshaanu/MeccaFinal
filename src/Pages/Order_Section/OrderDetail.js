@@ -1,52 +1,24 @@
-import React from "react";
-import { Form, Row, Col, Container } from "react-bootstrap";
-import SearchIcon from "@mui/icons-material/Search";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Container } from "react-bootstrap";
 import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
 import "../../Pages/User_Section/AllUser.css";
 import Box from "@mui/material/Box";
-import GradeIcon from "@mui/icons-material/Grade";
-
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 // table
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
 import AppBar from "@mui/material/AppBar";
 import "./Orders.css";
 import { styled, alpha } from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Dropdown from "react-bootstrap/Dropdown";
 import EventImg1 from "../../Assets/Images/EventImg1.png";
 //
 //
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-  // eslint-disable-next-line jsx-a11y/anchor-is-valid
-  <a
-    href=""
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    {children}
-    <span className="threedots" />
-  </a>
-));
+
 //
 const StyledMenu = styled((props) => (
   <Menu
@@ -131,43 +103,63 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
 ];
-
-function createData(
-  ID,
-  Customer,
-  Product,
-  Created,
-  Pirce,
-  Delivery,
-  Status,
-  Action
-) {
-  return {
-    ID,
-    Customer,
-    Product,
-    Created,
-    Pirce,
-    Delivery,
-    Status,
-    Action,
-  };
-}
-
-const rows = [
-  createData(
-    "001",
-    "john",
-    "Shirt",
-    "01-08-2021",
-    "$121",
-    "Delivered",
-    "Active",
-    <h2>:</h2>
-  ),
-];
 const drawerWidth = 100;
 const OrderDetail = () => {
+  const { id } = useParams();
+  ////////////=====///////////===============/////////////====
+  const [done, setdone] = useState(false);
+  const [customerFName, setcustomerFName] = useState("");
+  const [customerLName, setcustomerLName] = useState("");
+  const [CustEmail, setCustEmail] = useState("");
+  const [CustShopName, setCustShopName] = useState("");
+
+  ////////////=====///////////===============/////////////====
+  const GetShopDetail = () => {
+    axios
+      .get(`/order/view?order_id=${id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        setcustomerFName(response.data.data.customer.first_name);
+        setcustomerLName(response.data.data.customer.last_name);
+        setCustEmail(response.data.data.customer.email);
+        setCustShopName(response.data.data.shop.name);
+        // setstart_at_time(response.data.data.start_at_time);
+        // setend_at_time(response.data.data.end_at_time);
+        // setdescription(response.data.data.description);
+        // setcategory(response.data.data.category);
+        // setsub_category(response.data.data.sub_category);
+        // setImage(response.data.data.cover_image);
+        // setRegistrationFee(response.data.data.registration_fee);
+        // setlocationAddress(response.data.data.location_address);
+        // setschedule_at(response.data.data.schedule_at);
+        // //////////////===========LINKS=///////////==============///////
+        // setwebsite_url(response.data.data.website_url);
+        // setvideo_url(response.data.data.video_url);
+        // setmedia_url(response.data.data.media_url);
+        // setmeeting_url(response.data.data.meeting_url);
+        // //////////////============Organizer///////////==============///////
+        // setOrganizerImg(response.data.data.created_by.image);
+        // setOrgFirstName(response.data.data.created_by.first_name);
+        // setOrgLastName(response.data.data.created_by.last_name);
+        // //////////////============///Attendees////////==============///////
+        // setAttendees(response.data.data.attendees);
+        //////////////============///////////==============///////
+        setdone(false);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    GetShopDetail();
+    setdone(true);
+  }, []);
+
+  ////////////=====///////////===============/////////////====
+  ////////////=====///////////===============/////////////====
+  ////////////=====///////////===============/////////////====
+  ////////////=====///////////===============/////////////====
   const navigate = useNavigate();
   function HandleClick(event) {
     event.preventDefault();
@@ -260,172 +252,160 @@ const OrderDetail = () => {
                 {breadcrumbs}
               </Breadcrumbs>
             </Stack>
-            <div className="d-flex">
-              <div className="position-relative">
-                <Form.Group className="mx-3" controlId="#">
-                  <Form.Control
-                    type="search"
-                    className="input_field w-100"
-                    placeholder="Search"
-                    // value={filter}
-                    // onChange={(e) => setfilter(e.target.value)}
-                  />
-                </Form.Group>
-                <SearchIcon className="search_icon" />
-              </div>
-              <div className="for_button">
-                <div>
-                  <Button
-                    className="button1 px-3 mx-3"
-                    id="demo-customized-button"
-                    aria-controls="demo-customized-menu"
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                    variant="contained"
-                    disableElevation
-                    onClick={handleClick}
-                    endIcon={<KeyboardArrowDownIcon />}
-                  >
-                    All
-                  </Button>
-                  <StyledMenu
-                    id="demo-customized-menu"
-                    MenuListProps={{
-                      "aria-labelledby": "demo-customized-button",
-                    }}
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose} disableRipple>
-                      Completed
-                    </MenuItem>
-                    <MenuItem onClick={handleClose} disableRipple>
-                      Cancelled
-                    </MenuItem>
-                    <MenuItem onClick={handleClose} disableRipple>
-                      Pending
-                    </MenuItem>
-                  </StyledMenu>
-                </div>
-              </div>
-            </div>
           </div>
-          {/* ===============TABLE================ */}
-          {/* <div className="Table mx-lg-3">
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <TableContainer sx={{ maxHeight: 500 }}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow>
-                      {columns.map((column) => (
-                        <TableCell
-                          className="fw-bolder"
-                          key={column.id}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row) => {
-                        return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={row.code}
-                          >
-                            <TableCell>001</TableCell>
-                            <TableCell>john</TableCell>
-                            <TableCell>Shirt</TableCell>
-                            <TableCell>01-08-2021</TableCell>
-                            <TableCell>$121</TableCell>
-                            <TableCell>Delivered</TableCell>
-                            <TableCell>Active</TableCell>
-                            <TableCell>
-                              <div className="App">
-                                <Dropdown>
-                                  <Dropdown.Toggle as={CustomToggle} />
-                                  <Dropdown.Menu size="xs" title="">
-                                    <Dropdown.Item>
-                                      {" "}
-                                      <span
-                                        onClick={() => {
-                                          navigate("#");
-                                        }}
-                                        className="abc"
-                                      >
-                                        View Detail{" "}
-                                      </span>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item>
-                                      <span className="abc" onClick={() => {}}>
-                                        Delete
-                                      </span>
-                                    </Dropdown.Item>
-                                  </Dropdown.Menu>
-                                </Dropdown>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Paper>
-          </div> */}
-          {/*  */}
-          {/*  */}
-          {/*  */}
           <Container fluid>
-            <Row className="Invoice   px-3 mt-5">
-              <Col className="">
-                <p className="fw-bolder">Invoice</p>
-                <div className="ms-3 mt-5">
+            <Row className=" px-3 mt-5">
+              <Col lg={8} md={6} sm={12} className="">
+                {/* BasicInfo */}
+                {/* BasicInfo */}
+                {/* BasicInfo */}
+                <div className="BasicInfo">
+                  <h4 className="fw-bolder mb-2">Basic Information</h4>
+                  <div className="d-flex py-3 px-3 bg-danger">
+                    <div className="img">
+                      <img
+                        src={EventImg1}
+                        alt=""
+                        className="OrderDetailImgWidth"
+                      />
+                    </div>
+                    <div className="ms-3">
+                      <p>
+                        {customerFName}&nbsp;{customerLName}
+                      </p>
+                      <p>{CustShopName}</p>
+                      <p>{CustEmail}</p>
+                    </div>
+                  </div>
+                </div>
+                {/* Shipping Address */}
+                {/* Shipping Address */}
+                {/* Shipping Address */}
+                <div className="Shipping_Address mt-4">
+                  <h4 className="fw-bolder mb-2">Shipping Address</h4>
+                  <div className="py-3 px-3 bg-danger">
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                      <p className="text-white fw-bolder">Company</p>
+                      </div>
+                      <div>
+                      {/* <p>{address1}</p> */}
+                      <p>One</p>
+                      </div>
+                    </div>
+                      {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                      <p className="text-white fw-bolder">Phone Number</p>
+                      </div>
+                      <div>
+                      {/* <p>{address1}</p> */}
+                      <p>asdfdasf</p>
+                      </div>
+                    </div>
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                      <p className="text-white fw-bolder">City</p>
+                      </div>
+                      <div>
+                      {/* <p>{address1}</p> */}
+                      <p>One</p>
+                      </div>
+                    </div>
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                      <p className="text-white fw-bolder">State</p>
+                      </div>
+                      <div>
+                      {/* <p>{address1}</p> */}
+                      <p>Two</p>
+                      </div>
+                    </div>
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                      <p className="text-white fw-bolder">Country</p>
+                      </div>
+                      <div>
+                      {/* <p>{address1}</p> */}
+                      <p>asdfdasf</p>
+                      </div>
+                    </div>
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                      <p className="text-white fw-bolder">Zip</p>
+                      </div>
+                      <div>
+                      {/* <p>{address1}</p> */}
+                      <p>asdfdasf</p>
+                      </div>
+                    </div>
+                                    </div>
+                </div>
+                {/* Products */}
+                {/* Products */}
+                {/* Products */}
+                <div className="products mt-4">
+                  <h4 className="fw-bolder">products</h4>
+                  <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
+                    <div className="Product_card mb-5">
+                      <div className="card_image">
+                        <img
+                          // src={OrganizerImg}
+                          src={EventImg1}
+                          alt="EventImg1.png"
+                          className="ProductImg"
+                        />
+                      </div>
+                      <div className="mt-2">
+                        <p class="">
+                          asdfasdf
+                          {/* {OrgFirstName}&nbsp;{OrgLastName} */}
+                        </p>
+                        <p class="fw-bolder ProductCardTextColor">
+                          {/* {OrgEmail} */}
+                          asdfasdf
+                        </p>
+                      </div>
+                    </div>
+                  </Col>
+                </div>
+                {/* <div className="ms-3 mt-5">
                   <div className="table">
                     <p className="fw-bolder">Order Details</p>
                     <table className="forwidth">
-                      {/*  */}
+                    
                       <tr>
                         <td className="ContentColor">Amount</td>
                         <td className="for_text_align">
                           <span className="fw-bolder">$25</span>
                         </td>
                       </tr>
-                      {/*  */}
+                      
                       <tr>
                         <td className="ContentColor">Inc. Tax</td>
                         <td className="for_text_align">
                           <span className="fw-bolder">$2</span>
                         </td>
                       </tr>
-                      {/*  */}
+                   
                       <tr>
                         <td className="ContentColor">Age</td>
                         <td className="for_text_align">
                           <span className="fw-bolder">23</span>
                         </td>
                       </tr>
-                      {/*  */}
+                      
                       <tr>
                         <td className="fw-bolder">Total</td>
                         <td className="for_text_align">
@@ -434,28 +414,24 @@ const OrderDetail = () => {
                       </tr>
                     </table>
                   </div>
-                  {/*  */}
-                  {/*  */}
-                  {/*  */}
-
                   <div className="table">
                     <p className="fw-bolder mt-4">Customer Details</p>
                     <table className="forwidth">
-                      {/*  */}
+                      
                       <tr>
                         <td className="ContentColor">Customer&nbsp;Name</td>
                         <td className="for_text_align">
                           <span className="fw-bolder">John&nbsp;Doe</span>
                         </td>
                       </tr>
-                      {/*  */}
+                      
                       <tr>
                         <td className="ContentColor">Email</td>
                         <td className="for_text_align">
                           <span className="fw-bolder">Abc@gmail.com</span>
                         </td>
                       </tr>
-                      {/*  */}
+                      
                       <tr>
                         <td className="ContentColor">Phone&nbsp;Number</td>
                         <td className="for_text_align">
@@ -464,99 +440,7 @@ const OrderDetail = () => {
                       </tr>
                     </table>
                   </div>
-                </div>
-              </Col>
-              {/*  */}
-              {/*  */}
-              {/*  */}
-              <Col className="Rating_content bg-white p-4">
-                <div className="RatingStars">
-                  <p className="fw-bolder">Reviews and Ratings</p>
-                  <span className="fw-bolder">5.0</span>&nbsp;
-                  <GradeIcon className="text-warning Rating_Icon" />
-                  <GradeIcon className="text-warning Rating_Icon" />
-                  <GradeIcon className="text-warning Rating_Icon" />
-                  <GradeIcon className="text-warning Rating_Icon" />
-                  <GradeIcon className="text-warning Rating_Icon" />
-                </div>
-                {/*  */}
-                {/*  */}
-                {/*  */}
-                {/*  */}
-                <div className="d-flex mt-5">
-                  <div className="img">
-                    <img
-                      src={EventImg1}
-                      alt="EventImg1.png"
-                      className="ratingIMg mt-1"
-                    />
-                  </div>
-                  <div className="">
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="ReviewierName">Malik&nbsp;Haris</p>
-                      </div>
-                      <div className="">
-                        <span className="fw-bolder">
-                          <small>5.0</small>
-                        </span>
-                        &nbsp;
-                        <span>
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                        </span>
-                      </div>
-                    </div>
-                    <div className="textHeight ReviewierName">
-                      <small>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Ullamcorper quam non ut aliquet turpis sed.
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                {/*  */}
-                {/*  */}
-                {/*  */}
-                {/*  */}
-                <div className="d-flex mt-5">
-                  <div className="img">
-                    <img
-                      src={EventImg1}
-                      alt="EventImg1.png"
-                      className="ratingIMg mt-1"
-                    />
-                  </div>
-                  <div className="">
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="ReviewierName">Malik&nbsp;Haris</p>
-                      </div>
-                      <div className="">
-                        <span className="fw-bolder">
-                          <small>5.0</small>
-                        </span>
-                        &nbsp;
-                        <span>
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                          <GradeIcon className="text-warning yellowstar" />
-                        </span>
-                      </div>
-                    </div>
-                    <div className="textHeight ReviewierName">
-                      <small>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Ullamcorper quam non ut aliquet turpis sed.
-                      </small>
-                    </div>
-                  </div>
-                </div>
+                </div> */}
               </Col>
             </Row>
           </Container>

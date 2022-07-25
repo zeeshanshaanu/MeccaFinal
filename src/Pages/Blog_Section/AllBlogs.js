@@ -43,6 +43,9 @@ const AllBlogs = () => {
       <span>All Blogs</span>
     </div>,
   ];
+  ////////===========/////////////=============////////
+  ////////===========/////////////=============////////
+  ////////===========/////////////=============////////
   const navigate = useNavigate();
   const drawerWidth = 100;
   const [togle, settogle] = useState(true);
@@ -50,14 +53,13 @@ const AllBlogs = () => {
   const [viewtoggle, setviewtoggle] = useState(true);
   const [page, setPage] = React.useState(100);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [done, setdone] = useState(false);
   const [GetAllBlogs, setGetAllBlogs] = useState([]);
   const [isDone, setisDone] = useState(false);
+  const [done, setdone] = useState(false);
   const [pageCount, setPageCount] = useState(1);
   //
   //
   //
-  // const [per_page, setPageCount] = useState(0);
   const [Categoryblog, setCategoryblog] = useState([]);
   const [category, setcategory] = useState("all");
   const [notify, setNotify] = useState({
@@ -68,9 +70,8 @@ const AllBlogs = () => {
   //
   const GetAllProf = (currentPage) => {
     setdone(true);
-
     axios
-      .get(`blog/view-all?per_page=12&page=${currentPage}`, {
+      .get(`blog/view-all?per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
@@ -78,7 +79,7 @@ const AllBlogs = () => {
       .then((response) => {
         setGetAllBlogs(response.data.data.blogs);
         setPageCount(response.data.data.last_page);
-        console.log(response.data);
+        // console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -87,11 +88,9 @@ const AllBlogs = () => {
   const handlePageChange = async (data) => {
     let currentPage = data.selected + 1;
     const blogs = await GetAllProf(currentPage);
-
     setGetAllBlogs(blogs);
   };
   ////////////=============/////////////============
-
   ////////////=============/////////////============
   ////////////=============/////////////============
   const handleDelete = (blog_id) => {

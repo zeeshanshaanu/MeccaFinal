@@ -84,7 +84,7 @@ const StyledMenu = styled((props) => (
 const columns = [
   {
     id: "ID",
-    label: "ID",
+    label: "Order ID",
     minWidth: 30,
     align: "left",
   },
@@ -106,7 +106,7 @@ const columns = [
   },
   {
     id: "Delivery",
-    label: "Delivery Status",
+    label: "Shops",
     minWidth: 100,
     align: "left",
     format: (value) => value.toFixed(2),
@@ -349,13 +349,13 @@ const All_Orders = () => {
                             <TableCell>{getorderss.customer.first_name}&nbsp;{getorderss.customer.last_name}</TableCell>
                               <TableCell>{getorderss.created_at}</TableCell>
                              <TableCell>no data</TableCell>
-                             <TableCell>no data</TableCell>
+                             <TableCell>{getorderss.shop.name}</TableCell>
                              <TableCell>{getorderss.status}</TableCell>
                              <TableCell>
                               <div className="App">
                                 <span
                                   onClick={() => {
-                                    navigate("/OrderDetail");
+                                    navigate(`/OrderDetail/${getorderss.order_id}`);
                                   }}
                                   className="view fw-bolder"
                                 >
