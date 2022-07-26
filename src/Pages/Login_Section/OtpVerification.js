@@ -29,7 +29,9 @@ function OtpVerification() {
     message: "",
     type: "",
   });
-  ////////////////////
+  //========///============//////////========/////=======
+  //========///============//////////========/////=======
+  //========///============//////////========/////=======
   const HandleSubmit = (e) => {
     e.preventDefault();
     OtpVerify();
@@ -38,17 +40,19 @@ function OtpVerification() {
   };
   const OtpVerify = () => {
     const code = otp.join("");
-    // console.log(otp);
-    axios
-      .post(`/admin/verify-otp`, {
-        email: email,
-        otp: code,
+    const formData = new FormData();
+    formData.append("otp", code);
+     axios
+      .post(`/verify/otp`, formData, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
       })
       .then((response) => {
         if (response.status === 200) {
           setdone(false);
           setsuccess(response.data.message);
-          response.data.message === "incorrect otp"
+          response.data.message === "Error! OTP is not verify."
             ? seterror(response.data.message)
             : navigate(`/ResetPassword/${email}`);
           setmessagesuccess(true);

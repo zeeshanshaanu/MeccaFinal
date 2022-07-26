@@ -52,7 +52,7 @@ function ResetPassword() {
   };
   const PassChange = () => {
     axios
-      .post(`/admin/change-password`, {
+      .post(`/change-password`, {
         email: email,
         password: password.secondPassword,
       })

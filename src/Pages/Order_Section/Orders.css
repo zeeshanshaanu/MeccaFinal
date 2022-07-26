@@ -22,5 +22,16 @@
 }
 .OrderDetailImgWidth{
     width: 100px;
-    height: 100px;
+    height: 110px;
+}
+.OrderDetail_card{
+    position: relative;
+    box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+    width: 300px;
+    /* height: 300px; */
+    border-radius: 8px;
+    padding: 18px;
+}
+.forBorderTop{
+    border-top: 2px solid black;
 }

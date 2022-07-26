@@ -123,12 +123,12 @@ const Routing = () => {
           ></Route>{" "}
           <Route
             exact
-            path="/OtpVerification"
+            path="/OtpVerification/:email"
             element={<OtpVerification />}
           ></Route>{" "}
           <Route
             exact
-            path="/ResetPassword"
+            path="/ResetPassword/:email"
             element={<ResetPassword />}
           ></Route>{" "}
           <Route path="/Logout" element={<Logout />}>

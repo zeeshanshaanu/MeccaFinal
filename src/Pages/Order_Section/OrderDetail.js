@@ -14,11 +14,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import EventImg1 from "../../Assets/Images/EventImg1.png";
 //
 //
+import Logo1 from "../../Assets/Images/Logo1.png";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-
+import CircularIndeterminate from "../../Components/Loader/Loader";
 //
 const StyledMenu = styled((props) => (
   <Menu
@@ -105,13 +106,38 @@ const columns = [
 ];
 const drawerWidth = 100;
 const OrderDetail = () => {
+  var x = 10;
   const { id } = useParams();
-  ////////////=====///////////===============/////////////====
+  ////////////=====/////////BASIC INFO//===============/////////////====
+  ////////////=====/////////BASIC INFO//===============/////////////====
+  ////////////=====/////////BASIC INFO//===============/////////////====
   const [done, setdone] = useState(false);
   const [customerFName, setcustomerFName] = useState("");
   const [customerLName, setcustomerLName] = useState("");
   const [CustEmail, setCustEmail] = useState("");
   const [CustShopName, setCustShopName] = useState("");
+  ////////////=====/////////shipping addres//===============/////////////====
+  ////////////=====/////////shipping addres//===============/////////////====
+  ////////////=====/////////shipping addres//===============/////////////====
+  const [company, setcompany] = useState("");
+  const [Custphone, setCustphone] = useState("");
+  const [address1, setaddress1] = useState("");
+  const [customercity, setcustomercity] = useState("");
+  const [customerstate, setcustomestate] = useState("");
+  const [Custcountry, setCustcountry] = useState("");
+  const [Custzip, setCustzip] = useState("");
+  ////////////=====/////////BILLING address//===============/////////////====
+  ////////////=====/////////BILLING address//===============/////////////====
+  ////////////=====/////////BILLING address//===============/////////////====
+  const [Billcompany, setBillcompany] = useState("");
+  const [BillCustphone, setBillCustphone] = useState("");
+  const [Billaddress1, setBilladdress1] = useState("");
+  const [Billcustomercity, setBillcustomercity] = useState("");
+  const [Billcustomerstate, setBillcustomestate] = useState("");
+  const [BillCustcountry, setBillCustcountry] = useState("");
+  const [BillCustzip, setBillCustzip] = useState("");
+  ////////////=====///////////==ShopProducts=============/////////////====
+  const [ShopProducts, setShopProducts] = useState([]);
 
   ////////////=====///////////===============/////////////====
   const GetShopDetail = () => {
@@ -122,36 +148,40 @@ const OrderDetail = () => {
         },
       })
       .then((response) => {
+        ////////////=====/////////BASIC INFO//===============/////////////====
+        ////////////=====/////////BASIC INFO//===============/////////////====
         setcustomerFName(response.data.data.customer.first_name);
         setcustomerLName(response.data.data.customer.last_name);
         setCustEmail(response.data.data.customer.email);
         setCustShopName(response.data.data.shop.name);
-        // setstart_at_time(response.data.data.start_at_time);
-        // setend_at_time(response.data.data.end_at_time);
-        // setdescription(response.data.data.description);
-        // setcategory(response.data.data.category);
-        // setsub_category(response.data.data.sub_category);
-        // setImage(response.data.data.cover_image);
-        // setRegistrationFee(response.data.data.registration_fee);
-        // setlocationAddress(response.data.data.location_address);
-        // setschedule_at(response.data.data.schedule_at);
-        // //////////////===========LINKS=///////////==============///////
-        // setwebsite_url(response.data.data.website_url);
-        // setvideo_url(response.data.data.video_url);
-        // setmedia_url(response.data.data.media_url);
-        // setmeeting_url(response.data.data.meeting_url);
-        // //////////////============Organizer///////////==============///////
-        // setOrganizerImg(response.data.data.created_by.image);
-        // setOrgFirstName(response.data.data.created_by.first_name);
-        // setOrgLastName(response.data.data.created_by.last_name);
-        // //////////////============///Attendees////////==============///////
-        // setAttendees(response.data.data.attendees);
-        //////////////============///////////==============///////
+        ////////////=====/////////shipping addres//===============/////////////====
+        ////////////=====/////////shipping addres//===============/////////////====
+        setcompany(response.data.data.shipping_address.company);
+        setCustphone(response.data.data.shipping_address.phone);
+        setaddress1(response.data.data.shipping_address.address1);
+        setcustomercity(response.data.data.shipping_address.city);
+        setcustomestate(response.data.data.shipping_address.state);
+        setCustcountry(response.data.data.shipping_address.country);
+        setCustzip(response.data.data.shipping_address.zip);
+        ////////////=====/////////BILLING ADDRESS//===============/////////////====
+        ////////////=====/////////BILLING ADDRESS//===============/////////////====
+        setBillcompany(response.data.data.billing_address.company);
+        setBillCustphone(response.data.data.billing_address.phone);
+        setBilladdress1(response.data.data.billing_address.address);
+        setBillcustomercity(response.data.data.billing_address.city);
+        setBillcustomestate(response.data.data.billing_address.state);
+        setBillCustcountry(response.data.data.billing_address.country);
+        setBillCustzip(response.data.data.billing_address.zip);
+        //////////////============///////////=PRODUCTS===///////=======////////==
+        //////////////============///////////=PRODUCTS===///////=======////////==
+        setShopProducts(response.data.data.products);
+        console.log(response.data.data.products);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
+    var x = 5;
     GetShopDetail();
     setdone(true);
   }, []);
@@ -163,8 +193,9 @@ const OrderDetail = () => {
   const navigate = useNavigate();
   function HandleClick(event) {
     event.preventDefault();
-    console.info("You clicked a breadcrumb.");
+    // console.info("You clicked a breadcrumb.");
   }
+
   const breadcrumbs = [
     <div
       className="fw-bolder AllUsersBredCrumbs"
@@ -243,7 +274,7 @@ const OrderDetail = () => {
           }}
         >
           {/*  */}
-          <div className="d-flex justify-content-between ms-lg-3 my-4 mt-5">
+          <div className="d-flex justify-content-between my-4 mt-5">
             <Stack spacing={2}>
               <Breadcrumbs
                 separator={<NavigateNextIcon fontSize="small" />}
@@ -252,29 +283,57 @@ const OrderDetail = () => {
                 {breadcrumbs}
               </Breadcrumbs>
             </Stack>
+            <div className="">
+              <button className="download button1 px-4 py-2">
+                Download Invoice
+              </button>
+            </div>
           </div>
+          {done ? (
+            <div className="stylishLoader">
+              <CircularIndeterminate className="allagentsLoader" />
+            </div>
+          ) : (
           <Container fluid>
-            <Row className=" px-3 mt-5">
+            <Row className=" mt-5">
               <Col lg={8} md={6} sm={12} className="">
                 {/* BasicInfo */}
                 {/* BasicInfo */}
                 {/* BasicInfo */}
                 <div className="BasicInfo">
                   <h4 className="fw-bolder mb-2">Basic Information</h4>
-                  <div className="d-flex py-3 px-3 bg-danger">
-                    <div className="img">
-                      <img
-                        src={EventImg1}
-                        alt=""
-                        className="OrderDetailImgWidth"
-                      />
+                  <div className=" py-3 px-3 bg-light forBorderTop">
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                        <p className="text-dark fw-bolder">Name</p>
+                      </div>
+                      <div>
+                        <p>
+                          {customerFName}&nbsp;{customerLName}
+                        </p>
+                      </div>
                     </div>
-                    <div className="ms-3">
-                      <p>
-                        {customerFName}&nbsp;{customerLName}
-                      </p>
-                      <p>{CustShopName}</p>
-                      <p>{CustEmail}</p>
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                        <p className="text-dark fw-bolder">Shop Name</p>
+                      </div>
+                      <div>
+                        <p>{CustShopName}</p>
+                      </div>
+                    </div>
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                        <p className="text-dark fw-bolder">Customer Email</p>
+                      </div>
+                      <div>
+                        <p>{CustEmail}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -283,167 +342,222 @@ const OrderDetail = () => {
                 {/* Shipping Address */}
                 <div className="Shipping_Address mt-4">
                   <h4 className="fw-bolder mb-2">Shipping Address</h4>
-                  <div className="py-3 px-3 bg-danger">
+                  <div className="py-3 px-3 bg-light forBorderTop">
                     {/*  */}
                     {/*  */}
                     <div className="d-flex justify-content-between">
                       <div className="">
-                      <p className="text-white fw-bolder">Company</p>
+                        <p className="text-dark fw-bolder">Company</p>
                       </div>
                       <div>
-                      {/* <p>{address1}</p> */}
-                      <p>One</p>
-                      </div>
-                    </div>
-                      {/*  */}
-                    {/*  */}
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                      <p className="text-white fw-bolder">Phone Number</p>
-                      </div>
-                      <div>
-                      {/* <p>{address1}</p> */}
-                      <p>asdfdasf</p>
+                        <p>{company}</p>
                       </div>
                     </div>
                     {/*  */}
                     {/*  */}
                     <div className="d-flex justify-content-between">
                       <div className="">
-                      <p className="text-white fw-bolder">City</p>
+                        <p className="text-dark fw-bolder">Phone Number</p>
                       </div>
                       <div>
-                      {/* <p>{address1}</p> */}
-                      <p>One</p>
+                        <p>{Custphone}</p>
                       </div>
                     </div>
                     {/*  */}
                     {/*  */}
                     <div className="d-flex justify-content-between">
                       <div className="">
-                      <p className="text-white fw-bolder">State</p>
+                        <p className="text-dark fw-bolder">Address</p>
                       </div>
                       <div>
-                      {/* <p>{address1}</p> */}
-                      <p>Two</p>
+                        <p>{address1}</p>
                       </div>
                     </div>
                     {/*  */}
                     {/*  */}
                     <div className="d-flex justify-content-between">
                       <div className="">
-                      <p className="text-white fw-bolder">Country</p>
+                        <p className="text-dark fw-bolder">City</p>
                       </div>
                       <div>
-                      {/* <p>{address1}</p> */}
-                      <p>asdfdasf</p>
+                        <p>{customercity}</p>
+                      </div>
+                    </div>
+
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                        <p className="text-dark fw-bolder">State</p>
+                      </div>
+                      <div>
+                        <p>{customerstate}</p>
                       </div>
                     </div>
                     {/*  */}
                     {/*  */}
                     <div className="d-flex justify-content-between">
                       <div className="">
-                      <p className="text-white fw-bolder">Zip</p>
+                        <p className="text-dark fw-bolder">Country</p>
                       </div>
                       <div>
-                      {/* <p>{address1}</p> */}
-                      <p>asdfdasf</p>
+                        <p>{Custcountry}</p>
                       </div>
+                    </div>
+                    {/*  */}
+                    {/*  */}
+                    <div className="d-flex justify-content-between">
+                      <div className="">
+                        <p className="text-dark fw-bolder">Zip</p>
+                      </div>
+                      <div>
+                        <p>{Custzip}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/*  */}
+                {/*  */}
+                {/*  */}
+                {/*  */}
+                <h4 className="fw-bolder mt-4 mb-2">Billing Address</h4>
+                <div className="py-3 px-3 bg-light forBorderTop">
+                  {/*  */}
+                  {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <div className="">
+                      <p className="text-dark fw-bolder">Phone Number</p>
+                    </div>
+                    <div>
+                      <p>{BillCustphone}</p>
+                    </div>
+                  </div>
+                  {/*  */}
+                  {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <div className="">
+                      <p className="text-dark fw-bolder">Address</p>
+                    </div>
+                    <div>
+                      <p>{Billaddress1}</p>
+                    </div>
+                  </div>
+                  {/*  */}
+                  {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <div className="">
+                      <p className="text-dark fw-bolder">City</p>
+                    </div>
+                    <div>
+                      <p>{Billcustomercity}</p>
+                    </div>
+                  </div>
+
+                  {/*  */}
+                  {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <div className="">
+                      <p className="text-dark fw-bolder">State</p>
+                    </div>
+                    <div>
+                      <p>{Billcustomerstate}</p>
+                    </div>
+                  </div>
+                  {/*  */}
+                  {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <div className="">
+                      <p className="text-dark fw-bolder">Country</p>
+                    </div>
+                    <div>
+                      <p>{BillCustcountry}</p>
+                    </div>
+                  </div>
+                  {/*  */}
+                  {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <div className="">
+                      <p className="text-dark fw-bolder">Zip</p>
+                    </div>
+                    <div>
+                      <p>{BillCustzip}</p>
                     </div>
                   </div>
                 </div>
                 {/* Products */}
                 {/* Products */}
                 {/* Products */}
-                <div className="products mt-4">
-                  <h4 className="fw-bolder">products</h4>
-                  <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
-                    <div className="Product_card mb-5">
-                      <div className="card_image">
-                        <img
-                          // src={OrganizerImg}
-                          src={EventImg1}
-                          alt="EventImg1.png"
-                          className="ProductImg"
-                        />
+                <div className="products mt-4 w-100">
+                  <h4 className="fw-bolder">Products Details</h4>
+                  {ShopProducts.map((productsGets) => {
+                    return (
+                      <div className="mt-3">
+                        <div className="d-flex justify-content-between bg-light p-2">
+                          <div className="d-flex">
+                            <div>
+                              <img
+                                src={productsGets.image}
+                                alt="EventImg1.png"
+                                className="OrderDetailImgWidth"
+                              />
+                            </div>
+                            <div>
+                              <p class="ms-3 fw-bolder">{productsGets.title}</p>
+                              {/*  */}
+                              <p class="ms-3 fw-bolder">
+                                {productsGets.product_variant_name}
+                              </p>
+                              {/*  */}
+                              <p class="ms-3 fw-bolder">
+                                {productsGets.link_variant_name}
+                              </p>
+                            </div>
+                          </div>
+                          {/*  */}
+                          <div className="">
+                            <div className=" ProductCardTextColor ">
+                              <div className="ms-4">
+                                <span class="fw-bolder">
+                                  ${productsGets.total_price}
+                                </span>
+                              </div>
+                              <div className="mt-5 pt-2">
+                                <span class="me-1">
+                                  QTY :&nbsp;{productsGets.quantity}
+                                </span>
+                              </div>
+                            </div>
+                           
+                          </div>
+                        </div>
                       </div>
-                      <div className="mt-2">
-                        <p class="">
-                          asdfasdf
-                          {/* {OrgFirstName}&nbsp;{OrgLastName} */}
-                        </p>
-                        <p class="fw-bolder ProductCardTextColor">
-                          {/* {OrgEmail} */}
-                          asdfasdf
-                        </p>
-                      </div>
-                    </div>
-                  </Col>
+                    );
+                  })}
                 </div>
-                {/* <div className="ms-3 mt-5">
-                  <div className="table">
-                    <p className="fw-bolder">Order Details</p>
-                    <table className="forwidth">
-                    
-                      <tr>
-                        <td className="ContentColor">Amount</td>
-                        <td className="for_text_align">
-                          <span className="fw-bolder">$25</span>
-                        </td>
-                      </tr>
-                      
-                      <tr>
-                        <td className="ContentColor">Inc. Tax</td>
-                        <td className="for_text_align">
-                          <span className="fw-bolder">$2</span>
-                        </td>
-                      </tr>
-                   
-                      <tr>
-                        <td className="ContentColor">Age</td>
-                        <td className="for_text_align">
-                          <span className="fw-bolder">23</span>
-                        </td>
-                      </tr>
-                      
-                      <tr>
-                        <td className="fw-bolder">Total</td>
-                        <td className="for_text_align">
-                          <span className="fw-bolder">$27</span>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                  <div className="table">
-                    <p className="fw-bolder mt-4">Customer Details</p>
-                    <table className="forwidth">
-                      
-                      <tr>
-                        <td className="ContentColor">Customer&nbsp;Name</td>
-                        <td className="for_text_align">
-                          <span className="fw-bolder">John&nbsp;Doe</span>
-                        </td>
-                      </tr>
-                      
-                      <tr>
-                        <td className="ContentColor">Email</td>
-                        <td className="for_text_align">
-                          <span className="fw-bolder">Abc@gmail.com</span>
-                        </td>
-                      </tr>
-                      
-                      <tr>
-                        <td className="ContentColor">Phone&nbsp;Number</td>
-                        <td className="for_text_align">
-                          <span className="fw-bolder">+92 312 1234567</span>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div> */}
+              </Col>
+              {/*  */}
+              {/*  */}
+              {/*  */}
+              {/*  */}
+              <Col lg={4} md={6} sm={12} className="">
+                <div className="MainDiv">
+                  <center>
+                    <img src={Logo1} alt="" className="" />
+                    <div className="">
+                      Order No: # <span className="fw-bolder">31531831351</span>
+                    </div>
+                    <div className="">
+                      <p>
+                        Date:
+                        <span className="fw-bolder"> 07/12/2022 </span>
+                      </p>
+                    </div>
+                  </center>
+                </div>
               </Col>
             </Row>
           </Container>
+          )}
         </Box>
       </Box>
     </div>
