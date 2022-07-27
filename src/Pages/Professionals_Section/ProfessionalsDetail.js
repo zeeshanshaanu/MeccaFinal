@@ -16,12 +16,12 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useNavigate } from "react-router-dom";
- const drawerWidth = 100;
+const drawerWidth = 100;
 const ProfessionalsDetail = () => {
-const navigate = useNavigate();
-const [done, setdone] = useState(false);
+  const navigate = useNavigate();
+  const [done, setdone] = useState(false);
   //////////////////==================////////////////============
-const { id } = useParams();
+  const { id } = useParams();
   //////////////////==================////////////////============
   //////////////////==================////////////////============
   //////////////////==================////////////////============
@@ -36,6 +36,7 @@ const { id } = useParams();
   //////////////////==================////////////////============
   //////////////////==================////////////////============
   const [getavailabilities, setGetavailabilities] = useState([]);
+  const [GetCertificates, setGetCertificates] = useState([]);
   const [getportfolios, setGetportfolios] = useState([]);
   const [gettestimonials, setGettestimonials] = useState([]);
   const [getservices, setGetservices] = useState([]);
@@ -65,12 +66,7 @@ const { id } = useParams();
       color="text.primary"
       className="fw-bolder AllUsersBredCrumbs"
     >
-      <span
-        className="foractive"
-       
-      >
-         Professionals Detail
-      </span>
+      <span className="foractive">Professionals Detail</span>
     </Typography>,
   ];
   const GetAllProfDetail = () => {
@@ -97,6 +93,7 @@ const { id } = useParams();
         setGettestimonials(response.data.data.profile.testimonials);
         setGetservices(response.data.data.profile.services);
         setGetMedia(response.data.data.profile.media);
+        setGetCertificates(response.data.data.profile.certificates);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -133,7 +130,7 @@ const { id } = useParams();
           }}
         >
           <div className="mb-5">
-          <Stack spacing={2}>
+            <Stack spacing={2}>
               <Breadcrumbs
                 separator={<NavigateNextIcon fontSize="small" />}
                 aria-label="breadcrumb"
@@ -148,22 +145,21 @@ const { id } = useParams();
             </div>
           ) : (
             <>
-            
               <div className="pt-5">
                 {/* <Carousel className=""> */}
-                  {getMedia.map((mediaImg, index) => {
-                    return (
-                      <>
-                        <Carousel.Item>
-                          <img
-                            src={mediaImg.file === "" ? "" : <p>No images</p>}
-                            alt="KliquesDetailBGIMg.png"
-                            className="w-100"
-                          />
-                        </Carousel.Item>
-                      </>
-                    );
-                  })}
+                {getMedia.map((mediaImg, index) => {
+                  return (
+                    <>
+                      <Carousel.Item>
+                        <img
+                          src={mediaImg.file === "" ? "" : <p>No images</p>}
+                          alt="KliquesDetailBGIMg.png"
+                          className="w-100"
+                        />
+                      </Carousel.Item>
+                    </>
+                  );
+                })}
                 {/* </Carousel> */}
                 <img
                   src={ProflieImg && ProflieImg}
@@ -172,7 +168,7 @@ const { id } = useParams();
                 />
               </div>
               <div className="BasicInfo">
-                <h3 className="fw-bolder mb-2">Basic Information</h3>
+                <h5 className="fw-bolder mb-4">Basic Information</h5>
                 <div className="d-flex justify-content-between">
                   <div className="d-flex">
                     <p className="fw-bolder">Full Name:</p>&nbsp;
@@ -188,14 +184,51 @@ const { id } = useParams();
                     )}
                   </p>
                 </div>
+                {/*  */}
                 <div className="d-flex">
                   <p className="fw-bolder">Email:&nbsp;</p>
                   <div className="">
                     <small className="">{email}</small>
                   </div>
                 </div>
+                {/*  */}
                 <div className="d-flex">
-                  <p className="fw-bolder">Phone#:&nbsp;</p>
+                  <p className="fw-bolder">Phone #:&nbsp;</p>
+                  <div className="">
+                    <small className="">{phone}</small>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="d-flex">
+                  <p className="fw-bolder">Location:&nbsp;</p>
+                  <div className="">
+                    <small className="">XYZZ</small>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="d-flex">
+                  <p className="fw-bolder">Website Link:&nbsp;</p>
+                  <div className="">
+                    <small className="">{phone}</small>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="d-flex">
+                  <p className="fw-bolder">Date of birth:&nbsp;</p>
+                  <div className="">
+                    <small className="">{phone}</small>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="d-flex">
+                  <p className="fw-bolder">Age:&nbsp;</p>
+                  <div className="">
+                    <small className="">{phone}</small>
+                  </div>
+                </div>
+                {/*  */}
+                <div className="d-flex">
+                  <p className="fw-bolder">About Me:&nbsp;</p>
                   <div className="">
                     <small className="">{phone}</small>
                   </div>
@@ -208,220 +241,99 @@ const { id } = useParams();
               <div className="Services">
                 <h3 className="fw-bolder mb-4">Services:</h3>
                 <Row>
-                  {getservices.map((servic) => {
-                    return (
-                      <Col xxl={3} lg={3} md={4} sm={12}>
-                        <div className="Services_card mb-5">
-                          <div className="mt-2 d-flex justify-content-end">
-                            <p class="fw-bolder ProductCardTextColor ">
-                              {servic.isPremium === 1 ? (
-                                <div className="text-success fw-bolder">
-                                  <small>Premium</small>
-                                </div>
-                              ) : (
-                                <div className="text-danger fw-bolder">
-                                  <small>Free</small>
-                                </div>
-                              )}
-                            </p>
-                          </div>
-                          <div className="mt-2 d-flex justify-content-between">
-                            <p class="fw-bolder">Tittle:</p>
-                            <p>
-                              <samall>{servic.name}</samall>
-                            </p>
-                          </div>
-                          <div className="mt-2 d-flex justify-content-between">
-                            <p class="fw-bolder ProductCardTextColor">
-                              Experience:
-                            </p>
-                            <p>
-                              <samall>{servic.experience}</samall>
-                            </p>
-                          </div>
-                        </div>
-                      </Col>
-                    );
-                  })}
+                  {getservices.lenght === 0
+                    ? "No Data"
+                    : getservices.map((servic) => {
+                        return (
+                          <Col lg={3} md={4} sm={12}>
+                            <div className="Services_card mb-5">
+                              <div className="mt-2 d-flex justify-content-end">
+                                <p class="fw-bolder ProductCardTextColor ">
+                                  {servic.isPremium === 1 ? (
+                                    <div className="text-success fw-bolder">
+                                      <small>Premium</small>
+                                    </div>
+                                  ) : (
+                                    <div className="text-danger fw-bolder">
+                                      <small>Free</small>
+                                    </div>
+                                  )}
+                                </p>
+                              </div>
+                              <div className="mt-2 d-flex justify-content-between">
+                                <p class="fw-bolder">Tittle:</p>
+                                <p>
+                                  <samall>{servic.name}</samall>
+                                </p>
+                              </div>
+                              <div className="mt-2 d-flex justify-content-between">
+                                <p class="fw-bolder ProductCardTextColor">
+                                  Experience:
+                                </p>
+                                <p>
+                                  <samall>{servic.experience}</samall>
+                                </p>
+                              </div>
+                            </div>
+                          </Col>
+                        );
+                      })}
                 </Row>
               </div>
               <hr />
               <h3 className="fw-bolder mb-4">Certifications</h3>
-              <div className="Certifications d-flex justify-content-between">
+              <div className="">
                 {/*  */}
                 {/*  */}
                 <Row>
-                  <Col xxl={3} lg={4} md={4} sm={12}>
-                    <div className="Events_card mb-5">
-                      <div className="card_image">
-                        <img
-                          src={KliquesDetailBGIMg}
-                          alt="KliquesDetailBGIMg.png"
-                          className="KliquesDetailBGIMg"
-                        />
-                      </div>
-                      <div>
-                        <p className="fw-bolder my-4">Certification 1</p>
-                        <div className="d-flex justify-content-between mt-4">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Tittle:</span>&nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">XYZ</p>
-                          </div>
-                        </div>
-                        {/*  */}
-                        {/*  */}
-                        <div className="">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Description:</span>
-                              &nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Laudantium sequi omnis illum aliquam,
-                              consequatur unde qui fugit earum, enim obcaecati
-                              beatae ab odit.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col xxl={3} lg={4} md={4} sm={12}>
-                    <div className="Events_card mb-5">
-                      <div className="card_image">
-                        <img
-                          src={KliquesDetailBGIMg}
-                          alt="KliquesDetailBGIMg.png"
-                          className="KliquesDetailBGIMg"
-                        />
-                      </div>
-                      <div>
-                        {/*  */}
-                        <p className="fw-bolder my-4">Certification 1</p>
-                        <div className="d-flex justify-content-between mt-4">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Tittle:</span>&nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">XYZ</p>
-                          </div>
-                        </div>
-                        {/*  */}
-                        {/*  */}
-                        <div className="">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Description:</span>
-                              &nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Laudantium sequi omnis illum aliquam,
-                              consequatur unde qui fugit earum, enim obcaecati
-                              beatae ab odit.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col xxl={3} lg={4} md={4} sm={12}>
-                    <div className="Events_card mb-5">
-                      <div className="card_image">
-                        <img
-                          src={KliquesDetailBGIMg}
-                          alt="KliquesDetailBGIMg.png"
-                          className="KliquesDetailBGIMg"
-                        />
-                      </div>
-                      <div>
-                        {/*  */}
-                        <p className="fw-bolder my-4">Certification 1</p>
-                        <div className="d-flex justify-content-between mt-4">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Tittle:</span>&nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">XYZ</p>
-                          </div>
-                        </div>
-                        {/*  */}
-                        {/*  */}
-                        <div className="">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Description:</span>
-                              &nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Laudantium sequi omnis illum aliquam,
-                              consequatur unde qui fugit earum, enim obcaecati
-                              beatae ab odit.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col xxl={3} lg={4} md={4} sm={12}>
-                    <div className="Events_card mb-5">
-                      <div className="card_image">
-                        <img
-                          src={KliquesDetailBGIMg}
-                          alt="KliquesDetailBGIMg.png"
-                          className="KliquesDetailBGIMg"
-                        />
-                      </div>
-                      <div>
-                        {/*  */}
-                        <p className="fw-bolder my-4">Certification 1</p>
-                        <div className="d-flex justify-content-between mt-4">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Tittle:</span>&nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">XYZ</p>
-                          </div>
-                        </div>
-                        {/*  */}
-                        {/*  */}
-                        <div className="">
-                          <div className="">
-                            <p class="text-left ">
-                              <span className="fw-bolder">Description:</span>
-                              &nbsp;
-                            </p>
-                          </div>
-                          <div className="">
-                            <p class="text-left det">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Laudantium sequi omnis illum aliquam,
-                              consequatur unde qui fugit earum, enim obcaecati
-                              beatae ab odit.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
+                  {GetCertificates.lenght === 0
+                    ? "No Data"
+                    : GetCertificates.map((CertificatesGets) => {
+                        return (
+                          <Col lg={3} md={4} sm={12}>
+                            <div className="Events_card mb-5">
+                              <div className="card_image">
+                                <img
+                                  src={CertificatesGets.file}
+                                  alt=""
+                                  className="KliquesDetailBGIMg"
+                                />
+                              </div>
+                              <div>
+                                <div className="d-flex justify-content-between mt-4">
+                                  <div className="">
+                                    <p class="text-left ">
+                                      <span className="fw-bolder">Tittle:</span>
+                                      &nbsp;
+                                    </p>
+                                  </div>
+                                  <div className="">
+                                    <p class="text-left det">
+                                      {CertificatesGets.title}
+                                    </p>
+                                  </div>
+                                </div>
+                                {/*  */}
+                                {/*  */}
+                                <div className="">
+                                  <div class="Completed">
+                                      <span className="fw-bolder">
+                                        Description:
+                                      </span>
+                                    <p class="">
+                                      <small
+                                        dangerouslySetInnerHTML={{
+                                          __html: CertificatesGets.description,
+                                        }}
+                                      />
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </Col>
+                        );
+                      })}
                 </Row>
               </div>
               {/*  */}

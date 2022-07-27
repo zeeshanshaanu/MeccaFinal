@@ -30,6 +30,8 @@ const EventDetail = () => {
   //////////////============///////////==============///////
   const [done, setdone] = useState(false);
   const [title, settitle] = useState([]);
+  const [status, setstatus] = useState([]);
+  const [type, settype] = useState([]);
   const [start_at_time, setstart_at_time] = useState([]);
   const [end_at_time, setend_at_time] = useState([]);
   const [description, setdescription] = useState([]);
@@ -40,6 +42,8 @@ const EventDetail = () => {
   const [locationAddress, setlocationAddress] = useState([]);
   const [schedule_at, setschedule_at] = useState([]);
   //////////////============///////////==============///////
+  const [ticket_available_from, setticket_available_from] = useState([]);
+  const [ticket_available_to, setticket_available_to] = useState([]);
   //////////////============///////////==============///////
   const [website_url, setwebsite_url] = useState([]);
   const [video_url, setvideo_url] = useState([]);
@@ -60,8 +64,11 @@ const EventDetail = () => {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
+
       .then((response) => {
         settitle(response.data.data.title);
+        settype(response.data.data.type);
+        setstatus(response.data.data.status);
         setstart_at_time(response.data.data.start_at_time);
         setend_at_time(response.data.data.end_at_time);
         setdescription(response.data.data.description);
@@ -83,6 +90,10 @@ const EventDetail = () => {
         setOrgEmail(response.data.data.created_by.email);
         //////////////============///Attendees////////==============///////
         setAttendees(response.data.data.attendees);
+        //////////////============///////////==============///////
+        //////////////============///////////==============///////
+        setticket_available_from(response.data.data.ticket_available_from);
+        setticket_available_to(response.data.data.ticket_available_to);
         //////////////============///////////==============///////
         setdone(false);
       })
@@ -206,9 +217,30 @@ const EventDetail = () => {
                 </div>
                 {/*  */}
                 <div className="Next-Content">
-                  <div className="mb-4 ">
+                  <div className="mb-4 d-flex justify-content-between ">
                     <h4 className="fw-bolder">{title}</h4>
-                    {/* <div className="">Location</div> */}
+                    <div className="">
+                      <h5 class="text-left">
+                        Status:&nbsp;
+                        {status === "active" ? (
+                          <span className="text-success">{status}</span>
+                        ) : (
+                          <>{status}</>
+                        )}
+                      </h5>
+                      <div className="">
+                        <h5 class="text-left">
+                          Type:&nbsp;
+                          {type === "online" ? (
+                            <span className="text-success">{type}</span>
+                          ) : (
+                            <>
+                              <span className="text-warning">{type}</span>
+                            </>
+                          )}
+                        </h5>
+                      </div>
+                    </div>
                   </div>
                   <div className="d-flex">
                     <div>
@@ -232,11 +264,19 @@ const EventDetail = () => {
                       {start_at_time} - {end_at_time}
                     </span>
                   </div>
-
                   <div className="my-2">
                     <DateRangeIcon className="ContentColor" />
                     &nbsp;
                     <span className="ContentColor">{schedule_at}</span>
+                  </div>
+                  <div className="my-2">
+                    <span className="fw-bolder">
+                      Ticket Availability Date :{" "}
+                    </span>
+                    &nbsp;
+                    <span className="ContentColor">
+                      {ticket_available_from}&nbsp;-&nbsp;{ticket_available_to}
+                    </span>
                   </div>
                   {/*  */}
                   {/*  */}
@@ -245,7 +285,11 @@ const EventDetail = () => {
                   {/*  */}
                   {/*  */}
                   <div className="mt-4 text-decoration-none d-flex">
-                    <LanguageOutlinedIcon className=" text-danger ContentColor" />&nbsp;
+                    <LanguageOutlinedIcon
+                      className=" text-danger ContentColor"
+                      onClick={() => window.open(website_url)}
+                    />
+                    &nbsp;
                     <p onClick={() => window.open(website_url)}>
                       {" "}
                       <span className="ContentColor text-decoration-none">
@@ -256,33 +300,43 @@ const EventDetail = () => {
                   </div>
                   {/*  */}
                   {/*  */}
-                  <div className="mt-2 d-flex">
-                    <SubscriptionsOutlinedIcon className="text-danger" />&nbsp;
+                  <div
+                    className="mt-2 d-flex"
+                    onClick={() => window.open(website_url)}
+                  >
+                    <SubscriptionsOutlinedIcon
+                      className="text-danger"
+                      onClick={() => window.open(website_url)}
+                    />
+                    &nbsp;
                     <span className="ContentColor text-decoration-none">
                       {" "}
-                      <p onClick={() => window.open(website_url, '_blank', 'noopener,noreferrer')}>
-                        Watch video{" "}
-                      </p>
+                      <p>Watch video </p>
                     </span>
                   </div>
                   {/*  */}
                   {/*  */}
                   <div className="mt-2 d-flex">
-                    <PeopleAltOutlinedIcon className=" text-danger ContentColor" />&nbsp;
-                                         <span className="ContentColor text-decoration-none">
+                    <PeopleAltOutlinedIcon
+                      className=" text-danger ContentColor"
+                      onClick={() => window.open(website_url)}
+                    />
+                    &nbsp;
+                    <span className="ContentColor text-decoration-none">
                       <p onClick={() => window.open(website_url)}>
                         Join Meeting{" "}
-                       </p>
-                      </span>
-                   
+                      </p>
+                    </span>
                   </div>
                   {/*  */}
                   {/*  */}
                   <div className="mt-2 mb-4 d-flex">
-                    <CollectionsOutlinedIcon className=" text-danger ContentColor" />&nbsp;
-                    <p onClick={() => window.open(website_url)}>
-                    View media{" "}
-                       </p>
+                    <CollectionsOutlinedIcon
+                      className=" text-danger ContentColor"
+                      onClick={() => window.open(website_url)}
+                    />
+                    &nbsp;
+                    <p onClick={() => window.open(website_url)}>View media </p>
                   </div>
                   {/*  */}
                   {/*  */}
@@ -308,7 +362,11 @@ const EventDetail = () => {
                         return (
                           <span class="avatar">
                             <img
-                              src={getattendees.profile.image}
+                              src={
+                                getattendees.profile.image === ""
+                                  ? "No registrations yet"
+                                  : getattendees.profile.image
+                              }
                               alt="EventImg1.png"
                               className="AttendeesImgWidth"
                             />

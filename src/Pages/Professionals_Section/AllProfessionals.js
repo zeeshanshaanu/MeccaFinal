@@ -31,25 +31,19 @@ import GradeIcon from "@mui/icons-material/Grade";
 import axios from "axios";
 //
 const columns = [
-  { id: "name", label: "Name", minWidth: 50, align: "left" },
-  { id: "email", label: "Email", minWidth: 50, align: "left" },
-  // {
-  //   id: "Phone",
-  //   label: "Phone",
-  //   minWidth: 50,
-  //   align: "left",
-  //   format: (value) => value.toLocaleString("en-US"),
-  // },
-  // {
-  //   id: "date",
-  //   label: "Date\u00a0of\u00a0Birth",
-  //   minWidth: 50,
-  //   align: "left",
-  //   format: (value) => value.toLocaleString("en-US"),
-  // },
-  {
+  {  label: "Name", minWidth: 50, align: "left" },
+  {  label: "Professional Type", minWidth: 50, align: "left" },
+  {   label: "Email", minWidth: 50, align: "left" },
+   {
     id: "Join",
     label: "Join\u00a0Date",
+    minWidth: 50,
+    align: "left",
+    format: (value) => value.toFixed(2),
+  },
+   {
+    
+    label: "Address",
     minWidth: 50,
     align: "left",
     format: (value) => value.toFixed(2),
@@ -173,7 +167,7 @@ const AllProfessionals = () => {
                 {breadcrumbs}
               </Breadcrumbs>
             </Stack>
-            <div className="">
+            {/* <div className="">
               <button
                 onClick={() => {
                   navigate("/AddProfessionals");
@@ -182,28 +176,29 @@ const AllProfessionals = () => {
               >
                 <small>Add&nbsp;New</small>
               </button>
-            </div>
+            </div> */}
             {""}
           </div>
           {/*  */}
           <div className="d-flex justify-content-between my-4">
-            <small className="fw-bolder">Search&nbsp;Professionals</small>
-            <div className="position-relative w-75">
+          <div className="FilterIcon px-3">
+              <FilterAltIcon className="" />
+              <span>Filter</span>
+            </div>
+            {/* <small className="fw-bolder">Search&nbsp;Professionals</small> */}
+            <div className="position-relative w-75 me-3">
               <Form.Group className="" controlId="#">
                 <Form.Control
                   type="search"
                   className="input_field w-100"
-                  placeholder="Professional Name, Email or Phone"
+                  placeholder="Professional Name, Email or Type"
                   value={filter}
                   onChange={(e) => setfilter(e.target.value)}
                 />
               </Form.Group>
               <SearchIcon className="Kliquesearch_icon" />
             </div>
-            <div className="FilterIcon me-3">
-              <FilterAltIcon className="" />
-              <span>Filter</span>
-            </div>
+          
           </div>
           {/* ===============TABLE================ */}
           {done ? (
@@ -268,18 +263,21 @@ const AllProfessionals = () => {
                               key={index.code}
                             >
                               <TableCell>
-                                {/* <img
-                                  src={Logo1}
+                                <img
+                                  src={index.profile.image}
                                   alt="Logo1.ong"
                                   className="ProfesProfileImg"
                                 />
-                                &nbsp; */}
+                                &nbsp;
                                 <span className="">
                                   {index.first_name}&nbsp;{index.last_name}
                                 </span>
                               </TableCell>
+                              <TableCell>Nothing form server</TableCell>
+
                               <TableCell>{index.email}</TableCell>
                               <TableCell>Nothing form server</TableCell>
+                              <TableCell className="w-25">{index.profile.address}</TableCell>
                               <TableCell>
                                 {" "}
                                 <GradeIcon className="text-warning Rating_Icon" />

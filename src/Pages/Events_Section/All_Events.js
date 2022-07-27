@@ -25,6 +25,7 @@ import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRou
 import CircularIndeterminate from "../../Components/Loader/Loader";
 import Notification from "../../Components/AlertNotification/Message";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import { fontSize } from "@mui/system";
 ///////=========//////////////==========//////////////===========
 const drawerWidth = 100;
 ///////=========//////////////==========//////////////===========
@@ -147,10 +148,14 @@ const All_Events = () => {
       .map((user) => {
         return (
           <>
-            <Col xxl={3} lg={4} md={12} sm={12}>
-                <div className="fw-bolder ">{user.type==="physical"? (
+            <Col xxl={3} lg={4} md={12} sm={12} className="text-small">
+              <div className="fw-bolder ">
+                {user.type === "physical" ? (
                   <span className="TypeStyle px-4 py-2">{user.type}</span>
-                ):<span className="TypeStyleOnline px-4 py-2">{user.type}</span>}</div>
+                ) : (
+                  <span className="TypeStyleOnline px-4 py-2">{user.type}</span>
+                )}
+              </div>
               <div className="Events_card mb-5">
                 <div className="icons_position">
                   <DeleteIcon
@@ -177,7 +182,6 @@ const All_Events = () => {
                     )}
                   </div>
                 </div>
-
                 <div>
                   {/*  */}
                   <div className="d-flex justify-content-between mt-4">
@@ -187,21 +191,48 @@ const All_Events = () => {
                       </p>
                     </div>
                     <div className="">
-                      <p class="text-left det">{user.title}</p>
+                      <p class="text-left det fw-bolder">{user.title}</p>
                     </div>
                   </div>
                   {/*  */}
                   <div className="d-flex justify-content-between">
                     <div className="">
                       <p class="text-left ">
+                        <span className="fw-bolder">Category:</span>&nbsp;{" "}
+                        {user.category}
+                      </p>
+                    </div>
+                     {/*  */}
+                     <div className="d-flex">
+                    <div className="">
+                      <p class="text-left">
+                        <span className="fw-bolder">Status:</span>&nbsp;
+                      </p>
+                  </div>
+                    <div className="">
+                      <p class="text-left">{user.status==="active" ? (
+                        <span className="text-success">{user.status}</span>
+                      ):
+                      (
+                        <>
+                        {user.status}
+                        </>
+                      ) }</p>
+                    </div>
+                  </div>
+                  </div>
+                  {/*  */}
+                  <div className="d-flex justify-content-between">
+                    <div className="">
+                      <p class="text-left ">
                         <span className="fw-bolder">Date:</span>&nbsp;{" "}
-                        {user.Date}
+                        {user.schedule_at}
                       </p>
                     </div>
                     <div className="">
                       <p class="text-left ">
-                        <span className="fw-bolder">Fee:</span>&nbsp;{" "}
-                        {user.registration_fee}
+                        <span className="fw-bolder">Attendees limit:</span>&nbsp;{" "}
+                        {user.attendees_limit}
                       </p>{" "}
                     </div>
                   </div>
@@ -223,34 +254,44 @@ const All_Events = () => {
                   {/*  */}
                   <div className="d-flex justify-content-between">
                     <div className="">
-                      <p class="text-left">
-                        <span className="fw-bolder">Status:</span>&nbsp;
+                      <p class="text-left ">
+                        <span className="fw-bolder">Ticket Availability:</span>&nbsp;{" "}
+                        {user.ticket_available_from} - {user.ticket_available_to}
                       </p>
                     </div>
                     <div className="">
-                      <p class="text-left">{user.status}</p>
+                      <p class="text-left ">
+                         
+                      </p>{" "}
                     </div>
                   </div>
+              
                   {/*  */}
                   {/*  */}
                   <div className="d-flex">
                     <div className="">
-                      <LocationOnIcon className="icon mt-0" />
+                      <LocationOnIcon className="icon mt-0 ms-0" />
                     </div>
-                    <div className="forElipse">
-                      <p class="det">{user.location_address}</p>
+                    <div className="forElipse ms-0">
+                      <p class="det ms-0 ps-0">{user.location_address}</p>
                     </div>
                   </div>
                   {/*  */}
-                  <div className="">
+                  <div className="d-flex justify-content-between">
                     <button
-                      className="button1 px-2 py-1 px-3"
+                      className="button1 px-4"
                       onClick={() => {
                         navigate(`/EventDetail/${user.event_id}`);
                       }}
                     >
                       Details
                     </button>
+                    <div className="">
+                      <p class="text-left ">
+                        <span className="fw-bolder">Fee:</span>&nbsp;{" "}
+                        ${user.registration_fee}
+                      </p>{" "}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -307,27 +348,19 @@ const All_Events = () => {
                 </div>{" "}
               </div>
               <div className="d-flex justify-content-between my-4">
-                <div className="d-flex">
-                  <div className="FilterIcon">
-                    <RefreshIcon className="" onClick={HandleRefresh} />
-                  </div>
-                  {/* <div className="FilterIcon ms-4">
-                    <FilterAltIcon className="" />
-                    <span>Filter</span>
-                  </div> */}
-                </div>
-                <div className="d-flex">
-                  <div className="position-relative">
-                    <Form.Group className="" controlId="#">
-                      <Form.Control
-                        type="search"
-                        className="input_field"
-                        placeholder="Search  by title"
-                        onChange={(e) => setfilter(e.target.value)}
-                      />
-                    </Form.Group>
-                    <SearchIcon className="Event_Search_Icon" />
-                  </div>
+                <div className="FilterIcon px-3">
+                  <RefreshIcon className="" onClick={HandleRefresh} />
+                                 </div>
+                <div className="position-relative w-75">
+                  <Form.Group className="" controlId="#">
+                    <Form.Control
+                      type="search"
+                      className="input_field w-100"
+                      placeholder="Search  by title"
+                      onChange={(e) => setfilter(e.target.value)}
+                    />
+                  </Form.Group>
+                  <SearchIcon className="ms-1 Kliquesearch_icon" />
                 </div>
               </div>
               {done ? (

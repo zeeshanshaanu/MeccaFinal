@@ -41,9 +41,7 @@
   color: rgba(235, 87, 87, 1);
   font-weight: bolder;
 }
-.icons {
-  cursor: pointer;
-}
+
 .AllShopsgridView {
   display: none;
 }

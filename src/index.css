@@ -109,10 +109,13 @@ img.Uploadiconwidth {
 }
 .FilterIcon {
   background-color: #f11139;
-  padding: 0.3rem 1rem;
-  border-radius: 30px;
+   border-radius: 30px;
+   padding: .4rem 0rem;
   cursor: pointer;
   color: #fff;
+}
+.icons {
+  cursor: pointer;
 }
 .FilterIconColor:hover {
   color: #ff002f;
@@ -120,15 +123,15 @@ img.Uploadiconwidth {
 .search_icon {
   position: absolute;
   color: #f11139;
-  left: 1.5rem;
+  left: .7rem;
   width: 8% !important;
   top: 7.5px;
 }
 .Kliquesearch_icon {
   position: absolute;
   color: #f11139;
-  right: -1ch;
-  width: 9.5% !important;
+  left: 8px;
+  width: 1.5% !important;
   top: 7px;
 }
 

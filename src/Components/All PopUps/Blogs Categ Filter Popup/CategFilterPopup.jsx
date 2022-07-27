@@ -25,7 +25,7 @@ const CategFilterPopup = () => {
 
   return (
     <div>
-      <div className="FilterIcon ms-4" onClick={handleClickOpen}>
+      <div className="FilterIcon ms-3 px-2" onClick={handleClickOpen}>
         <FilterAltIcon />
         <span>Filter</span>
       </div>

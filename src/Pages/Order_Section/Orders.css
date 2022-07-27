@@ -33,5 +33,12 @@
     padding: 18px;
 }
 .forBorderTop{
-    border-top: 2px solid black;
+    border-top: 1px solid black;
+}
+.ForProductsHeight{
+    height: 290px;
+    overflow: auto;
+}
+.BasicInfo,.Shipping_Address,.Billing_Address{
+    line-height: 10px;
 }

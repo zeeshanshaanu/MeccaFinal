@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
 import GradeIcon from "@mui/icons-material/Grade";
 import axios from "axios";
-
 ///////=========//////////////==========//////////////===========
 import MeccaMarket_data from "../../Pages/Mecca_Market_section/For_mockup_data/MeccaMarket_data.json";
 import ReactPaginate from "react-paginate";
@@ -26,6 +25,8 @@ const AllShopsgridView = () => {
   const [status, setstatus] = useState("Published");
   const [viewtoggle, setviewtoggle] = useState(true);
   const [page, setPage] = React.useState(0);
+  const [filter, setfilter] = useState("");
+  const [pageCount, setPageCount] = useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   //////////=============/////////////////==============
   //////////=============/////////////////==============
@@ -37,20 +38,26 @@ const AllShopsgridView = () => {
   });
 
   const [GetShopes, setGetShopes] = useState([]);
-  const GetServices = () => {
+  const GetServices = (currentPage) => {
+    setdone(true);
     axios
-      .get(`/shop/view-all`, {
+      .get(`/shop/view-all?per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setgridShops(response.data.data.shops);
+        setPageCount(response.data.data.last_page);
         setdone(false);
-      });
-    // .catch((err) => console.log(err));
+      })
+    .catch((err) => console.log(err));
   };
-
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const blogs = await GetServices(currentPage);
+    setgridShops(blogs);
+  };
   //////////=============/////////////////==============
   //////////=============/////////////////==============
 
@@ -66,8 +73,26 @@ const AllShopsgridView = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
-  const displayUsers = gridShops
+  const displayUsers = gridShops && gridShops
     .slice(pagesVisited, pagesVisited + usersPerPage)
+    .filter((blog) => {
+      if (filter === "") {
+        return gridShops;
+      } else if (
+        (blog.category &&
+          blog.category
+            .toString()
+            .toLowerCase()
+            .includes(filter.toString().toLowerCase())) ||
+        (blog.name &&
+          blog.name
+            .toString()
+            .toLowerCase()
+            .includes(filter.toString().toLowerCase()))
+      ) {
+        return gridShops;
+      }
+    })
     .map((getShopesData) => {
       return (
         <>
@@ -108,11 +133,9 @@ const AllShopsgridView = () => {
                   </div>
                   <div className="forscroll">
                     <p class="text-left fw-bolder">Address:</p>
-
                     <p class="forElipse">
                       {getShopesData.address}
                     </p>
-
                   </div>
                   <div className=" d-flex justify-content-between">
                     <p class="text-left para det fw-bolder">Catagory:</p>
@@ -174,29 +197,34 @@ const AllShopsgridView = () => {
     });
 
   ///
-  const pageCount = Math.ceil(gridShops.length / usersPerPage);
+  // const pageCount = Math.ceil(gridShops.length / usersPerPage);
 
-  const changePage = ({ selected }) => {
-    setPageNumber(selected);
-  };
   return (
     <div className="">
       <div className="mt-5">
         <Container fluid>
-          <div className="row ">{displayUsers}</div>
+        {done ? (
+                <div className="stylishLoader">
+                  <CircularIndeterminate className="allagentsLoader" />
+                </div>
+              ) : (
+                <div className="row">{displayUsers}</div>
+              )}
           <div className="mt-5">
-            <ReactPaginate
-              previousLabel={<ArrowCircleLeftRoundedIcon />}
-              nextLabel={<ArrowCircleRightRoundedIcon />}
-              pageCount={pageCount}
-              onPageChange={changePage}
-              containerClassName={"paginationBttns"}
-              previousLinkClassName={"previousBttn"}
-              nextLinkClassName={"nextBttn"}
-              disabledClassName={"paginationDisabled"}
-              activeClassName={"paginationActive"}
-            />
-          </div>
+                <ReactPaginate
+                  previousLabel={<ArrowCircleLeftRoundedIcon />}
+                  nextLabel={<ArrowCircleRightRoundedIcon />}
+                  pageCount={pageCount}
+                  pageRange={5}
+                  marginPagesDisplayed={2}
+                  onPageChange={handlePageChange}
+                  containerClassName={"paginationBttns"}
+                  previousLinkClassName={"previousBttn"}
+                  nextLinkClassName={"nextBttn"}
+                  disabledClassName={"paginationDisabled"}
+                  activeClassName={"paginationActive"}
+                />
+              </div>
         </Container>
       </div>
     </div>

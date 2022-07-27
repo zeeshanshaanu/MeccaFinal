@@ -141,7 +141,7 @@ const AllBlogs = () => {
       })
       .then((response) => {
         setBlogCat(response.data.data);
-        console.log(response.data);
+        // console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -313,25 +313,24 @@ const AllBlogs = () => {
               </div>
               <div className="d-flex justify-content-between my-4">
                 <div className="d-flex">
-                  <div className="FilterIcon">
+                  <div className="FilterIcon px-3">
                     <RefreshIcon className="" onClick={HandleRefresh} />
                   </div>
                   <div className="">
                     <CategFilterPopup />
                   </div>
                 </div>
-                <div className="d-flex">
-                  <div className="">
-                    <Form.Group className="" controlId="#">
-                      <Form.Control
-                        type="search"
-                        className="input_field"
-                        placeholder="Search by category, title"
-                        onChange={(e) => setfilter(e.target.value)}
-                      />
-                    </Form.Group>
-                  </div>
-                  <SearchIcon className="search_icon" />
+                <div className="position-relative w-75">
+                  <Form.Group className="" controlId="#">
+                    <Form.Control
+                      type="search"
+                      className="input_field w-100"
+                      placeholder="Professional Name, Email or Phone"
+                      value={filter}
+                      onChange={(e) => setfilter(e.target.value)}
+                    />
+                  </Form.Group>
+                  <SearchIcon className="Kliquesearch_icon" />
                 </div>
               </div>
               {/*  */}

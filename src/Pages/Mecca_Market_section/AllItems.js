@@ -81,20 +81,6 @@ const StyledMenu = styled((props) => (
     },
   },
 }));
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-  // eslint-disable-next-line jsx-a11y/anchor-is-valid
-  <a
-    href=""
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    {children}
-    <span className="threedots" />
-  </a>
-));
 //
 const columns = [
   { label: "Title", minWidth: 130, align: "left" },
@@ -178,9 +164,9 @@ const AllItems = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  // 
-  // 
-  // 
+  //
+  //
+  //
   const [filter, setfilter] = useState("");
   const [GetItems, setGetItems] = useState([]);
   const [done, setdone] = useState(false);
@@ -244,8 +230,8 @@ const AllItems = () => {
             width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
-           <div className="mt-5 py-4">
-              <Stack spacing={2}>
+          <div className="mt-5 py-4">
+            <Stack spacing={2}>
               <Breadcrumbs
                 separator={<NavigateNextIcon fontSize="small" />}
                 aria-label="breadcrumb"
@@ -253,8 +239,8 @@ const AllItems = () => {
                 {breadcrumbs}
               </Breadcrumbs>
             </Stack>
-              </div>
-          <div className="d-flex justify-content-between">
+          </div>
+          <div className="d-flex justify-content-between mb-3">
             <div className="me-3  ">
               <Button
                 id="demo-customized-button"
@@ -302,11 +288,12 @@ const AllItems = () => {
                   <Form.Control
                     type="search"
                     className="input_field"
-                  // value={filter}
-                  // onChange={(e) => setfilter(e.target.value)}
+                    placeholder="Search..."
+                    value={filter}
+                    onChange={(e) => setfilter(e.target.value)}
                   />
                 </Form.Group>
-                <SearchIcon className="search_icon ms-2 ps-1" />
+                <SearchIcon className="search_icon ps-1" />
               </div>
             </div>
           </div>
@@ -316,115 +303,155 @@ const AllItems = () => {
               <CircularIndeterminate className="allagentsLoader" />
             </div>
           ) : (
-          <div className="Table me-3">
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <TableContainer sx={{ minWidth: 1080 }}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow className="fw-bolder">
-                      {columns.map((column) => (
-                        <TableCell
-                          className="fw-bolder"
-                          key={column.id}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {GetItems.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                      .map((index) => {
-                        return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={index.code}
+            <div className="Table me-3">
+              <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                <TableContainer sx={{ minWidth: 1080 }}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow className="fw-bolder">
+                        {columns.map((column) => (
+                          <TableCell
+                            className="fw-bolder"
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
                           >
-                            <TableCell>
-                              <img
-                                src={Logo1}
-                                alt="Logo1.ong"
-                                className="w-25"
-                              />
-                              &nbsp;
-                              <span>{index.title}</span>
-                            </TableCell>
-                            <TableCell>{index.sku}</TableCell>
-                            <TableCell>{index.shops.map((getshopname)=>{
-                              return(
-                                <>{getshopname.name}<br /></>
-                              )
-                            }) }</TableCell>
-                            <TableCell>{index.category}</TableCell>
-                            <TableCell>${index.price}</TableCell>
-                            {/* <TableCell>
+                            {column.label}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {GetItems.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                        .filter((admin) => {
+                          if (filter === "") {
+                            return GetItems;
+                          } else if (
+                            (admin.title &&
+                              admin.title
+                                .toString()
+                                .includes(filter.toString().toLowerCase())) ||
+                            (admin.category &&
+                              admin.category
+                                .toString()
+                                .includes(filter.toString().toLowerCase())) ||
+                            (admin.sku &&
+                              admin.sku
+                                .toString()
+                                .includes(filter.toString().toLowerCase()))||
+                                (admin.shops.name &&
+                                  admin.shops.name
+                                    .toString()
+                                    .includes(filter.toString().toLowerCase()))
+                          ) {
+                            return GetItems;
+                          }
+                        })
+                        .map((index) => {
+                          return (
+                            <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={index.code}
+                            >
+                              <TableCell>
+                                <img
+                                  src={Logo1}
+                                  alt="Logo1.ong"
+                                  className="w-25"
+                                />
+                                &nbsp;
+                                <span>{index.title}</span>
+                              </TableCell>
+                              <TableCell>{index.sku}</TableCell>
+                              <TableCell>
+                                {index.shops.map((getshopname) => {
+                                  return (
+                                    <>
+                                      {getshopname.name}
+                                      <br />
+                                    </>
+                                  );
+                                })}
+                              </TableCell>
+                              <TableCell>{index.category}</TableCell>
+                              <TableCell>${index.price}</TableCell>
+                              {/* <TableCell>
                               <span className="S">{index.compare_at_price}</span>{" "}
                               <span className="M">{index.compare_at_price}</span>
                             </TableCell> */}
-                            <TableCell>{index.available_quantity}&nbsp;<span className="fw-bolder">In stock</span></TableCell>
                               <TableCell>
-                              <GradeIcon className="text-warning Rating_Icon" />
-                              <GradeIcon className="text-warning Rating_Icon" />
-                              <GradeOutlinedIcon className="text-warning Rating_Icon" />
-                            </TableCell>
-                            {/* <TableCell className="">
+                                {index.available_quantity}&nbsp;
+                                <span className="fw-bolder">In stock</span>
+                              </TableCell>
+                              <TableCell>
+                                <GradeIcon className="text-warning Rating_Icon" />
+                                <GradeIcon className="text-warning Rating_Icon" />
+                                <GradeOutlinedIcon className="text-warning Rating_Icon" />
+                              </TableCell>
+                              {/* <TableCell className="">
                               <span className="Orange">{index.compare_at_price}</span>&nbsp;
                               <span className="Green">{index.compare_at_price}</span>&nbsp;
                               <span className="Blue">{index.compare_at_price}</span>
                               </TableCell> */}
-                             <TableCell>{index.added_by.first_name}&nbsp;{index.added_by.last_name}</TableCell>
-                             
-                          
-                            <TableCell>
-                              {" "}
-                              <span >
-                                {index.isActive === 1 ? (
-                                  <small className="Available" >Available</small>
-                                ) :
-                                  (
-                                    <small className="UnAvailable">Out&nbsp;of&nbsp;Stock</small>
+                              <TableCell>
+                                {index.added_by.first_name}&nbsp;
+                                {index.added_by.last_name}
+                              </TableCell>
+
+                              <TableCell>
+                                {" "}
+                                <span>
+                                  {index.isActive === 1 ? (
+                                    <small className="Available">
+                                      Available
+                                    </small>
+                                  ) : (
+                                    <small className="UnAvailable">
+                                      Out&nbsp;of&nbsp;Stock
+                                    </small>
                                   )}
-                              </span>
-                            </TableCell>
-                            <TableCell>
-                              <div className="App">
-                                <span
-                                  onClick={() => {
-                                    navigate("/Viewitem");
-                                  }}
-                                  className="view"
-                                >
-                                  <VisibilityOutlinedIcon />
                                 </span>
-                                <span className="view mx-2" onClick={() => { }}>
-                                  <DeleteIcon />
-                                </span>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={GetItems.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Paper>
-          </div>
+                              </TableCell>
+                              <TableCell>
+                                <div className="App">
+                                  <span
+                                    onClick={() => {
+                                      navigate("/Viewitem");
+                                    }}
+                                    className="view"
+                                  >
+                                    <VisibilityOutlinedIcon />
+                                  </span>
+                                  <span
+                                    className="view mx-2"
+                                    onClick={() => {}}
+                                  >
+                                    <DeleteIcon />
+                                  </span>
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 100]}
+                  component="div"
+                  count={GetItems.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </Paper>
+            </div>
           )}
         </Box>
       </Box>

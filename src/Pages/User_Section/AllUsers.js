@@ -157,22 +157,24 @@ const AllUsers = () => {
           </div>
           {/*  */}
           <div className="d-flex justify-content-between my-4">
-            <small className="fw-bolder">Search&nbsp;Users</small>
+          <div className="FilterIcon px-3">
+              <FilterAltIcon className="" />
+              <span>Filter</span>
+            </div>
             <div className="position-relative w-75">
-              <Form.Group className="" controlId="#">
+            {/* <small className="fw-bolder">Search&nbsp;Users</small> */}
+              <Form.Group className="me-3" controlId="#">
                 <Form.Control
                   type="search"
-                  className="input_field w-100"
+                  className="forpaaddingleft input_field w-100"
+                  placeholder="Search..."
                   // value={filter}
                   // onChange={(e) => setfilter(e.target.value)}
                 />
               </Form.Group>
               <SearchIcon className="Kliquesearch_icon" />
             </div>
-            <div className="FilterIcon me-3">
-              <FilterAltIcon className="" />
-              <span>Filter</span>
-            </div>
+            
           </div>
           {/* ===============TABLE================ */}
           <div className="Table me-3">

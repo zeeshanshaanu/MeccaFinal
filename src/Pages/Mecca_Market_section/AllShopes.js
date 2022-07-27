@@ -15,7 +15,6 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import axios from "axios";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Notification from "../../Components/AlertNotification/Message";
 import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
@@ -250,7 +249,7 @@ const AllShops = () => {
               <CircularIndeterminate className="allagentsLoader" />
             </div>
           ) : (
-            <div className="Table ms-3 pt-5 pb-4">
+            <div className="Table ms-3 pt-5  ">
               {/* <MapRealEstate /> */}
               <div className="my-4">
                 <Stack spacing={2}>
@@ -262,8 +261,8 @@ const AllShops = () => {
                   </Breadcrumbs>
                 </Stack>
               </div>
-              <div className="d-flex justify-content-between mb-5">
-                <div className="ps-0 ms-0">
+              <div className="d-flex justify-content-between mb-4">
+                <div className="">
                   <Button
                     id="demo-customized-button"
                     aria-controls={open ? "demo-customized-menu" : undefined}
@@ -299,20 +298,20 @@ const AllShops = () => {
                 </div>
                 <div className="d-flex">
                   <div className="">
-                    <div className="position-relative ">
-                      <Form.Group className="mx-3" controlId="#">
+                    <div className="position-relative w-100 ">
+                      <Form.Group className="" controlId="#">
                         <Form.Control
                           placeholder="Search..."
                           type="search"
-                          className="input_field"
+                          className="input_field w-100"
                           value={filter}
                           onChange={(e) => setfilter(e.target.value)}
                         />
                       </Form.Group>
-                      <SearchIcon className="search_icon ms-2 ps-1" />
+                      <SearchIcon className="search_icon" />
                     </div>
                   </div>
-                  <div className="FilterIcon me-3">
+                  <div className="FilterIcon mx-3 px-2 my-auto">
                     <FilterAltIcon className="" />
                     <span>Filter</span>
                   </div>
@@ -357,16 +356,15 @@ const AllShops = () => {
                             (admin.name &&
                               admin.name
                                 .toString()
-                                .includes(filter.toString().toUpperCase())) ||
+                                .includes(filter.toString().toLowerCase())) ||
                             (admin.category &&
                               admin.category
                                 .toString()
-                                .includes(filter.toString().toUpperCase())) ||
+                                .includes(filter.toString().toLowerCase())) ||
                             (admin.address &&
                               admin.address
                                 .toString()
-                                .toUpperCase()
-                                .includes(filter.toString().toUpperCase()))
+                                                               .includes(filter.toString().toLowerCase()))
                           ) {
                             return GetShopes;
                           }

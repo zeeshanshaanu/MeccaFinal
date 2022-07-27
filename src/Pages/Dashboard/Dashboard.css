@@ -11,7 +11,7 @@
 }
 .drawer {
   background-image: linear-gradient(to bottom, #fba40f 10%, #f11139 95%);
-  min-height: 110% !important;
+  height: 110% !important;
 }
 
 .buttonTwo {

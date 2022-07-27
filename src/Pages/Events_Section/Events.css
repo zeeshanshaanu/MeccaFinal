@@ -41,7 +41,7 @@
   height: 50px;
 }
 .SpecficImg{
-  height: 400px;
+  height: 700px;
   display: inline-block;
 }
 .OrganizerImg{
@@ -231,17 +231,7 @@
   justify-content: space-between;
   margin-left: 2rem;
 }
-.Event_Search_Icon{
-  position: absolute;
-  color: #f11139;
-  left: .5rem;
-  width: 8% !important;
-  top: 7.5px;
-}
-
-
-
-@media screen and (min-width: 1957px) {
+ @media screen and (min-width: 1957px) {
   .properties {
     height: 164px;
   }

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
@@ -83,50 +83,49 @@ const StyledMenu = styled((props) => (
 //
 const columns = [
   {
-    id: "ID",
     label: "Order ID",
     minWidth: 30,
     align: "left",
   },
-  { id: "Customer", label: "Customer", minWidth: 100, align: "left" },
-  // { id: "Product", label: "Product", minWidth: 100, align: "left" },
   {
-    id: "Created",
-    label: "Created On",
+    label: "Order Date",
     minWidth: 100,
     align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
+  { label: "Customer", minWidth: 100, align: "left" },
   {
-    id: "Pirce",
-    label: "Pirce",
-    minWidth: 100,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Delivery",
-    label: "Shops",
+    label: "Total Quanitity",
     minWidth: 100,
     align: "left",
     format: (value) => value.toFixed(2),
   },
   {
-    id: "Status",
+    label: "Total Price",
+    minWidth: 100,
+    align: "left",
+    format: (value) => value.toFixed(2),
+  },
+  {
+    label: "Shop",
+    minWidth: 100,
+    align: "left",
+    format: (value) => value.toFixed(2),
+  },
+  {
     label: "Status",
     minWidth: 100,
     align: "left",
     format: (value) => value.toFixed(2),
   },
   {
-    id: "Action",
     label: "Action",
     minWidth: 100,
     align: "left",
     format: (value) => value.toFixed(2),
   },
 ];
- //
+//
 const drawerWidth = 100;
 const All_Orders = () => {
   const [done, setdone] = useState(false);
@@ -140,7 +139,7 @@ const All_Orders = () => {
       })
       .then((response) => {
         setGetOrders(response.data.data.orders);
-         setdone(false);
+        setdone(false);
       })
       .catch((err) => console.log(err));
   };
@@ -194,7 +193,7 @@ const All_Orders = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  
+
   return (
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>
@@ -228,23 +227,28 @@ const All_Orders = () => {
                 {breadcrumbs}
               </Breadcrumbs>
             </Stack>
-            <div className="d-flex">
-              <div className="position-relative">
-                <Form.Group className="mx-3" controlId="#">
+          </div>
+          <div className=" ">
+            <div className="d-flex justify-content-between my-4">
+              <div className="FilterIcon px-3">
+                <FilterAltIcon className="" />
+                <span>Filter</span>
+              </div>
+              {/* <small className="fw-bolder">Search&nbsp;Professionals</small> */}
+              <div className="position-relative w-75 me-3">
+                <Form.Group className="" controlId="#">
                   <Form.Control
                     type="search"
                     className="input_field w-100"
-                    placeholder="Search"
+                    placeholder="Professional Name, Email or Phone"
                     value={filter}
-                  onChange={(e) => setfilter(e.target.value)}
+                    onChange={(e) => setfilter(e.target.value)}
                   />
                 </Form.Group>
-                <SearchIcon className="search_icon" />
+                <SearchIcon className="Kliquesearch_icon" />
               </div>
-              <div className="">
-                <FilterAltIcon className="FilterIconColor" />
-              </div>
-              <div className="for_button">
+            </div>
+            {/* <div className="for_button">
                 <div>
                   <Button
                     className="button1 px-3 mx-3"
@@ -279,111 +283,119 @@ const All_Orders = () => {
                     </MenuItem>
                   </StyledMenu>
                 </div>
-              </div>
-            </div>
+              </div> */}
           </div>
+
           {/* ===============TABLE================ */}
           {done ? (
             <div className="stylishLoader">
               <CircularIndeterminate className="allagentsLoader" />
             </div>
           ) : (
-          <div className="Table me-3">
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <TableContainer sx={{ maxHeight: 500 }}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow>
-                      {columns.map((column) => (
-                        <TableCell
-                          className="fw-bolder"
-                          key={column.id}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {GetOrders
-                      .slice(
+            <div className="Table me-3">
+              <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                <TableContainer sx={{ maxHeight: 500 }}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((column) => (
+                          <TableCell
+                            className="fw-bolder"
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
+                          >
+                            {column.label}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {GetOrders.slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .filter((admin) => {
-                        if (filter === "") {
-                          return GetOrders;
-                        } else if (
-                          (admin.order_id &&
-                            admin.order_id
-                              .toString()
-                              .includes(filter.toString().toUpperCase())) ||
-                          (admin.customer.first_name &&
-                            admin.customer.first_name
-                              .toString()
-                              .includes(filter.toString().toUpperCase())) ||
-                          (admin.customer.last_name &&
-                            admin.customer.last_name
-                                                            .toString()
-                              .toUpperCase()
-                              .includes(filter.toString().toUpperCase())) ||
-                          (admin.phone &&
-                            admin.phone
-                              .toString()
-                              .includes(filter.toString()))
-                        ) {
-                          return GetOrders;
-                        }
-                      })
-                      .map((getorderss) => {
-                        return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={getorderss.code}
-                          >
-                            <TableCell>{getorderss.order_id}</TableCell>
-                            <TableCell>{getorderss.customer.first_name}&nbsp;{getorderss.customer.last_name}</TableCell>
+                        .filter((admin) => {
+                          if (filter === "") {
+                            return GetOrders;
+                          } else if (
+                            (admin.order_id &&
+                              admin.order_id
+                                .toString()
+                                .includes(filter.toString().toUpperCase())) ||
+                            (admin.customer.first_name &&
+                              admin.customer.first_name
+                                .toString()
+                                .includes(filter.toString().toUpperCase())) ||
+                            (admin.customer.last_name &&
+                              admin.customer.last_name
+                                .toString()
+                                .toUpperCase()
+                                .includes(filter.toString().toUpperCase())) ||
+                            (admin.phone &&
+                              admin.phone
+                                .toString()
+                                .includes(filter.toString()))
+                          ) {
+                            return GetOrders;
+                          }
+                        })
+                        .map((getorderss) => {
+                          return (
+                            <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={getorderss.code}
+                            >
+                              <TableCell>{getorderss.order_id}</TableCell>
                               <TableCell>{getorderss.created_at}</TableCell>
-                             <TableCell>no data</TableCell>
-                             <TableCell>{getorderss.shop.name}</TableCell>
-                             <TableCell>{getorderss.status}</TableCell>
-                             <TableCell>
-                              <div className="App">
-                                <span
-                                  onClick={() => {
-                                    navigate(`/OrderDetail/${getorderss.order_id}`);
-                                  }}
-                                  className="view fw-bolder"
-                                >
-                                  <VisibilityOutlinedIcon />
-                                </span>
+                              <TableCell>
+                                {getorderss.customer.first_name}&nbsp;
+                                {getorderss.customer.last_name}
+                              </TableCell>
+                              <TableCell>no data</TableCell>
+                              <TableCell>no data</TableCell>
+                              <TableCell>{getorderss.shop.name}</TableCell>
+                              <TableCell>{getorderss.status}</TableCell>
+                              <TableCell>
+                                <div className="App">
+                                  <span
+                                    onClick={() => {
+                                      navigate(
+                                        `/OrderDetail/${getorderss.order_id}`
+                                      );
+                                    }}
+                                    className="view fw-bolder"
+                                  >
+                                    <VisibilityOutlinedIcon />
+                                  </span>
 
-                                <span className="view mx-1" onClick={() => {}}>
-                                  <DeleteIcon />
-                                </span>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={GetOrders.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Paper>
-          </div>
+                                  <span
+                                    className="view mx-1"
+                                    onClick={() => {}}
+                                  >
+                                    <DeleteIcon />
+                                  </span>
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 100]}
+                  component="div"
+                  count={GetOrders.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+              </Paper>
+            </div>
           )}
         </Box>
       </Box>
