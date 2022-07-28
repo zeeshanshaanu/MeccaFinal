@@ -34,29 +34,15 @@ import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRou
 import CircularIndeterminate from "../../Components/Loader/Loader";
 import axios from "axios";
 const columns = [
-  { id: "name", label: "Name", minWidth: 50, align: "left" },
-  { id: "email", label: "Email", minWidth: 50, align: "left" },
+  { label: "Name", minWidth: 50, align: "left" },
+  { label: "Email", minWidth: 50, align: "left" },
   {
-    id: "Phone",
-    label: "Phone",
+    label: "User Type",
     minWidth: 50,
     align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
-  {
-    id: "date",
-    label: "Date\u00a0of\u00a0Birth",
-    minWidth: 50,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "Join",
-    label: "Join\u00a0Date",
-    minWidth: 50,
-    align: "left",
-    format: (value) => value.toFixed(2),
-  },
+
   {
     id: "Status",
     label: "Status",
@@ -72,43 +58,31 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
 ];
-
-function createData(img, name, email, Phone, date, Join, Status, Action) {
-  return { img, name, email, Phone, date, Join, Status, Action };
-}
-
-const rows = [createData()];
 const drawerWidth = 100;
 const AllUsers = () => {
   const [allusers, setalluser] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [done, setdone] = useState(false);
-  const [user, setuser] = useState("");
-
   const navigate = useNavigate();
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
-  const GetAllUser = () => {
+  //
+  //
+  //
+  const GetAllUser = (currentPage) => {
     axios
-      .get(`/get-all-professionals?per_page=${100}`, {
+      .get(`get-all-users?users_type=user&per_page=10&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setalluser(response.data.data.users);
-        console.log(response.data);
+        setPageCount(response.data.data.last_page);
+        // console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    GetAllUser();
-    // setdone(true);
-  }, []);
   const handlePageChange = async (data) => {
     let currentPage = data.selected + 1;
     const blogs = await GetAllUser(currentPage);
@@ -130,20 +104,9 @@ const AllUsers = () => {
       </span>
     </Typography>,
   ];
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
   useEffect(() => {
+    GetAllUser();
+    setdone(true);
     sessionStorage.setItem("id", "2");
   }, []);
 
@@ -211,110 +174,93 @@ const AllUsers = () => {
             </div>
           </div>
           {/* ===============TABLE================ */}
-          {/* {done ? (
+          {done ? (
             <div className="stylishLoader">
               <CircularIndeterminate className="allagentsLoader" />
             </div>
           ) : (
-          
-          )} */}
-          <div className="Table me-3">
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <TableContainer sx={{ maxHeight: 500 }}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow className="fw-bolder">
-                      {columns.map((column) => (
-                        <TableCell
-                          className="fw-bolder"
-                          key={column.id}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {allusers
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((user) => {
-                        return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={user.code}
+            <div className="Table me-3">
+              <Paper sx={{ width: "100%", overflow: "hidden" }}>
+                <TableContainer sx={{ maxHeight: 500 }}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow className="fw-bolder">
+                        {columns.map((column) => (
+                          <TableCell
+                            className="fw-bolder"
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
                           >
-                            <TableCell>
-                              <img
-                                src={user.profile.image}
-                                alt="Logo1.ong"
-                                className="w-25"
-                              />
-                              &nbsp;
-                              <span className="">
-                                {user.first_name}&nbsp;{user.last_name}
-                              </span>
-                            </TableCell>
-                            <TableCell>king.khaan@live.com</TableCell>
-                            <TableCell>0131646979</TableCell>
-                            <TableCell>12-52-1999</TableCell>
-                            <TableCell>21-25-2015</TableCell>
-                            <TableCell>
-                              <span className="Active">Active</span>
-                            </TableCell>
-                            <TableCell>
-                              <div className="App">
-                                {" "}
-                                <span
-                                  onClick={() => {
-                                    navigate("/UserDetail");
-                                  }}
-                                  className="fw-bolder view"
-                                >
-                                  <VisibilityOutlinedIcon />
-                                </span>{" "}
-                                <span
-                                  onClick={() => {
-                                    navigate("/EditUser");
-                                  }}
-                                  className="mx-1 view"
-                                >
-                                  <EditIcon />
+                            {column.label}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {allusers &&
+                        allusers.map((userGet) => {
+                          return (
+                            <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={userGet.code}
+                            >
+                              <TableCell>
+                                <img
+                                  src={userGet.profile.image}
+                                  alt=""
+                                  className="ProfesProfileImg"
+                                />
+                                &nbsp;
+                                <span className="">
+                                  {userGet.first_name}&nbsp;{userGet.last_name}
                                 </span>
-                                <span className="view" onClick={() => {}}>
-                                  <DeleteIcon />
-                                </span>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <div className="mt-5">
-                <ReactPaginate
-                  previousLabel={<ArrowCircleLeftRoundedIcon />}
-                  nextLabel={<ArrowCircleRightRoundedIcon />}
-                  pageCount={pageCount}
-                  pageRange={5}
-                  marginPagesDisplayed={2}
-                  onPageChange={handlePageChange}
-                  containerClassName={"paginationBttns"}
-                  previousLinkClassName={"previousBttn"}
-                  nextLinkClassName={"nextBttn"}
-                  disabledClassName={"paginationDisabled"}
-                  activeClassName={"paginationActive"}
-                />
-              </div>
-            </Paper>
-          </div>
+                              </TableCell>
+                              <TableCell>{userGet.email}</TableCell>
+                              <TableCell>{userGet.user_type}</TableCell>
+                              <TableCell>{userGet.is_profile_setup}</TableCell>
+                              <TableCell>
+                                <div className="App">
+                                  {" "}
+                                  <span
+                                    onClick={() => {
+                                      navigate("/UserDetail");
+                                    }}
+                                    className="fw-bolder view"
+                                  >
+                                    <VisibilityOutlinedIcon />
+                                  </span>{" "}
+                                  <span className="view" onClick={() => {}}>
+                                    <DeleteIcon />
+                                  </span>
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <div className="mt-5">
+                  <ReactPaginate
+                    previousLabel={<ArrowCircleLeftRoundedIcon />}
+                    nextLabel={<ArrowCircleRightRoundedIcon />}
+                    pageCount={pageCount}
+                    pageRange={5}
+                    marginPagesDisplayed={2}
+                    onPageChange={handlePageChange}
+                    containerClassName={"paginationBttns"}
+                    previousLinkClassName={"previousBttn"}
+                    nextLinkClassName={"nextBttn"}
+                    disabledClassName={"paginationDisabled"}
+                    activeClassName={"paginationActive"}
+                  />
+                </div>
+              </Paper>
+            </div>
+          )}
         </Box>
       </Box>
     </div>
