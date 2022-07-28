@@ -31,7 +31,8 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import SideBarLogo from "../../Assets/Images/SideBarLogo.png";
 import ServicesIcon from "../../Assets/Images/ServicesIcon.png";
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import { FaUsers } from "react-icons/fa";
 
 // notifications
 import Avatar from "@mui/material/Avatar";
@@ -232,6 +233,25 @@ export default function ResponsiveDrawer(props) {
         sessionStorage.setItem("id", "13");
         setidside(id && id);
         navigate("/AllKliques");
+      },
+    },
+    {
+      text: "Community",
+      icon: (
+        <FaUsers
+          className={
+            sessionStorage.getItem("id") == "14"
+              ? "clickicon serviceicon community_icon "
+              : " icon22 community_icon"
+          }
+        />
+      ),
+
+      id: "14",
+      onClick: (id) => {
+        sessionStorage.setItem("id", "12");
+        setidside(id && id);
+        navigate("/AppSetings");
       },
     },
     {

@@ -97,12 +97,18 @@
 @media screen and (max-width: 1440px) {
   .Blog_card {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    height: 530px;
+    height: 630px;
     width: auto;
   }
 }
+@media screen and (max-width: 1440px) {
+}
 .Completed {
-  height: 25% !important;
+  height: 25%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: block;
+  margin: 0%;
 }
 .icons_position-delete {
   position: absolute;
