@@ -118,6 +118,8 @@ const AllProfessionals = () => {
   });
   const [filter, setfilter] = useState("");
   const [GetProfessionals, setGetProfessionals] = useState([]);
+  const [Professional_data, setProfessional_data] = useState("");
+  const [Professional_data_total, setProfessional_data_total] = useState("");
   const GetAllProf = (currentPage) => {
     axios
       .get(`/get-all-professionals?per_page=16&page=${currentPage}`, {
@@ -128,8 +130,10 @@ const AllProfessionals = () => {
       .then((response) => {
         setGetProfessionals(response.data.data.professionals);
         setPageCount(response.data.data.last_page);
-
-        // console.log(response.data);
+        setProfessional_data(response.data.data.to);
+        setProfessional_data_total(response.data.data.total);
+        console.log(response.data.to);
+        console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -334,20 +338,26 @@ const AllProfessionals = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <div className="mt-5">
-                  <ReactPaginate
-                    previousLabel={<ArrowCircleLeftRoundedIcon />}
-                    nextLabel={<ArrowCircleRightRoundedIcon />}
-                    pageCount={pageCount}
-                    pageRange={5}
-                    marginPagesDisplayed={2}
-                    onPageChange={handlePageChange}
-                    containerClassName={"paginationBttns"}
-                    previousLinkClassName={"previousBttn"}
-                    nextLinkClassName={"nextBttn"}
-                    disabledClassName={"paginationDisabled"}
-                    activeClassName={"paginationActive"}
-                  />
+                <div className="d-flex mt-5">
+                  <p className="text-muted ms-3">
+                    Showing&nbsp;{Professional_data}&nbsp;of{" "}
+                    {Professional_data_total} enteries
+                  </p>
+                  <div className="ms-auto">
+                    <ReactPaginate
+                      previousLabel={<ArrowCircleLeftRoundedIcon />}
+                      nextLabel={<ArrowCircleRightRoundedIcon />}
+                      pageCount={pageCount}
+                      pageRange={5}
+                      marginPagesDisplayed={2}
+                      onPageChange={handlePageChange}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
+                  </div>
                 </div>
               </Paper>
             </div>

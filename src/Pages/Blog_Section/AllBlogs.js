@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Col } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import "../../Pages/Mecca_Market_section/index.css";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -188,22 +188,22 @@ const AllBlogs = () => {
       .map((user) => {
         return (
           <>
-            <Col lg={3} md={4} sm={6} className="mt-3">
-              <div className="icons_position-delete me-1">
-                <EditOutlinedIcon
-                  className="forcolor"
-                  onClick={() => {
-                    navigate(`/UpdateBlog/${user.id}`);
-                  }}
-                />
-                <DeleteIcon
-                  className="forcolor ms-2"
-                  onClick={() => {
-                    handleDelete(user.id);
-                  }}
-                />
-              </div>
-              <div className="Blog_card mb-5">
+            <Col xxl={3} lg={4} md={12} sm={12} className="text-small">
+              <div className="Blog_card mb-5 w-auto">
+                <div className="icons_position-delete me-1">
+                  <EditOutlinedIcon
+                    className="forcolor"
+                    onClick={() => {
+                      navigate(`/UpdateBlog/${user.id}`);
+                    }}
+                  />
+                  <DeleteIcon
+                    className="forcolor ms-2"
+                    onClick={() => {
+                      handleDelete(user.id);
+                    }}
+                  />
+                </div>
                 <div className="">
                   {user.cover_image === "" ? (
                     <img
@@ -335,8 +335,8 @@ const AllBlogs = () => {
               </div>
               {/*  */}
               {/*  */}
-              <div className="">
-                <div className="mt-5 forscrollX mx-2">
+              <div className="container-fluid">
+                <div className="mt-5  forscrollX ">
                   {/* <h5 className="mt-1 me-3 ">Categories:</h5> */}
                   <div className="forFlex">
                     <button

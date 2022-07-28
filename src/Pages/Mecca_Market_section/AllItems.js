@@ -265,7 +265,7 @@ const AllItems = () => {
                 <MenuItem
                   disableRipple
                   onClick={() => {
-                    navigate("/AllShopes");
+                    navigate("/AllShops");
                   }}
                 >
                   All&nbsp;Shops
@@ -341,11 +341,11 @@ const AllItems = () => {
                             (admin.sku &&
                               admin.sku
                                 .toString()
-                                .includes(filter.toString().toLowerCase()))||
-                                (admin.shops.name &&
-                                  admin.shops.name
-                                    .toString()
-                                    .includes(filter.toString().toLowerCase()))
+                                .includes(filter.toString().toLowerCase())) ||
+                            (admin.shops.name &&
+                              admin.shops.name
+                                .toString()
+                                .includes(filter.toString().toLowerCase()))
                           ) {
                             return GetItems;
                           }
