@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useNavigate } from "react-router-dom";
+import GradeIcon from "@mui/icons-material/Grade";
 const drawerWidth = 100;
 const ProfessionalsDetail = () => {
   const navigate = useNavigate();
@@ -89,15 +90,18 @@ const ProfessionalsDetail = () => {
         setProfAddress(response.data.data.profile.address);
         setdob(response.data.data.profile.dob);
         setProflieImg(response.data.data.profile.image);
-         setphone(response.data.data.profile.phone);
+        setphone(response.data.data.profile.phone);
         //////////////////==================////////////////============
         //////////////////==================////////////////============
         setGetavailabilities(response.data.data.profile.availabilities);
         setGetportfolios(response.data.data.profile.portfolios);
         setGettestimonials(response.data.data.profile.testimonials);
         setGetservices(response.data.data.profile.services);
-        setGetMedia(response.data.data.profile.media);
         setGetCertificates(response.data.data.profile.certificates);
+        //////////////////==================////////////////============
+        //////////////////==================////////////////============
+        setGetMedia(response.data.data.profile.media);
+
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -156,7 +160,13 @@ const ProfessionalsDetail = () => {
                     <>
                       <Carousel.Item>
                         <img
-                          src={mediaImg.file === "" ? "" : <p>No images</p>}
+                          src={
+                            mediaImg.file === "" ? (
+                              <p>No images</p>
+                            ) : (
+                              mediaImg.file
+                            )
+                          }
                           alt="KliquesDetailBGIMg.png"
                           className="w-100"
                         />
@@ -170,6 +180,16 @@ const ProfessionalsDetail = () => {
                   alt=""
                   className="KliquesImg"
                 />
+              </div>
+              <div className="Rating mb-3">
+                <h5 className="fw-bolder">
+                  Rating:
+                  <span>
+                    <GradeIcon className="text-warning Rating_Icon" />
+                    <GradeIcon className="text-warning Rating_Icon" />
+                    <GradeIcon className="text-warning Rating_Icon" />
+                  </span>
+                </h5>
               </div>
               <div className="BasicInfo">
                 <h5 className="fw-bolder mb-4">Basic Information</h5>
@@ -213,13 +233,12 @@ const ProfessionalsDetail = () => {
                 <div className="d-flex">
                   <p className="fw-bolder">Website :&nbsp;</p>
                   <div className="">
-                    <small className=""><span onClick={() => window.open(websiteLink)}>
-                      {" "}
-                      <span className="">
+                    <small className="">
+                      <span onClick={() => window.open(websiteLink)}>
                         {" "}
-                        Visit Website{" "}
+                        <span className=""> Visit Website </span>
                       </span>
-                    </span></small>
+                    </small>
                   </div>
                 </div>
                 {/*  */}
@@ -230,19 +249,62 @@ const ProfessionalsDetail = () => {
                   </div>
                 </div>
                 {/*  */}
-                <div className="d-flex">
+                {/* <div className="d-flex">
                   <p className="fw-bolder">Age:&nbsp;</p>
                   <div className="">
                     <small className="">{phone}</small>
                   </div>
-                </div>
+                </div> */}
                 {/*  */}
                 <div className="d-flex">
                   <p className="fw-bolder">About Me:&nbsp;</p>
                   <div className="">
-                    <small className="">{phone}</small>
+                    <small className="">
+                      variable not available from backend{" "}
+                    </small>
                   </div>
                 </div>
+              </div>
+              {/*  */}
+              {/*  */}
+              {/*  */}
+              <hr />
+              <div className="Media">
+                <h3 className="fw-bolder mb-4">Media:</h3>
+                <Row>
+                  {getMedia.length == 0 ? (
+                    <span className="fw-bolder h5">No Certifications Found</span>
+                  ) : getMedia.map((MediaGets) => {
+                        return (
+                          <div className="col col-lg-4 col-md-6 col-sm-12 Events_card mb-5">
+                            <div className="card_image">
+                              <img
+                                src={MediaGets.file}
+                                alt=""
+                                className="KliquesDetailBGIMg"
+                              />
+                            </div>
+                            <div>
+                              <div className="d-flex justify-content-between mt-4">
+                                <div className="">
+                                  <p class="text-left ">
+                                    <span className="fw-bolder">
+                                      Media Type:
+                                    </span>
+                                    &nbsp;
+                                  </p>
+                                </div>
+                                <div className="">
+                                  <p class="text-left det">
+                                    {MediaGets.meda_type}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                </Row>
               </div>
               {/*  */}
               {/*  */}
@@ -251,41 +313,39 @@ const ProfessionalsDetail = () => {
               <div className="Services">
                 <h3 className="fw-bolder mb-4">Services:</h3>
                 <Row>
-                  {getservices.lenght === 0
-                    ? "No Data"
-                    : getservices.map((servic) => {
+                  {getservices.length == 0 ? (
+                    <span className="fw-bolder h5">No Certifications Found</span>
+                  ) :  getservices.map((servic) => {
                         return (
-                          <Col lg={3} md={4} sm={12}>
-                            <div className="Services_card mb-5">
-                              <div className="mt-2 d-flex justify-content-end">
-                                <p class="fw-bolder ProductCardTextColor ">
-                                  {servic.isPremium === 1 ? (
-                                    <div className="text-success fw-bolder">
-                                      <small>Premium</small>
-                                    </div>
-                                  ) : (
-                                    <div className="text-danger fw-bolder">
-                                      <small>Free</small>
-                                    </div>
-                                  )}
-                                </p>
-                              </div>
-                              <div className="mt-2 d-flex justify-content-between">
-                                <p class="fw-bolder">Tittle:</p>
-                                <p>
-                                  <samall>{servic.name}</samall>
-                                </p>
-                              </div>
-                              <div className="mt-2 d-flex justify-content-between">
-                                <p class="fw-bolder ProductCardTextColor">
-                                  Experience:
-                                </p>
-                                <p>
-                                  <samall>{servic.experience}</samall>
-                                </p>
-                              </div>
+                          <div className="col col-lg-4 col-md-6 col-sm-12  Services_card mb-5">
+                            <div className="mt-2 d-flex justify-content-between">
+                              <p class="fw-bolder">Tittle:</p>
+                              <p>
+                                <samall>{servic.name}</samall>
+                              </p>
                             </div>
-                          </Col>
+                            <div className="mt-2 d-flex justify-content-between">
+                              <p class="fw-bolder ProductCardTextColor">
+                                Experience:
+                              </p>
+                              <p>
+                                <samall>{servic.experience}</samall>
+                              </p>
+                            </div>
+                            <div className="mt-2 d-flex justify-content-end">
+                              <p class="fw-bolder ProductCardTextColor ">
+                                {servic.isPremium === 1 ? (
+                                  <div className="text-success fw-bolder">
+                                    <small>Premium</small>
+                                  </div>
+                                ) : (
+                                  <div className="text-danger fw-bolder">
+                                    <small>Free</small>
+                                  </div>
+                                )}
+                              </p>
+                            </div>
+                          </div>
                         );
                       })}
                 </Row>
@@ -296,11 +356,11 @@ const ProfessionalsDetail = () => {
                 {/*  */}
                 {/*  */}
                 <Row>
-                  {GetCertificates.lenght === 0
-                    ? "No Data"
-                    : GetCertificates.map((CertificatesGets) => {
+                  {GetCertificates.length == 0 ? (
+                    <span className="fw-bolder h5">No Certifications Found</span>
+                  ) :GetCertificates.map((CertificatesGets) => {
                         return (
-                          <Col lg={3} md={4} sm={12}>
+                          <Col lg={4} md={6} sm={12}>
                             <div className="Events_card mb-5">
                               <div className="card_image">
                                 <img
@@ -327,9 +387,9 @@ const ProfessionalsDetail = () => {
                                 {/*  */}
                                 <div className="">
                                   <div class="Completed">
-                                      <span className="fw-bolder">
-                                        Description:
-                                      </span>
+                                    <span className="fw-bolder">
+                                      Description:
+                                    </span>
                                     <p class="">
                                       <small
                                         dangerouslySetInnerHTML={{
@@ -353,10 +413,12 @@ const ProfessionalsDetail = () => {
               <div className="Testimonials">
                 <h3 className="fw-bolder mb-4">Testimonials:</h3>
                 <Row>
-                  {gettestimonials.map((textimon) => {
-                    return (
-                      <Col xxl={3} lg={4} md={4} sm={12}>
-                        <div className="TestimonialsCard mb-5">
+                  {gettestimonials.length == 0 ? (
+                    <span className="fw-bolder h5">No Testimonials Found</span>
+                  ) : (
+                    gettestimonials.map((textimon) => {
+                      return (
+                        <div className="col col-lg-4 col-md-6 col-sm-12 TestimonialsCard mb-5 mx-1">
                           <p className="d-flex justify-content-end">
                             {textimon.isActive === 1 ? (
                               <div className="text-success fw-bolder">
@@ -386,28 +448,30 @@ const ProfessionalsDetail = () => {
                           </div>
                           {/*  */}
                           {/*  */}
-                          <div className="mt-2 ">
+                          <div className="mt-2 forjustify">
                             <p class="fw-bolder ProductCardTextColor">
                               Feedback:
                             </p>
                             <p>
-                              <samall>{textimon.feedback}</samall>
+                              <small>{textimon.feedback}</small>
                             </p>
                           </div>
                         </div>
-                      </Col>
-                    );
-                  })}
+                      );
+                    })
+                  )}
                 </Row>
               </div>
               <hr />
               <div className="Portfolio">
                 <h3 className="fw-bolder mb-4">Portfolio:</h3>
                 <Row>
-                  {getportfolios.map((prot) => {
-                    return (
-                      <Col xxl={3} lg={4} md={4} sm={12}>
-                        <div className="Events_card mb-5">
+                  {getportfolios.length == 0 ? (
+                    <span className="fw-bolder h5">No Portfolio Found</span>
+                  ) : (
+                    getportfolios.map((prot) => {
+                      return (
+                        <div className="col col-lg-4 col-md-6 col-sm-12 Events_card mb-5">
                           <div className="card_image">
                             <img
                               src={prot.media_url}
@@ -436,29 +500,35 @@ const ProfessionalsDetail = () => {
                                 </p>
                               </div>
                               <div className="">
-                                <p class="text-left det">{prot.link}</p>
+                                <a
+                                  href={prot.link}
+                                  target="blank"
+                                  class="text-left det"
+                                >
+                                  {prot.link}
+                                </a>
                               </div>
                             </div>
                             {/*  */}
                             {/*  */}
                             <div className="">
                               <div className="">
-                                <p class="text-left ">
-                                  <span className="fw-bolder">
+                                <p class="text-left">
+                                  <span className="fw-bolder ">
                                     Description:
                                   </span>
                                   &nbsp;
                                 </p>
                               </div>
                               <div className="">
-                                <p class="text-left det">{prot.description}</p>
+                                <p class="forjustify det">{prot.description}</p>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </Col>
-                    );
-                  })}
+                      );
+                    })
+                  )}
                 </Row>
               </div>
               {/*  */}
@@ -468,67 +538,69 @@ const ProfessionalsDetail = () => {
               <div className="">
                 <h3 className="fw-bolder mb-4">Availability & Hours:</h3>
                 <h6 className="fw-bolder mb-4">Hours of Operation</h6>
-                <div className="AvailabilityHours mb-5">
+                <div className="col col-lg-4 col-md-6 col-sm-12 AvailabilityHours mb-5">
                   {/*  */}
                   {/*  */}
-                  {getavailabilities.map((index) => {
-                    return (
-                      <>
-                        <div className="d-flex justify-content-between">
-                          <h5 class="fw-bolder">{index.day}:</h5>
-                          <h5 class="fw-bolder">
-                            {index.status === 1 ? (
-                              <div className="text-success fw-bolder">
-                                <small>Active</small>
-                              </div>
-                            ) : (
-                              <div className="text-danger fw-bolder">
-                                <small>Inactive</small>
-                              </div>
-                            )}
-                          </h5>
-                        </div>
-                        <div className="d-flex justify-content-between mt-2">
-                          <div className="">
-                            <p className="">
-                              <span className="fw-bolder text-danger">
-                                Start Time:
-                              </span>
-                              &nbsp;
-                              <div className="">
-                                <small>{index.from}</small>
-                              </div>
-                            </p>
+                  {getavailabilities.length == 0 ? (
+                    <span className="fw-bolder h5">No Data Found</span>
+                  ) : (
+                    getavailabilities.map((index) => {
+                      return (
+                        <>
+                          <div className="d-flex justify-content-between">
+                            <h5 class="fw-bolder">{index.day}:</h5>
+                            <h5 class="fw-bolder">
+                              {index.status === 1 ? (
+                                <div className="text-success fw-bolder">
+                                  <small>Active</small>
+                                </div>
+                              ) : (
+                                <div className="text-danger fw-bolder">
+                                  <small>Inactive</small>
+                                </div>
+                              )}
+                            </h5>
                           </div>
-                          <div className="">
-                            <p className="">
-                              <span className="fw-bolder text-danger">
-                                End Time:
-                              </span>
-                              &nbsp;
-                              <div className="">
-                                <small>{index.to}</small>
-                              </div>
-                            </p>
+                          <div className=" mt-2">
+                            <div className="">
+                              <p className="">
+                                <span className="fw-bolder text-danger">
+                                  Start Time:
+                                </span>
+                                &nbsp;
+                                <div className="">
+                                  <small>{index.from}</small>
+                                </div>
+                              </p>
+                            </div>
+                            <div className="">
+                              <p className="">
+                                <span className="fw-bolder text-danger">
+                                  End Time:
+                                </span>
+                                &nbsp;
+                                <div className="">
+                                  <small>{index.to}</small>
+                                </div>
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        <hr />
-                      </>
-                    );
-                  })}
+                        </>
+                      );
+                    })
+                  )}
                 </div>
               </div>
               {/*  */}
               {/*  */}
               {/*  */}
-              <hr />
+              {/* <hr />
               <Row>
                 <Col xxl={3} lg={2} md={4} sm={12}>
                   <div className="Pricing">
                     <h3 className="fw-bolder mb-4">Pricing:</h3>
                     <div className="PricingCard d-flex">
-                      {/*  */}
-                      {/*  */}
+                      
                       <div className="ms-3">
                         <p class="fw-bolder ProductCardTextColor mb-0">
                           <samall>Weight Loss</samall>
@@ -537,8 +609,7 @@ const ProfessionalsDetail = () => {
                           <span className="Exp">Exp:</span>{" "}
                           <samall>2 year</samall>
                         </p>
-                        {/*  */}
-                        {/*  */}
+                       
                         <div className="d-flex justify-content-between">
                           <div className="d-flex mt-0">
                             <WorkspacePremiumIcon
@@ -548,7 +619,7 @@ const ProfessionalsDetail = () => {
                               Premium:
                             </p>
                           </div>
-                          {/*  */}
+                           
                           <div className="">
                             <p className="fw-bolder text-danger ms-5">500$</p>
                           </div>
@@ -557,7 +628,7 @@ const ProfessionalsDetail = () => {
                     </div>
                   </div>
                 </Col>
-              </Row>
+              </Row> */}
             </>
           )}
         </Box>

@@ -120,7 +120,7 @@ const AllProfessionals = () => {
   const [GetProfessionals, setGetProfessionals] = useState([]);
   const GetAllProf = (currentPage) => {
     axios
-      .get(`/get-all-professionals?per_page=10&page=${currentPage}`, {
+      .get(`/get-all-professionals?per_page=16&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },

@@ -358,7 +358,9 @@ const EventDetail = () => {
                       <p className="fw-bolder">Attendees</p>
                     </div>
                     <div class="avatars">
-                      {Attendees.slice(0, 4).map((getattendees) => {
+                      {Attendees.length == 0 ? (
+                    <span className="fw-bolder h5">No Registrations yet</span>
+                  ) : Attendees.slice(0, 4).map((getattendees) => {
                         return (
                           <span class="avatar">
                             <img

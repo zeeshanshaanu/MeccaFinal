@@ -247,3 +247,6 @@ icon img {
 .forcolor{
   cursor: pointer;
 }
+.forjustify{
+  text-align: justify;
+}

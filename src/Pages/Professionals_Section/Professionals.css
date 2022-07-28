@@ -20,7 +20,7 @@
   position: relative;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 8px;
-  width: 270px;
+  /* width: 270px; */
   padding: 20px;
   background: #eeb85a;
 }
@@ -45,7 +45,7 @@
   color: rgba(113, 126, 149, 1);
 }
 .Services_card {
-  position: relative;
+  /* position: relative; */
   background: #eeb85a;
   box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
   /* width: 230px; */
@@ -81,7 +81,7 @@
 /*  */
 /*  */
 /*  */
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .TestimonialsCard {
     width: 200px;
     padding: 15px;
@@ -92,7 +92,7 @@
     width: 280px;
     padding: 15px;
   }
-}
+} */
 .password-toogle-icon {
   position: relative;
   cursor: pointer;
