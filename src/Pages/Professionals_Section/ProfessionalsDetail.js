@@ -30,9 +30,11 @@ const ProfessionalsDetail = () => {
   const [email, setemail] = useState("");
   const [Status, setStatus] = useState("");
   //////////////////==================////////////////============
+  const [websiteLink, setwebsiteLink] = useState("");
+  const [ProfAddress, setProfAddress] = useState("");
+  const [dob, setdob] = useState("");
   const [ProflieImg, setProflieImg] = useState();
   const [phone, setphone] = useState("");
-
   //////////////////==================////////////////============
   //////////////////==================////////////////============
   const [getavailabilities, setGetavailabilities] = useState([]);
@@ -83,9 +85,11 @@ const ProfessionalsDetail = () => {
         setStatus(response.data.data.is_profile_setup);
         //////////////////==================////////////////============
         //////////////////==================////////////////============
+        setwebsiteLink(response.data.data.profile.website_link);
+        setProfAddress(response.data.data.profile.address);
+        setdob(response.data.data.profile.dob);
         setProflieImg(response.data.data.profile.image);
-        console.log(response.data.data.profile.image);
-        setphone(response.data.data.profile.phone);
+         setphone(response.data.data.profile.phone);
         //////////////////==================////////////////============
         //////////////////==================////////////////============
         setGetavailabilities(response.data.data.profile.availabilities);
@@ -202,21 +206,27 @@ const ProfessionalsDetail = () => {
                 <div className="d-flex">
                   <p className="fw-bolder">Location:&nbsp;</p>
                   <div className="">
-                    <small className="">XYZZ</small>
+                    <small className="">{ProfAddress}</small>
                   </div>
                 </div>
                 {/*  */}
                 <div className="d-flex">
                   <p className="fw-bolder">Website Link:&nbsp;</p>
                   <div className="">
-                    <small className="">{phone}</small>
+                    <small className=""><span onClick={() => window.open(websiteLink)}>
+                      {" "}
+                      <span className="">
+                        {" "}
+                        Visit Website{" "}
+                      </span>
+                    </span></small>
                   </div>
                 </div>
                 {/*  */}
                 <div className="d-flex">
                   <p className="fw-bolder">Date of birth:&nbsp;</p>
                   <div className="">
-                    <small className="">{phone}</small>
+                    <small className="">{dob}</small>
                   </div>
                 </div>
                 {/*  */}
