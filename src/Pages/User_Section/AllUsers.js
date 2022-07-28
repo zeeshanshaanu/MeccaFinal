@@ -63,6 +63,8 @@ const AllUsers = () => {
   const [allusers, setalluser] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [done, setdone] = useState(false);
+  const [user_data, setuser_data] = useState("");
+  const [user_data_total, setuser_data_total] = useState("");
   const navigate = useNavigate();
   //
   //
@@ -77,7 +79,9 @@ const AllUsers = () => {
       .then((response) => {
         setalluser(response.data.data.users);
         setPageCount(response.data.data.last_page);
-        // console.log(response.data);
+        setuser_data(response.data.data.to);
+        setuser_data_total(response.data.data.to);
+        console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -243,20 +247,26 @@ const AllUsers = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <div className="mt-5">
-                  <ReactPaginate
-                    previousLabel={<ArrowCircleLeftRoundedIcon />}
-                    nextLabel={<ArrowCircleRightRoundedIcon />}
-                    pageCount={pageCount}
-                    pageRange={5}
-                    marginPagesDisplayed={2}
-                    onPageChange={handlePageChange}
-                    containerClassName={"paginationBttns"}
-                    previousLinkClassName={"previousBttn"}
-                    nextLinkClassName={"nextBttn"}
-                    disabledClassName={"paginationDisabled"}
-                    activeClassName={"paginationActive"}
-                  />
+                <div className="d-flex mt-5 my-auto">
+                  <p className="text-muted ms-3">
+                    Showing&nbsp;{user_data}&nbsp;of&nbsp;{user_data_total}
+                    &nbsp; enteries
+                  </p>
+                  <div className="ms-auto my-auto">
+                    <ReactPaginate
+                      previousLabel={<ArrowCircleLeftRoundedIcon />}
+                      nextLabel={<ArrowCircleRightRoundedIcon />}
+                      pageCount={pageCount}
+                      pageRange={5}
+                      marginPagesDisplayed={2}
+                      onPageChange={handlePageChange}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
+                  </div>
                 </div>
               </Paper>
             </div>

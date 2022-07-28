@@ -31,6 +31,8 @@ const AllShopsgridView = () => {
   //////////=============/////////////////==============
   //////////=============/////////////////==============
   const [done, setdone] = useState(false);
+  const [shops_data, setshops_data] = useState("");
+  const [shops_data_total, setshops_data_total] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -49,9 +51,11 @@ const AllShopsgridView = () => {
       .then((response) => {
         setgridShops(response.data.data.shops);
         setPageCount(response.data.data.last_page);
+        setshops_data(response.data.data.to);
+        setshops_data_total(response.data.data.total);
         setdone(false);
       })
-    .catch((err) => console.log(err));
+      .catch((err) => console.log(err));
   };
   const handlePageChange = async (data) => {
     let currentPage = data.selected + 1;
@@ -73,76 +77,76 @@ const AllShopsgridView = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
-  const displayUsers = gridShops && gridShops
-    .slice(pagesVisited, pagesVisited + usersPerPage)
-    .filter((blog) => {
-      if (filter === "") {
-        return gridShops;
-      } else if (
-        (blog.category &&
-          blog.category
-            .toString()
-            .toLowerCase()
-            .includes(filter.toString().toLowerCase())) ||
-        (blog.name &&
-          blog.name
-            .toString()
-            .toLowerCase()
-            .includes(filter.toString().toLowerCase()))
-      ) {
-        return gridShops;
-      }
-    })
-    .map((getShopesData) => {
-      return (
-        <>
-          {done ? (
-            <div className="stylishLoader">
-              <CircularIndeterminate className="allagentsLoader" />
-            </div>
-          ) : (
-            <Col xxl={3} lg={4} md={12} sm={12}>
-              <div className="property_card mb-5">
-                <div>
-                  <div className="my-2">
-                    {getShopesData.cover_image === null ? (
-                      <div className="">
-                        <img
-                          src={KliquesDetailBGIMg}
-                          alt="KliquesDetailBGIMg.png"
-                          className="KliquesDetailBGIMg"
-                        />{" "}
-                      </div>
-                    ) : (
-                      <div className="">
-                        <img
-                          src={getShopesData.cover_image}
-                          alt=""
-                          className="KliquesDetailBGIMg"
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <div className="d-flex justify-content-between mt-4">
-                    <div className="">
-                      <p class="text-left para det fw-bolder">Full Name:</p>
+  const displayUsers =
+    gridShops &&
+    gridShops
+      .slice(pagesVisited, pagesVisited + usersPerPage)
+      .filter((blog) => {
+        if (filter === "") {
+          return gridShops;
+        } else if (
+          (blog.category &&
+            blog.category
+              .toString()
+              .toLowerCase()
+              .includes(filter.toString().toLowerCase())) ||
+          (blog.name &&
+            blog.name
+              .toString()
+              .toLowerCase()
+              .includes(filter.toString().toLowerCase()))
+        ) {
+          return gridShops;
+        }
+      })
+      .map((getShopesData) => {
+        return (
+          <>
+            {done ? (
+              <div className="stylishLoader">
+                <CircularIndeterminate className="allagentsLoader" />
+              </div>
+            ) : (
+              <Col xxl={3} lg={4} md={12} sm={12}>
+                <div className="property_card mb-5">
+                  <div>
+                    <div className="my-2">
+                      {getShopesData.cover_image === null ? (
+                        <div className="">
+                          <img
+                            src={KliquesDetailBGIMg}
+                            alt="KliquesDetailBGIMg.png"
+                            className="KliquesDetailBGIMg"
+                          />{" "}
+                        </div>
+                      ) : (
+                        <div className="">
+                          <img
+                            src={getShopesData.cover_image}
+                            alt=""
+                            className="KliquesDetailBGIMg"
+                          />
+                        </div>
+                      )}
                     </div>
-                    <div className="">
-                      <p class="text-left det"> {getShopesData.name}</p>
+                    <div className="d-flex justify-content-between mt-4">
+                      <div className="">
+                        <p class="text-left para det fw-bolder">Full Name:</p>
+                      </div>
+                      <div className="">
+                        <p class="text-left det"> {getShopesData.name}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="forscroll">
-                    <p class="text-left fw-bolder">Address:</p>
-                    <p class="forElipse">
-                      {getShopesData.address}
-                    </p>
-                  </div>
-                  <div className=" d-flex justify-content-between">
-                    <p class="text-left para det fw-bolder">Catagory:</p>
-                    <p class="det">{getShopesData.category}</p>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    {/* <div className="d-flex">
+                    <div className="forscroll">
+                      <p class="text-left fw-bolder">Address:</p>
+                      <p class="forElipse">{getShopesData.address}</p>
+                    </div>
+                    <div className=" d-flex justify-content-between">
+                      <p class="text-left para det fw-bolder">Catagory:</p>
+                      <p class="det">{getShopesData.category}</p>
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      {/* <div className="d-flex">
                       <div className="">
                         <LocationOnIcon className="icon mt-2" />
                       </div>
@@ -159,42 +163,42 @@ const AllShopsgridView = () => {
                         </div>
                       </div>
                     </div> */}
-                    <div className="Rating">
-                      {getShopesData.total_ratings === 0 ? (
-                        <div className="">
-                          <small className="text-danger fw-bolder">
-                            No&nbsp;Rating
-                          </small>
-                        </div>
-                      ) : getShopesData.total_ratings === 1 ? (
-                        <div className="">
-                          <GradeIcon className="text-warning Rating_Icon" />
-                          <GradeIcon className="text-warning Rating_Icon" />
-                        </div>
-                      ) : (
-                        <div className="">
-                          <GradeOutlinedIcon className="text-warning Rating_Icon" />
-                        </div>
-                      )}
+                      <div className="Rating">
+                        {getShopesData.total_ratings === 0 ? (
+                          <div className="">
+                            <small className="text-danger fw-bolder">
+                              No&nbsp;Rating
+                            </small>
+                          </div>
+                        ) : getShopesData.total_ratings === 1 ? (
+                          <div className="">
+                            <GradeIcon className="text-warning Rating_Icon" />
+                            <GradeIcon className="text-warning Rating_Icon" />
+                          </div>
+                        ) : (
+                          <div className="">
+                            <GradeOutlinedIcon className="text-warning Rating_Icon" />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="mt-2">
+                      <p
+                        className="button1 px-2 mt-4"
+                        onClick={() => {
+                          navigate(`/ShopDetail/${getShopesData.id}`);
+                        }}
+                      >
+                        <small>Visit&nbsp;Shop</small>
+                      </p>
                     </div>
                   </div>
-                  <div className="mt-2">
-                    <p
-                      className="button1 px-2 mt-4"
-                      onClick={() => {
-                        navigate(`/ShopDetail/${getShopesData.id}`);
-                      }}
-                    >
-                      <small>Visit&nbsp;Shop</small>
-                    </p>
-                  </div>
                 </div>
-              </div>
-            </Col>
-          )}
-        </>
-      );
-    });
+              </Col>
+            )}
+          </>
+        );
+      });
 
   ///
   // const pageCount = Math.ceil(gridShops.length / usersPerPage);
@@ -203,28 +207,34 @@ const AllShopsgridView = () => {
     <div className="">
       <div className="mt-5">
         <Container fluid>
-        {done ? (
-                <div className="stylishLoader">
-                  <CircularIndeterminate className="allagentsLoader" />
-                </div>
-              ) : (
-                <div className="row">{displayUsers}</div>
-              )}
-          <div className="mt-5">
-                <ReactPaginate
-                  previousLabel={<ArrowCircleLeftRoundedIcon />}
-                  nextLabel={<ArrowCircleRightRoundedIcon />}
-                  pageCount={pageCount}
-                  pageRange={5}
-                  marginPagesDisplayed={2}
-                  onPageChange={handlePageChange}
-                  containerClassName={"paginationBttns"}
-                  previousLinkClassName={"previousBttn"}
-                  nextLinkClassName={"nextBttn"}
-                  disabledClassName={"paginationDisabled"}
-                  activeClassName={"paginationActive"}
-                />
-              </div>
+          {done ? (
+            <div className="stylishLoader">
+              <CircularIndeterminate className="allagentsLoader" />
+            </div>
+          ) : (
+            <div className="row">{displayUsers}</div>
+          )}
+          <div className="mt-5 d-flex">
+            <p className="text-muted my-auto">
+              {" "}
+              Showing&nbsp;{shops_data}&nbsp;of&nbsp;{shops_data_total}
+            </p>
+            <div className="my-auto ms-auto">
+              <ReactPaginate
+                previousLabel={<ArrowCircleLeftRoundedIcon />}
+                nextLabel={<ArrowCircleRightRoundedIcon />}
+                pageCount={pageCount}
+                pageRange={5}
+                marginPagesDisplayed={2}
+                onPageChange={handlePageChange}
+                containerClassName={"paginationBttns"}
+                previousLinkClassName={"previousBttn"}
+                nextLinkClassName={"nextBttn"}
+                disabledClassName={"paginationDisabled"}
+                activeClassName={"paginationActive"}
+              />
+            </div>
+          </div>
         </Container>
       </div>
     </div>
