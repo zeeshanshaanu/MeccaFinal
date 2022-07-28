@@ -211,7 +211,7 @@ const ProfessionalsDetail = () => {
                 </div>
                 {/*  */}
                 <div className="d-flex">
-                  <p className="fw-bolder">Website Link:&nbsp;</p>
+                  <p className="fw-bolder">Website :&nbsp;</p>
                   <div className="">
                     <small className=""><span onClick={() => window.open(websiteLink)}>
                       {" "}
