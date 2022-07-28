@@ -351,7 +351,6 @@ const EventDetail = () => {
                   {/*  */}
                   {/*  */}
                   {/*  */}
-
                   {/*  */}
                   <div>
                     <div className="mt-4">
