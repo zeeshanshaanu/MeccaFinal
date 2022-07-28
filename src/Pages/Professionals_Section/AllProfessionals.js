@@ -115,6 +115,7 @@ const AllProfessionals = () => {
   });
   const [filter, setfilter] = useState("");
   const [GetProfessionals, setGetProfessionals] = useState([]);
+
   const GetAllProf = () => {
     axios
       .get(`/get-all-professionals?per_page=${100}`, {
@@ -265,7 +266,7 @@ const AllProfessionals = () => {
                               <TableCell>
                                 <img
                                   src={index.profile.image}
-                                  alt="Logo1.ong"
+                                  alt=""
                                   className="ProfesProfileImg"
                                 />
                                 &nbsp;

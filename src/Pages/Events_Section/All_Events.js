@@ -59,7 +59,7 @@ const All_Events = () => {
       .then((response) => {
         setAllEvents(response.data.data.events);
         setPageCount(response.data.data.last_page);
-        console.log(response.data);
+        // console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -108,7 +108,6 @@ const All_Events = () => {
   };
   ////////////=============/////////////============
   ////////////=============/////////////============
-
   useEffect(() => {
     GetAllEvents(1);
     sessionStorage.setItem("id", "6");
@@ -116,18 +115,10 @@ const All_Events = () => {
   }, [togle]);
   // const [users, setUsers] = useState(Eventdata.slice(0, 50));
   const [pageNumber, setPageNumber] = useState(0);
-  const usersPerPage = 9;
   const displayUsers =
     AllEvents &&
     AllEvents
-      // GetAllEvents.filter((data) => {
-      //   if (category && category === "all") {
-      //     return GetAllEvents;
-      //   } else if (data.category === category) {
-      //     return GetAllEvents;
-      //   }
-      // })
-      .filter((blog) => {
+          .filter((blog) => {
         if (filter === "") {
           return AllEvents;
         } else if (
