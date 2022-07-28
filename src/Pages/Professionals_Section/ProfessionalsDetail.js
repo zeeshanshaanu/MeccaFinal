@@ -270,13 +270,13 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="Media">
-                <h3 className="fw-bolder mb-4">Media:</h3>
+                <h3 className="fw-bolder mb-4">Gallery</h3>
                 <Row>
                   {getMedia.length == 0 ? (
                     <span className="fw-bolder h5">No Certifications Found</span>
                   ) : getMedia.map((MediaGets) => {
                         return (
-                          <div className="col col-lg-4 col-md-6 col-sm-12 Events_card mb-5">
+                          <div className="col col-lg-4 col-md-6 col-sm-12  mb-5">
                             <div className="card_image">
                               <img
                                 src={MediaGets.file}
@@ -285,21 +285,7 @@ const ProfessionalsDetail = () => {
                               />
                             </div>
                             <div>
-                              <div className="d-flex justify-content-between mt-4">
-                                <div className="">
-                                  <p class="text-left ">
-                                    <span className="fw-bolder">
-                                      Media Type:
-                                    </span>
-                                    &nbsp;
-                                  </p>
-                                </div>
-                                <div className="">
-                                  <p class="text-left det">
-                                    {MediaGets.meda_type}
-                                  </p>
-                                </div>
-                              </div>
+                            
                             </div>
                           </div>
                         );
@@ -311,7 +297,7 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="Services">
-                <h3 className="fw-bolder mb-4">Services:</h3>
+                <h3 className="fw-bolder mb-4">Services</h3>
                 <Row>
                   {getservices.length == 0 ? (
                     <span className="fw-bolder h5">No Certifications Found</span>
@@ -411,7 +397,7 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="Testimonials">
-                <h3 className="fw-bolder mb-4">Testimonials:</h3>
+                <h3 className="fw-bolder mb-4">Testimonials</h3>
                 <Row>
                   {gettestimonials.length == 0 ? (
                     <span className="fw-bolder h5">No Testimonials Found</span>
@@ -464,7 +450,7 @@ const ProfessionalsDetail = () => {
               </div>
               <hr />
               <div className="Portfolio">
-                <h3 className="fw-bolder mb-4">Portfolio:</h3>
+                <h3 className="fw-bolder mb-4">Portfolio</h3>
                 <Row>
                   {getportfolios.length == 0 ? (
                     <span className="fw-bolder h5">No Portfolio Found</span>
@@ -536,7 +522,7 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="">
-                <h3 className="fw-bolder mb-4">Availability & Hours:</h3>
+                <h3 className="fw-bolder mb-4">Availability & Hours</h3>
                 <h6 className="fw-bolder mb-4">Hours of Operation</h6>
                 <div className="col col-lg-4 col-md-6 col-sm-12 AvailabilityHours mb-5">
                   {/*  */}
