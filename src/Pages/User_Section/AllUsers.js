@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import SearchIcon from "@mui/icons-material/Search";
 import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
@@ -27,6 +27,12 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+//
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
+import CircularIndeterminate from "../../Components/Loader/Loader";
+import axios from "axios";
 const columns = [
   { id: "name", label: "Name", minWidth: 50, align: "left" },
   { id: "email", label: "Email", minWidth: 50, align: "left" },
@@ -74,11 +80,40 @@ function createData(img, name, email, Phone, date, Join, Status, Action) {
 const rows = [createData()];
 const drawerWidth = 100;
 const AllUsers = () => {
+  const [allusers, setalluser] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+  const [done, setdone] = useState(false);
+  const [user, setuser] = useState("");
+
   const navigate = useNavigate();
   function handleClick(event) {
     event.preventDefault();
     console.info("You clicked a breadcrumb.");
   }
+  const GetAllUser = () => {
+    axios
+      .get(`/get-all-professionals?per_page=${100}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
+        },
+      })
+      .then((response) => {
+        setalluser(response.data.data.users);
+        console.log(response.data);
+        setdone(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    GetAllUser();
+    // setdone(true);
+  }, []);
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const blogs = await GetAllUser(currentPage);
+    setalluser(blogs);
+  };
   const breadcrumbs = [
     <Typography
       key="3"
@@ -157,12 +192,12 @@ const AllUsers = () => {
           </div>
           {/*  */}
           <div className="d-flex justify-content-between my-4">
-          <div className="FilterIcon px-3">
+            <div className="FilterIcon px-3">
               <FilterAltIcon className="" />
               <span>Filter</span>
             </div>
             <div className="position-relative w-75">
-            {/* <small className="fw-bolder">Search&nbsp;Users</small> */}
+              {/* <small className="fw-bolder">Search&nbsp;Users</small> */}
               <Form.Group className="me-3" controlId="#">
                 <Form.Control
                   type="search"
@@ -174,9 +209,15 @@ const AllUsers = () => {
               </Form.Group>
               <SearchIcon className="Kliquesearch_icon" />
             </div>
-            
           </div>
           {/* ===============TABLE================ */}
+          {/* {done ? (
+            <div className="stylishLoader">
+              <CircularIndeterminate className="allagentsLoader" />
+            </div>
+          ) : (
+          
+          )} */}
           <div className="Table me-3">
             <Paper sx={{ width: "100%", overflow: "hidden" }}>
               <TableContainer sx={{ maxHeight: 500 }}>
@@ -196,27 +237,29 @@ const AllUsers = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows
+                    {allusers
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                      .map((row) => {
+                      .map((user) => {
                         return (
                           <TableRow
                             hover
                             role="checkbox"
                             tabIndex={-1}
-                            key={row.code}
+                            key={user.code}
                           >
                             <TableCell>
                               <img
-                                src={Logo1}
+                                src={user.profile.image}
                                 alt="Logo1.ong"
                                 className="w-25"
                               />
                               &nbsp;
-                              <span className="">john</span>
+                              <span className="">
+                                {user.first_name}&nbsp;{user.last_name}
+                              </span>
                             </TableCell>
                             <TableCell>king.khaan@live.com</TableCell>
                             <TableCell>0131646979</TableCell>
@@ -255,15 +298,21 @@ const AllUsers = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
+              <div className="mt-5">
+                <ReactPaginate
+                  previousLabel={<ArrowCircleLeftRoundedIcon />}
+                  nextLabel={<ArrowCircleRightRoundedIcon />}
+                  pageCount={pageCount}
+                  pageRange={5}
+                  marginPagesDisplayed={2}
+                  onPageChange={handlePageChange}
+                  containerClassName={"paginationBttns"}
+                  previousLinkClassName={"previousBttn"}
+                  nextLinkClassName={"nextBttn"}
+                  disabledClassName={"paginationDisabled"}
+                  activeClassName={"paginationActive"}
+                />
+              </div>
             </Paper>
           </div>
         </Box>
