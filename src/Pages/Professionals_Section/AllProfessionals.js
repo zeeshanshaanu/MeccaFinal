@@ -28,21 +28,23 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import GradeIcon from "@mui/icons-material/Grade";
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import axios from "axios";
 //
 const columns = [
-  {  label: "Name", minWidth: 50, align: "left" },
-  {  label: "Professional Type", minWidth: 50, align: "left" },
-  {   label: "Email", minWidth: 50, align: "left" },
-   {
+  { label: "Name", minWidth: 50, align: "left" },
+  { label: "Professional Type", minWidth: 50, align: "left" },
+  { label: "Email", minWidth: 50, align: "left" },
+  {
     id: "Join",
     label: "Join\u00a0Date",
     minWidth: 50,
     align: "left",
     format: (value) => value.toFixed(2),
   },
-   {
-    
+  {
     label: "Address",
     minWidth: 50,
     align: "left",
@@ -95,6 +97,7 @@ const AllProfessionals = () => {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [pageCount, setPageCount] = useState(1);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -115,16 +118,17 @@ const AllProfessionals = () => {
   });
   const [filter, setfilter] = useState("");
   const [GetProfessionals, setGetProfessionals] = useState([]);
-
-  const GetAllProf = () => {
+  const GetAllProf = (currentPage) => {
     axios
-      .get(`/get-all-professionals?per_page=${100}`, {
+      .get(`/get-all-professionals?per_page=10&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setGetProfessionals(response.data.data.professionals);
+        setPageCount(response.data.data.last_page);
+
         // console.log(response.data);
         setdone(false);
       })
@@ -135,7 +139,16 @@ const AllProfessionals = () => {
     GetAllProf();
     setdone(true);
   }, []);
-
+  //
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const Professional_data = await GetAllProf(currentPage);
+    setGetProfessionals(Professional_data);
+  };
+  //
+  //
+  //
+  //
   return (
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>
@@ -182,7 +195,7 @@ const AllProfessionals = () => {
           </div>
           {/*  */}
           <div className="d-flex justify-content-between my-4">
-          <div className="FilterIcon px-3">
+            <div className="FilterIcon px-3">
               <FilterAltIcon className="" />
               <span>Filter</span>
             </div>
@@ -199,7 +212,6 @@ const AllProfessionals = () => {
               </Form.Group>
               <SearchIcon className="Kliquesearch_icon" />
             </div>
-          
           </div>
           {/* ===============TABLE================ */}
           {done ? (
@@ -226,11 +238,8 @@ const AllProfessionals = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {GetProfessionals.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                        .filter((admin) => {
+                      {GetProfessionals &&
+                        GetProfessionals.filter((admin) => {
                           if (filter === "") {
                             return GetProfessionals;
                           } else if (
@@ -254,8 +263,7 @@ const AllProfessionals = () => {
                           ) {
                             return GetProfessionals;
                           }
-                        })
-                        .map((index) => {
+                        }).map((index) => {
                           return (
                             <TableRow
                               hover
@@ -278,7 +286,9 @@ const AllProfessionals = () => {
 
                               <TableCell>{index.email}</TableCell>
                               <TableCell>Nothing form server</TableCell>
-                              <TableCell className="w-25">{index.profile.address}</TableCell>
+                              <TableCell className="w-25">
+                                {index.profile.address}
+                              </TableCell>
                               <TableCell>
                                 {" "}
                                 <GradeIcon className="text-warning Rating_Icon" />
@@ -324,15 +334,21 @@ const AllProfessionals = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={GetProfessionals.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                <div className="mt-5">
+                  <ReactPaginate
+                    previousLabel={<ArrowCircleLeftRoundedIcon />}
+                    nextLabel={<ArrowCircleRightRoundedIcon />}
+                    pageCount={pageCount}
+                    pageRange={5}
+                    marginPagesDisplayed={2}
+                    onPageChange={handlePageChange}
+                    containerClassName={"paginationBttns"}
+                    previousLinkClassName={"previousBttn"}
+                    nextLinkClassName={"nextBttn"}
+                    disabledClassName={"paginationDisabled"}
+                    activeClassName={"paginationActive"}
+                  />
+                </div>
               </Paper>
             </div>
           )}
