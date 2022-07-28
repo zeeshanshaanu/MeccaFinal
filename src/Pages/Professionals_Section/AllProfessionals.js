@@ -118,15 +118,17 @@ const AllProfessionals = () => {
   });
   const [filter, setfilter] = useState("");
   const [GetProfessionals, setGetProfessionals] = useState([]);
-  const GetAllProf = () => {
+  const GetAllProf = (currentPage) => {
     axios
-      .get(`/get-all-professionals?per_page=${100}`, {
+      .get(`/get-all-professionals?per_page=4&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setGetProfessionals(response.data.data.professionals);
+        setPageCount(response.data.data.last_page);
+
         // console.log(response.data);
         setdone(false);
       })
@@ -137,7 +139,16 @@ const AllProfessionals = () => {
     GetAllProf();
     setdone(true);
   }, []);
-
+  //
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const Professional_data = await GetAllProf(currentPage);
+    setGetProfessionals(Professional_data);
+  };
+  //
+  //
+  //
+  //
   return (
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>
@@ -227,11 +238,8 @@ const AllProfessionals = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {GetProfessionals.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                        .filter((admin) => {
+                      {GetProfessionals &&
+                        GetProfessionals.filter((admin) => {
                           if (filter === "") {
                             return GetProfessionals;
                           } else if (
@@ -255,8 +263,7 @@ const AllProfessionals = () => {
                           ) {
                             return GetProfessionals;
                           }
-                        })
-                        .map((index) => {
+                        }).map((index) => {
                           return (
                             <TableRow
                               hover
@@ -334,7 +341,7 @@ const AllProfessionals = () => {
                     pageCount={pageCount}
                     pageRange={5}
                     marginPagesDisplayed={2}
-                    // onPageChange={handlePageChange}
+                    onPageChange={handlePageChange}
                     containerClassName={"paginationBttns"}
                     previousLinkClassName={"previousBttn"}
                     nextLinkClassName={"nextBttn"}
