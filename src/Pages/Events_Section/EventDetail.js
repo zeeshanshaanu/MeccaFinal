@@ -138,6 +138,11 @@ const EventDetail = () => {
   };
   const { id } = useParams();
   //////////////============///////////==============///////
+  const [ReplayHide, setReplayHide] = useState(true);
+  //////////////============///////////==============///////
+  const HandleHide = () => {
+    setReplayHide(!ReplayHide);
+  };
   //////////////============///////////==============///////
   //////////////============///////////==============///////
   const [done, setdone] = useState(false);
@@ -170,6 +175,7 @@ const EventDetail = () => {
   const [Attendees, setAttendees] = useState([]);
   const [Faqs, setFaqs] = useState([]);
   const [comments, setComments] = useState([]);
+  const [Totalcomments, setTotalComments] = useState([]);
   //////////////============///////////==============///////
   //////////////============///////////==============///////
   //////////////============///////////==============///////
@@ -214,6 +220,7 @@ const EventDetail = () => {
         //////////////============///////////==============///////
         setticket_available_from(response.data.data.ticket_available_from);
         setticket_available_to(response.data.data.ticket_available_to);
+        setTotalComments(response.data.data.total_comments);
         //////////////============///////////==============///////
         setdone(false);
       })
@@ -247,14 +254,7 @@ const EventDetail = () => {
       color="text.primary"
       className="fw-bolder AllUsersBredCrumbs"
     >
-      <span
-        className="foractive"
-        onClick={() => {
-          navigate("/EventDetail");
-        }}
-      >
-        EventDetail
-      </span>
+      <span className="foractive">EventDetail</span>
     </Typography>,
   ];
   return (
@@ -354,7 +354,7 @@ const EventDetail = () => {
                         <div className="">
                           <div>
                             <span
-                              className="forcolor"
+                              className="forcolor pb-3"
                               id="demo-customized-button"
                               aria-controls={
                                 open ? "demo-customized-menu" : undefined
@@ -367,7 +367,7 @@ const EventDetail = () => {
                               endIcon={<KeyboardArrowDownIcon />}
                             >
                               <ChatIcon />
-                              &nbsp;Comments
+                              &nbsp; Total {Totalcomments} Comments
                             </span>
                             <StyledMenu
                               id="demo-customized-menu"
@@ -376,9 +376,9 @@ const EventDetail = () => {
                               onClose={handleClose}
                             >
                               <div className="BoxWidth p-4">
-                                <span className="text-end">
-                                <small >Comment & Replays</small>
-                                                                  </span>
+                                <span className="text-end forcolor">
+                                  Comment & Replys
+                                </span>
                                 <div className="mb-4">
                                   {comments.map((GetComments) => {
                                     return (
@@ -389,12 +389,12 @@ const EventDetail = () => {
                                               <img
                                                 src={EventImg1}
                                                 alt=""
-                                                className=""
+                                                className="CommentImg"
                                               />
                                             </div>
                                             &nbsp;
                                             <div>
-                                              <span>
+                                              <small>
                                                 {
                                                   GetComments.comment_by
                                                     .first_name
@@ -404,9 +404,11 @@ const EventDetail = () => {
                                                   GetComments.comment_by
                                                     .last_name
                                                 }
-                                              </span>
+                                              </small>
                                               <div className="">
-                                                {GetComments.body}
+                                                <small>
+                                                  {GetComments.body}
+                                                </small>
                                               </div>
                                             </div>
                                             <div className="text-end w-100">
@@ -416,43 +418,55 @@ const EventDetail = () => {
                                             </div>
                                           </div>
                                         </div>
-                                        {/*  */}
                                         {GetComments.childs &&
                                           GetComments.childs.map((GetRplys) => {
                                             return (
                                               <>
-                                                <div className="my-4 ms-5">
-                                                  <div className="d-flex">
-                                                    <div className="">
-                                                      <img
-                                                        src={EventImg1}
-                                                        alt=""
-                                                        className=""
-                                                      />
-                                                    </div>
-                                                    &nbsp;
-                                                    <div>
-                                                      <span>
-                                                        {
-                                                          GetRplys.comment_by
-                                                            .first_name
-                                                        }
-                                                        &nbsp;
-                                                        {
-                                                          GetRplys.comment_by
-                                                            .last_name
-                                                        }
-                                                      </span>
-                                                      <div className="">
-                                                        {GetRplys.body}
+                                                {/* <span
+                                                  className="float-end forcolor"
+                                                  onClick={HandleHide}
+                                                >
+                                                  {" "}
+                                                  <small>Hide Reply</small>
+                                                </span> */}
+                                                <div className="my-4 ms-4 ">
+                                                  {ReplayHide ? (
+                                                    <div className="d-flex my-auto">
+                                                      <div className="my-auto">
+                                                        <img
+                                                          src={EventImg1}
+                                                          alt=""
+                                                          className="CommentImg"
+                                                        />
+                                                      </div>
+                                                      &nbsp;
+                                                      <div className="my-auto">
+                                                        <small>
+                                                          {
+                                                            GetRplys.comment_by
+                                                              .first_name
+                                                          }
+                                                          &nbsp;
+                                                          {
+                                                            GetRplys.comment_by
+                                                              .last_name
+                                                          }
+                                                        </small>
+                                                        <div className="">
+                                                          <small>
+                                                            {GetRplys.body}
+                                                          </small>
+                                                        </div>
+                                                      </div>
+                                                      <div className="text-end w-100">
+                                                        <small>
+                                                          {
+                                                            GetRplys.published_at
+                                                          }
+                                                        </small>
                                                       </div>
                                                     </div>
-                                                    <div className="text-end w-100">
-                                                      <small>
-                                                        {GetRplys.published_at}
-                                                      </small>
-                                                    </div>
-                                                  </div>
+                                                  ) : null}
                                                 </div>
                                               </>
                                             );
