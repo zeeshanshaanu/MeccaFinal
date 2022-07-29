@@ -42,6 +42,7 @@
         "react-froala-wysiwyg": "^4.0.13",
         "react-i18next": "^11.16.9",
         "react-image-picker": "^1.1.1",
+        "react-images": "^1.2.0-beta.7",
         "react-infinite-scroll-component": "^6.1.0",
         "react-lottie": "^1.2.3",
         "react-paginate": "^8.1.3",

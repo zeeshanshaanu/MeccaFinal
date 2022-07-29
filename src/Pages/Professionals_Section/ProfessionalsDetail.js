@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useNavigate } from "react-router-dom";
 import GradeIcon from "@mui/icons-material/Grade";
+
 const drawerWidth = 100;
 const ProfessionalsDetail = () => {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ const ProfessionalsDetail = () => {
   const [gettestimonials, setGettestimonials] = useState([]);
   const [getservices, setGetservices] = useState([]);
   const [getMedia, setGetMedia] = useState([]);
+
   //////////////////==================////////////////============
   function handleClick(event) {
     event.preventDefault();
@@ -110,6 +112,8 @@ const ProfessionalsDetail = () => {
     GetAllProfDetail();
     setdone(true);
   }, []);
+
+  //
 
   //////////////////==================////////////////============
   //////////////////==================////////////////============
@@ -273,23 +277,24 @@ const ProfessionalsDetail = () => {
                 <h3 className="fw-bolder mb-4">Gallery</h3>
                 <Row>
                   {getMedia.length == 0 ? (
-                    <span className="fw-bolder h5">No Certifications Found</span>
-                  ) : getMedia.map((MediaGets) => {
-                        return (
-                          <div className="col col-lg-4 col-md-6 col-sm-12  mb-5">
-                            <div className="card_image">
-                              <img
-                                src={MediaGets.file}
-                                alt=""
-                                className="KliquesDetailBGIMg"
-                              />
-                            </div>
-                            <div>
-                            
-                            </div>
+                    <span className="fw-bolder h5">
+                      No Certifications Found
+                    </span>
+                  ) : (
+                    getMedia.map((MediaGets) => {
+                      return (
+                        <div className="col col-lg-4 col-md-6 col-sm-12  mb-5">
+                          <div className="card_image">
+                            <img
+                              src={MediaGets.file}
+                              // onClick={openLightbox}
+                              className="KliquesDetailBGIMg"
+                            />
                           </div>
-                        );
-                      })}
+                        </div>
+                      );
+                    })
+                  )}
                 </Row>
               </div>
               {/*  */}
@@ -300,40 +305,44 @@ const ProfessionalsDetail = () => {
                 <h3 className="fw-bolder mb-4">Services</h3>
                 <Row>
                   {getservices.length == 0 ? (
-                    <span className="fw-bolder h5">No Certifications Found</span>
-                  ) :  getservices.map((servic) => {
-                        return (
-                          <div className="col col-lg-4 col-md-6 col-sm-12  Services_card mb-5">
-                            <div className="mt-2 d-flex justify-content-between">
-                              <p class="fw-bolder">Tittle:</p>
-                              <p>
-                                <samall>{servic.name}</samall>
-                              </p>
-                            </div>
-                            <div className="mt-2 d-flex justify-content-between">
-                              <p class="fw-bolder ProductCardTextColor">
-                                Experience:
-                              </p>
-                              <p>
-                                <samall>{servic.experience}</samall>
-                              </p>
-                            </div>
-                            <div className="mt-2 d-flex justify-content-end">
-                              <p class="fw-bolder ProductCardTextColor ">
-                                {servic.isPremium === 1 ? (
-                                  <div className="text-success fw-bolder">
-                                    <small>Premium</small>
-                                  </div>
-                                ) : (
-                                  <div className="text-danger fw-bolder">
-                                    <small>Free</small>
-                                  </div>
-                                )}
-                              </p>
-                            </div>
+                    <span className="fw-bolder h5">
+                      No Certifications Found
+                    </span>
+                  ) : (
+                    getservices.map((servic) => {
+                      return (
+                        <div className="col col-lg-4 col-md-6 col-sm-12  Services_card mb-5">
+                          <div className="mt-2 d-flex justify-content-between">
+                            <p class="fw-bolder">Tittle:</p>
+                            <p>
+                              <samall>{servic.name}</samall>
+                            </p>
                           </div>
-                        );
-                      })}
+                          <div className="mt-2 d-flex justify-content-between">
+                            <p class="fw-bolder ProductCardTextColor">
+                              Experience:
+                            </p>
+                            <p>
+                              <samall>{servic.experience}</samall>
+                            </p>
+                          </div>
+                          <div className="mt-2 d-flex justify-content-end">
+                            <p class="fw-bolder ProductCardTextColor ">
+                              {servic.isPremium === 1 ? (
+                                <div className="text-success fw-bolder">
+                                  <small>Premium</small>
+                                </div>
+                              ) : (
+                                <div className="text-danger fw-bolder">
+                                  <small>Free</small>
+                                </div>
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
                 </Row>
               </div>
               <hr />
@@ -343,53 +352,57 @@ const ProfessionalsDetail = () => {
                 {/*  */}
                 <Row>
                   {GetCertificates.length == 0 ? (
-                    <span className="fw-bolder h5">No Certifications Found</span>
-                  ) :GetCertificates.map((CertificatesGets) => {
-                        return (
-                          <Col lg={4} md={6} sm={12}>
-                            <div className="Events_card mb-5">
-                              <div className="card_image">
-                                <img
-                                  src={CertificatesGets.file}
-                                  alt=""
-                                  className="KliquesDetailBGIMg"
-                                />
-                              </div>
-                              <div>
-                                <div className="d-flex justify-content-between mt-4">
-                                  <div className="">
-                                    <p class="text-left ">
-                                      <span className="fw-bolder">Tittle:</span>
-                                      &nbsp;
-                                    </p>
-                                  </div>
-                                  <div className="">
-                                    <p class="text-left det">
-                                      {CertificatesGets.title}
-                                    </p>
-                                  </div>
-                                </div>
-                                {/*  */}
-                                {/*  */}
+                    <span className="fw-bolder h5">
+                      No Certifications Found
+                    </span>
+                  ) : (
+                    GetCertificates.map((CertificatesGets) => {
+                      return (
+                        <Col lg={4} md={6} sm={12}>
+                          <div className="Events_card mb-5">
+                            <div className="card_image">
+                              <img
+                                src={CertificatesGets.file}
+                                alt=""
+                                className="KliquesDetailBGIMg"
+                              />
+                            </div>
+                            <div>
+                              <div className="d-flex justify-content-between mt-4">
                                 <div className="">
-                                  <div class="Completed">
-                                    <span className="fw-bolder">
-                                      Description:
-                                    </span>
-                                    <p class="">
-                                      <small
-                                        dangerouslySetInnerHTML={{
-                                          __html: CertificatesGets.description,
-                                        }}
-                                      />
-                                    </p>
-                                  </div>
+                                  <p class="text-left ">
+                                    <span className="fw-bolder">Tittle:</span>
+                                    &nbsp;
+                                  </p>
+                                </div>
+                                <div className="">
+                                  <p class="text-left det">
+                                    {CertificatesGets.title}
+                                  </p>
+                                </div>
+                              </div>
+                              {/*  */}
+                              {/*  */}
+                              <div className="">
+                                <div class="Completed">
+                                  <span className="fw-bolder">
+                                    Description:
+                                  </span>
+                                  <p class="">
+                                    <small
+                                      dangerouslySetInnerHTML={{
+                                        __html: CertificatesGets.description,
+                                      }}
+                                    />
+                                  </p>
                                 </div>
                               </div>
                             </div>
-                          </Col>
-                        );
-                      })}
+                          </div>
+                        </Col>
+                      );
+                    })
+                  )}
                 </Row>
               </div>
               {/*  */}
