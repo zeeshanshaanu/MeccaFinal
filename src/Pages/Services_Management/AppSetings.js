@@ -2,6 +2,9 @@
 import Notification from "../../Components/AlertNotification/Message";
 import ResponsiveDrawer from "../Dashboard/Drawer";
 import CircularIndeterminate from "../../Components/Loader/Loader";
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 //
 //
 //
@@ -29,6 +32,7 @@ const AppSetings = () => {
   ////////////=============/////////////==========
   const navigate = useNavigate();
   const [done, setdone] = useState(false);
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -37,9 +41,12 @@ const AppSetings = () => {
   ////////////=============/////////////============
   const [tokenauth, settokenauth] = useState("");
   const [Services, setServices] = useState([]);
-  const GetServices = () => {
+  const [pageCount, setPageCount] = useState(1);
+
+  //
+  const GetServices = (currentPage) => {
     axios
-      .get(`/service/view_all`, {
+      .get(`/service/view_all?`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
@@ -47,10 +54,12 @@ const AppSetings = () => {
       .then((response) => {
         setServices(response.data.data);
         console.log(response.data.data);
+        // setPageCount(response.data.data.last_page);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
     sessionStorage.setItem("id", "12");
     GetServices();
@@ -282,7 +291,7 @@ const AppSetings = () => {
                             onChange={(e) => setfilter(e.target.value)}
                           />
                         </Form.Group>
-                        <SearchIcon className="ServicesSearch_icon" />
+                        <SearchIcon className="ServicesSearch_icon ms-3 ps-1" />
                       </div>
                     </div>
 
@@ -394,6 +403,26 @@ const AppSetings = () => {
                           })}
                         </tbody>
                       </Table>
+                    </div>
+                    <div className="d-flex mt-5 my-auto">
+                      <p className="text-muted ms-3">
+                        Showing&nbsp;1&nbsp;of&nbsp;11 &nbsp; enteries
+                      </p>
+                      <div className="ms-auto my-auto">
+                        <ReactPaginate
+                          previousLabel={<ArrowCircleLeftRoundedIcon />}
+                          nextLabel={<ArrowCircleRightRoundedIcon />}
+                          pageCount={pageCount}
+                          pageRange={5}
+                          marginPagesDisplayed={2}
+                          // onPageChange={handlePageChange}
+                          containerClassName={"paginationBttns"}
+                          previousLinkClassName={"previousBttn"}
+                          nextLinkClassName={"nextBttn"}
+                          disabledClassName={"paginationDisabled"}
+                          activeClassName={"paginationActive"}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

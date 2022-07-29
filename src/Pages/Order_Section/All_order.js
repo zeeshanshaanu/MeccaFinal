@@ -36,7 +36,9 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import CircularIndeterminate from "../../Components/Loader/Loader";
-
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -130,22 +132,34 @@ const drawerWidth = 100;
 const All_Orders = () => {
   const [done, setdone] = useState(false);
   const [GetOrders, setGetOrders] = useState([]);
-  const GetAllOrders = () => {
+  const [pageCount, setPageCount] = useState(1);
+  const [orderentries, setOrderentries] = useState("");
+  const [Totalorderentries, setTotalorderentries] = useState("");
+
+  const GetAllOrders = (currentPage) => {
     axios
-      .get(`/orders`, {
+      .get(`/orders?per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setGetOrders(response.data.data.orders);
+        setPageCount(response.data.data.last_page);
+        setOrderentries(response.data.data.to);
+        setTotalorderentries(response.data.data.total);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const Events = await GetAllOrders(currentPage);
+    setGetOrders(Events);
+  };
   useEffect(() => {
     sessionStorage.setItem("id", "8");
-    GetAllOrders();
+    GetAllOrders(1);
     setdone(true);
   }, []);
   const navigate = useNavigate();
@@ -311,11 +325,8 @@ const All_Orders = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {GetOrders.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                        .filter((admin) => {
+                      {GetOrders &&
+                        GetOrders.filter((admin) => {
                           if (filter === "") {
                             return GetOrders;
                           } else if (
@@ -339,8 +350,7 @@ const All_Orders = () => {
                           ) {
                             return GetOrders;
                           }
-                        })
-                        .map((getorderss) => {
+                        }).map((getorderss) => {
                           return (
                             <TableRow
                               hover
@@ -385,15 +395,27 @@ const All_Orders = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={GetOrders.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                <div className="d-flex mt-5 my-auto">
+                  <p className="text-muted ms-3">
+                    Showing&nbsp;{orderentries}&nbsp;of&nbsp;{Totalorderentries}{" "}
+                    &nbsp; enteries
+                  </p>
+                  <div className="ms-auto my-auto">
+                    <ReactPaginate
+                      previousLabel={<ArrowCircleLeftRoundedIcon />}
+                      nextLabel={<ArrowCircleRightRoundedIcon />}
+                      pageCount={pageCount}
+                      pageRange={5}
+                      marginPagesDisplayed={2}
+                      onPageChange={handlePageChange}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
+                  </div>
+                </div>
               </Paper>
             </div>
           )}
