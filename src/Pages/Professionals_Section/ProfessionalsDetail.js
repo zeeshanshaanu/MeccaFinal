@@ -46,6 +46,7 @@ const ProfessionalsDetail = () => {
   const [gettestimonials, setGettestimonials] = useState([]);
   const [getservices, setGetservices] = useState([]);
   const [getMedia, setGetMedia] = useState([]);
+
   //////////////////==================////////////////============
   function handleClick(event) {
     event.preventDefault();
@@ -113,6 +114,8 @@ const ProfessionalsDetail = () => {
     GetAllProfDetail();
     setdone(true);
   }, []);
+
+  //
 
   //////////////////==================////////////////============
   //////////////////==================////////////////============
@@ -265,7 +268,8 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="">
-                <h5 className="fw-bolder">Video :&nbsp;</h5><br />
+                <h5 className="fw-bolder">Video :&nbsp;</h5>
+                <br />
                 <div className="">
                   <small className="">
                     <iframe width="420" height="315" src={VideoLink}></iframe>

@@ -11,7 +11,7 @@ import "./Orders.css";
 import { styled, alpha } from "@mui/material/styles";
 import Menu from "@mui/material/Menu";
 import "bootstrap/dist/css/bootstrap.min.css";
-import EventImg1 from "../../Assets/Images/EventImg1.png";
+import EventImg1 from "../../Assets/Images/Photo1.png";
 //
 //
 import Logo1 from "../../Assets/Images/Logo1.png";
@@ -320,7 +320,7 @@ const OrderDetail = () => {
                           <p className="text-dark ">Shop Phone#</p>
                         </div>
                         <div>
-                          <p>  Dummy data!!</p>
+                          <p> Dummy data!!</p>
                         </div>
                       </div>
                       {/*  */}
@@ -339,7 +339,7 @@ const OrderDetail = () => {
                   {/* Shipping Address */}
                   {/* Shipping Address */}
                   <div className="Shipping_Address mt-4">
-                    <h6 className=" mb-2 fw-bolder" >Shipping Address</h6>
+                    <h6 className=" mb-2 fw-bolder">Shipping Address</h6>
                     <div className="py-3 px-3 bg-light forBorderTop">
                       {/*  */}
                       {/*  */}
@@ -568,6 +568,205 @@ const OrderDetail = () => {
                         </p>
                       </div>
                     </center>
+                    <h6 className=" mb-2 fw-bolder">Customer&nbsp;Details</h6>
+                    <div className="py-3 px-3 bg-light forBorderTop">
+                      {/*  */}
+                      {/*  */}
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Customer&nbsp;Name</p>
+                        </div>
+                        <div>
+                          <p>John&nbsp;Doe</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Email</p>
+                        </div>
+                        <div>
+                          <p>John&nbsp;Doe</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Phone&nbsp;No</p>
+                        </div>
+                        <div>
+                          <p>+923004567198</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                    </div>
+                    {/*  */}
+                    <h6 className=" mb-2 fw-bolder">Shop&nbsp;Details</h6>
+                    <div className="py-3 px-3 bg-light forBorderTop">
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Shope&nbsp;Name</p>
+                        </div>
+                        <div>
+                          <p>Mecca&nbsp;Fitness</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Email</p>
+                        </div>
+                        <div>
+                          <p>Abc@gmail.com</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Phone&nbsp;Number</p>
+                        </div>
+                        <div>
+                          <p>+92300434343</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Website</p>
+                        </div>
+                        <div>
+                          <p>www.meccafitness.com</p>
+                        </div>
+                      </div>
+                    </div>
+                    <h6 className=" mb-2 fw-bolder">Shipping&nbsp;Details</h6>
+                    <div className="py-3 px-3 bg-light forBorderTop">
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Shipping&nbsp;Address</p>
+                        </div>
+                        <div>
+                          <p>
+                            &nbsp;&nbsp;&nbsp;mukhtar&nbsp;arcade&nbsp;university{" "}
+                            <br /> road haripur{" "}
+                          </p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between">
+                        <div className="">
+                          <p className="text-dark ">Billing&nbsp;Address</p>
+                        </div>
+                        <div>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mukhtar&nbsp;arcade&nbsp;university{" "}
+                          <br /> road haripur{" "}
+                        </div>
+                      </div>
+                      {/*  */}
+                    </div>
+                    <h6 className=" mb-2 fw-bolder">Order&nbsp;Details</h6>
+                    <div className="py-3 px-3 bg-light forBorderTop">
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <img className="" src={EventImg1} alt="" />
+                          <div className="ms-3 my-auto">
+                            <p className="fw-bolder ">Casual&nbsp;Shirt</p>
+                            <p className="text-muted ">Regular</p>
+                            <p className="text-muted ">Qty:05</p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="fw-bolder">$25</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <img src={EventImg1} alt="" />
+                          <div className="ms-3 my-auto">
+                            <p className="fw-bolder ">Casual&nbsp;Shirt</p>
+                            <p className="text-muted ">Regular</p>
+                            <p className="text-muted ">Qty:05</p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="fw-bolder">$25</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <img src={EventImg1} alt="" />
+                          <div className="ms-3 my-auto">
+                            <p className="fw-bolder ">Casual&nbsp;Shirt</p>
+                            <p className="text-muted ">Regular</p>
+                            <p className="text-muted ">Qty:05</p>
+                          </div>
+                        </div>
+                        <div>
+                          <p className="fw-bolder">$25</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <p className="fw-bolder">Total Quantity</p>
+                        </div>
+                        <div>
+                          <p>03</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <p className="fw-bolder">Sub Total</p>
+                        </div>
+                        <div>
+                          <p>$75</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <p className="fw-bolder">Inc.Tax</p>
+                        </div>
+                        <div>
+                          <p>$2</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <p className="fw-bolder">Shipping Charges</p>
+                        </div>
+                        <div>
+                          <p>$12</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="d-flex justify-content-between mt-2">
+                        <div className="d-flex">
+                          <p className="fw-bolder">Discount Price</p>
+                        </div>
+                        <div>
+                          <p>-$5</p>
+                        </div>
+                      </div>
+                      {/*  */}
+                      <div className="py-3 px-3 bg-light forBorderTop">
+                        <div className="d-flex justify-content-between mt-2">
+                          <div className="d-flex">
+                            <p className="fw-bolder">Total</p>
+                          </div>
+                          <div>
+                            <p>$89</p>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-center fw-bolder">
+                        Thanku for Shopping with us
+                      </p>
+                    </div>
                   </div>
                 </Col>
               </Row>
