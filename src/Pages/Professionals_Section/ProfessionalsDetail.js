@@ -17,11 +17,7 @@ import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useNavigate } from "react-router-dom";
 import GradeIcon from "@mui/icons-material/Grade";
-<<<<<<< HEAD
-
-=======
 import { Player } from "video-react";
->>>>>>> e0d37503047a37a781ab7779b2e7d79de68ecd81
 const drawerWidth = 100;
 const ProfessionalsDetail = () => {
   const navigate = useNavigate();
@@ -272,7 +268,8 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="">
-                <h5 className="fw-bolder">Video :&nbsp;</h5><br />
+                <h5 className="fw-bolder">Video :&nbsp;</h5>
+                <br />
                 <div className="">
                   <small className="">
                     <iframe width="420" height="315" src={VideoLink}></iframe>
@@ -297,18 +294,11 @@ const ProfessionalsDetail = () => {
                           <div className="card_image">
                             <img
                               src={MediaGets.file}
-<<<<<<< HEAD
-                              // onClick={openLightbox}
-                              className="KliquesDetailBGIMg"
-                            />
-                          </div>
-=======
                               alt=""
                               className="KliquesDetailBGIMg"
                             />
                           </div>
                           <div></div>
->>>>>>> e0d37503047a37a781ab7779b2e7d79de68ecd81
                         </div>
                       );
                     })
