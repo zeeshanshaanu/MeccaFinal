@@ -23,9 +23,57 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import CollectionsOutlinedIcon from "@mui/icons-material/CollectionsOutlined";
 import CircularIndeterminate from "../../Components/Loader/Loader";
 //////////////============///////////==============///////
+//////////////============///////////==============///////
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import { styled } from "@mui/material/styles";
+import MuiAccordion from "@mui/material/Accordion";
+import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
+//////////////============///////////==============///////
+//////////////============///////////==============///////
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+}));
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, .05)"
+      : "rgba(0, 0, 0, .03)",
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
+//
+//////////////============///////////==============///////
 const drawerWidth = 100;
 //////////////============///////////==============///////
 const EventDetail = () => {
+  const [expanded, setExpanded] = React.useState("panel1");
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
   const { id } = useParams();
   //////////////============///////////==============///////
   const [done, setdone] = useState(false);
@@ -56,6 +104,7 @@ const EventDetail = () => {
   const [OrgEmail, setOrgEmail] = useState([]);
   //////////////============///////////==============///////
   const [Attendees, setAttendees] = useState([]);
+  const [Faqs, setFaqs] = useState([]);
   //////////////============///////////==============///////
   const GetShopDetail = () => {
     axios
@@ -90,6 +139,7 @@ const EventDetail = () => {
         setOrgEmail(response.data.data.created_by.email);
         //////////////============///Attendees////////==============///////
         setAttendees(response.data.data.attendees);
+        setFaqs(response.data.data.faqs);
         //////////////============///////////==============///////
         //////////////============///////////==============///////
         setticket_available_from(response.data.data.ticket_available_from);
@@ -344,9 +394,8 @@ const EventDetail = () => {
                   <div className="mt-4">
                     <p className="fw-bolder">Description</p>
                     <small className="">
-                      {description}
-                      {/* <span className="text-danger">read more...</span> */}
-                    </small>
+                      <span className="w-50">{description}</span>
+                     </small>
                   </div>
                   {/*  */}
                   {/*  */}
@@ -358,27 +407,87 @@ const EventDetail = () => {
                     </div>
                     <div class="avatars">
                       {Attendees.length == 0 ? (
-                    <span className="fw-bolder h5">No Registrations yet</span>
-                  ) : Attendees.slice(0, 4).map((getattendees) => {
-                        return (
-                          <span class="avatar">
-                            <img
-                              src={
-                                getattendees.profile.image === ""
-                                  ? "No registrations yet"
-                                  : getattendees.profile.image
-                              }
-                              alt="EventImg1.png"
-                              className="AttendeesImgWidth"
-                            />
-                          </span>
-                        );
-                      })}
+                        <span className="fw-bolder h5">
+                          No Registrations yet
+                        </span>
+                      ) : (
+                        Attendees.slice(0, 4).map((getattendees) => {
+                          return (
+                            <span class="avatar">
+                              <img
+                                src={
+                                  getattendees.profile.image === ""
+                                    ? "No registrations yet"
+                                    : getattendees.profile.image
+                                }
+                                alt="EventImg1.png"
+                                className="AttendeesImgWidth"
+                              />
+                            </span>
+                          );
+                        })
+                      )}
                       {/* <div className="">
                     +all
                   </div> */}
                     </div>
                   </div>
+                  {/*  */}
+                  {/*  */}
+                  {/*  */}
+                  {/*  */}
+                  <div className="FAQS_And_Comments ">
+                    <p className="fw-bolder mt-4">FAQS</p>
+                    {/*  */}
+
+                    <div className="">
+                      {Faqs.length == 0 ? (
+                        <span className="">No Faqs</span>
+                      ) : (
+                        Faqs.map((getFaq) => {
+                          return (
+                            <>
+                              <Accordion
+                                className="my-3 w-50"
+                                expanded={expanded === "panel2"}
+                                onChange={handleChange("panel2")}
+                              >
+                                <AccordionSummary
+                                  style={{
+                                    backgroundColor: "#F65824",
+                                    width: "100%",
+                                  }}
+                                  aria-controls="panel1d-content"
+                                  id="panel1d-header"
+                                >
+                                  <div className="d-flex justify-content-between">
+                                    <Typography className="  applicationh1 text-white fw-bolder">
+                                      {getFaq.question}
+                                    </Typography>
+                                  </div>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                  <Typography>
+                                    <p className="text-start fw-bolder">
+                                      Answer:
+                                    </p>
+                                    <p className=" fw-bolder">
+                                      {" "}
+                                      {getFaq.answer}
+                                    </p>
+                                  </Typography>
+                                </AccordionDetails>
+                              </Accordion>
+                            </>
+                          );
+                        })
+                      )}
+                    </div>
+                  </div>
+                  {/*  */}
+                  {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
                     <p className="fw-bolder">Organizer</p>
                     <div className="Product_card mb-5">
