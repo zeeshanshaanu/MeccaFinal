@@ -36,7 +36,9 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import CircularIndeterminate from "../../Components/Loader/Loader";
-
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -130,6 +132,8 @@ const drawerWidth = 100;
 const All_Orders = () => {
   const [done, setdone] = useState(false);
   const [GetOrders, setGetOrders] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+
   const GetAllOrders = () => {
     axios
       .get(`/orders`, {
@@ -385,15 +389,26 @@ const All_Orders = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={GetOrders.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                <div className="d-flex mt-5 my-auto">
+                  <p className="text-muted ms-3">
+                    Showing&nbsp;1&nbsp;of&nbsp;11 &nbsp; enteries
+                  </p>
+                  <div className="ms-auto my-auto">
+                    <ReactPaginate
+                      previousLabel={<ArrowCircleLeftRoundedIcon />}
+                      nextLabel={<ArrowCircleRightRoundedIcon />}
+                      pageCount={pageCount}
+                      pageRange={5}
+                      marginPagesDisplayed={2}
+                      // onPageChange={handlePageChange}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
+                  </div>
+                </div>
               </Paper>
             </div>
           )}

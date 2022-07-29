@@ -2,6 +2,9 @@
 import Notification from "../../Components/AlertNotification/Message";
 import ResponsiveDrawer from "../Dashboard/Drawer";
 import CircularIndeterminate from "../../Components/Loader/Loader";
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 //
 //
 //
@@ -61,6 +64,7 @@ const AppSetings = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [level, setlevel] = useState("");
+  const [pageCount, setPageCount] = useState(1);
 
   const AddAdminServices = () => {
     const formData = new FormData();
@@ -394,6 +398,26 @@ const AppSetings = () => {
                           })}
                         </tbody>
                       </Table>
+                      <div className="d-flex mt-5 my-auto">
+                        <p className="text-muted ms-3">
+                          Showing&nbsp;1&nbsp;of&nbsp;11 &nbsp; enteries
+                        </p>
+                        <div className="ms-auto my-auto">
+                          <ReactPaginate
+                            previousLabel={<ArrowCircleLeftRoundedIcon />}
+                            nextLabel={<ArrowCircleRightRoundedIcon />}
+                            pageCount={pageCount}
+                            pageRange={5}
+                            marginPagesDisplayed={2}
+                            // onPageChange={handlePageChange}
+                            containerClassName={"paginationBttns"}
+                            previousLinkClassName={"previousBttn"}
+                            nextLinkClassName={"nextBttn"}
+                            disabledClassName={"paginationDisabled"}
+                            activeClassName={"paginationActive"}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
