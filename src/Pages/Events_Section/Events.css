@@ -231,6 +231,36 @@
   justify-content: space-between;
   margin-left: 2rem;
 }
+.BoxWidth{
+  width: 500px;
+  height: 450px;
+}
+.Sub_Box{
+  border: .5px dashed silver ;
+ }
+ .formarginBotoom{
+  margin-bottom: 1rem !important;
+ }
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
  @media screen and (min-width: 1957px) {
   .properties {
     height: 164px;
