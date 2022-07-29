@@ -398,27 +398,27 @@ const AppSetings = () => {
                           })}
                         </tbody>
                       </Table>
-                      <div className="d-flex mt-5 my-auto">
-                        <p className="text-muted ms-3">
-                          Showing&nbsp;1&nbsp;of&nbsp;11 &nbsp; enteries
-                        </p>
-                        <div className="ms-auto my-auto">
-                          <ReactPaginate
-                            previousLabel={<ArrowCircleLeftRoundedIcon />}
-                            nextLabel={<ArrowCircleRightRoundedIcon />}
-                            pageCount={pageCount}
-                            pageRange={5}
-                            marginPagesDisplayed={2}
-                            // onPageChange={handlePageChange}
-                            containerClassName={"paginationBttns"}
-                            previousLinkClassName={"previousBttn"}
-                            nextLinkClassName={"nextBttn"}
-                            disabledClassName={"paginationDisabled"}
-                            activeClassName={"paginationActive"}
-                          />
-                        </div>
-                      </div>
                     </div>
+                  </div>
+                </div>
+                <div className="d-flex mt-5 my-auto">
+                  <p className="text-muted ms-3">
+                    Showing&nbsp;1&nbsp;of&nbsp;11 &nbsp; enteries
+                  </p>
+                  <div className="ms-auto my-auto">
+                    <ReactPaginate
+                      previousLabel={<ArrowCircleLeftRoundedIcon />}
+                      nextLabel={<ArrowCircleRightRoundedIcon />}
+                      pageCount={pageCount}
+                      pageRange={5}
+                      marginPagesDisplayed={2}
+                      // onPageChange={handlePageChange}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
                   </div>
                 </div>
               </div>
