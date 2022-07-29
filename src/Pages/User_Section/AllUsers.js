@@ -65,6 +65,7 @@ const AllUsers = () => {
   const [done, setdone] = useState(false);
   const [user_data, setuser_data] = useState("");
   const [user_data_total, setuser_data_total] = useState("");
+  const [filter, setfilter] = useState("");
   const navigate = useNavigate();
   //
   //
@@ -169,9 +170,9 @@ const AllUsers = () => {
                 <Form.Control
                   type="search"
                   className="forpaaddingleft input_field w-100"
-                  placeholder="Search..."
-                  // value={filter}
-                  // onChange={(e) => setfilter(e.target.value)}
+                  placeholder="Search by name, user type, email"
+                  value={filter}
+                  onChange={(e) => setfilter(e.target.value)}
                 />
               </Form.Group>
               <SearchIcon className="Kliquesearch_icon" />
@@ -203,7 +204,31 @@ const AllUsers = () => {
                     </TableHead>
                     <TableBody>
                       {allusers &&
-                        allusers.map((userGet) => {
+                        allusers.filter((admin) => {
+                          if (filter === "") {
+                            return allusers;
+                          } else if (
+                            (admin.last_name &&
+                              admin.last_name
+                                .toString()
+                                .includes(filter.toString().toUpperCase().toLowerCase())) ||
+                            (admin.email &&
+                              admin.email
+                                .toString()
+                                .includes(filter.toString().toUpperCase().toLowerCase())) ||
+                            (admin.first_name &&
+                              admin.first_name
+                                .toString()
+                                .toUpperCase()
+                                .includes(filter.toString().toUpperCase().toLowerCase())) ||
+                            (admin.user_type &&
+                              admin.user_type
+                                .toString()
+                                .includes(filter.toString()))
+                          ) {
+                            return allusers;
+                          }
+                        }).map((userGet) => {
                           return (
                             <TableRow
                               hover
@@ -224,7 +249,11 @@ const AllUsers = () => {
                               </TableCell>
                               <TableCell>{userGet.email}</TableCell>
                               <TableCell>{userGet.user_type}</TableCell>
-                              <TableCell>{userGet.is_profile_setup}</TableCell>
+                              <TableCell>{userGet.is_profile_setup===1?(
+                                <span className="text-success">Active</span>
+                              ):(
+                                <span className="text-danger">Inactive</span>
+                              )}</TableCell>
                               <TableCell>
                                 <div className="App">
                                   {" "}
