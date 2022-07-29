@@ -81,7 +81,7 @@ const AllUsers = () => {
         setalluser(response.data.data.users);
         setPageCount(response.data.data.last_page);
         setuser_data(response.data.data.to);
-        setuser_data_total(response.data.data.to);
+        setuser_data_total(response.data.data.total);
         console.log(response.data);
         setdone(false);
       })
@@ -204,75 +204,97 @@ const AllUsers = () => {
                     </TableHead>
                     <TableBody>
                       {allusers &&
-                        allusers.filter((admin) => {
-                          if (filter === "") {
-                            return allusers;
-                          } else if (
-                            (admin.last_name &&
-                              admin.last_name
-                                .toString()
-                                .includes(filter.toString().toUpperCase().toLowerCase())) ||
-                            (admin.email &&
-                              admin.email
-                                .toString()
-                                .includes(filter.toString().toUpperCase().toLowerCase())) ||
-                            (admin.first_name &&
-                              admin.first_name
-                                .toString()
-                                .toUpperCase()
-                                .includes(filter.toString().toUpperCase().toLowerCase())) ||
-                            (admin.user_type &&
-                              admin.user_type
-                                .toString()
-                                .includes(filter.toString()))
-                          ) {
-                            return allusers;
-                          }
-                        }).map((userGet) => {
-                          return (
-                            <TableRow
-                              hover
-                              role="checkbox"
-                              tabIndex={-1}
-                              key={userGet.code}
-                            >
-                              <TableCell>
-                                <img
-                                  src={userGet.profile.image}
-                                  alt=""
-                                  className="ProfesProfileImg"
-                                />
-                                &nbsp;
-                                <span className="">
-                                  {userGet.first_name}&nbsp;{userGet.last_name}
-                                </span>
-                              </TableCell>
-                              <TableCell>{userGet.email}</TableCell>
-                              <TableCell>{userGet.user_type}</TableCell>
-                              <TableCell>{userGet.is_profile_setup===1?(
-                                <span className="text-success">Active</span>
-                              ):(
-                                <span className="text-danger">Inactive</span>
-                              )}</TableCell>
-                              <TableCell>
-                                <div className="App">
-                                  {" "}
-                                  <span
-                                    onClick={() => {
-                                      navigate("/UserDetail");
-                                    }}
-                                    className="fw-bolder view"
-                                  >
-                                    <VisibilityOutlinedIcon />
-                                  </span>{" "}
-                                  <span className="view" onClick={() => {}}>
-                                    <DeleteIcon />
+                        allusers
+                          .filter((admin) => {
+                            if (filter === "") {
+                              return allusers;
+                            } else if (
+                              (admin.last_name &&
+                                admin.last_name
+                                  .toString()
+                                  .includes(
+                                    filter
+                                      .toString()
+                                      .toUpperCase()
+                                      .toLowerCase()
+                                  )) ||
+                              (admin.email &&
+                                admin.email
+                                  .toString()
+                                  .includes(
+                                    filter
+                                      .toString()
+                                      .toUpperCase()
+                                      .toLowerCase()
+                                  )) ||
+                              (admin.first_name &&
+                                admin.first_name
+                                  .toString()
+                                  .toUpperCase()
+                                  .includes(
+                                    filter
+                                      .toString()
+                                      .toUpperCase()
+                                      .toLowerCase()
+                                  )) ||
+                              (admin.user_type &&
+                                admin.user_type
+                                  .toString()
+                                  .includes(filter.toString()))
+                            ) {
+                              return allusers;
+                            }
+                          })
+                          .map((userGet) => {
+                            return (
+                              <TableRow
+                                hover
+                                role="checkbox"
+                                tabIndex={-1}
+                                key={userGet.code}
+                              >
+                                <TableCell>
+                                  <img
+                                    src={userGet.profile.image}
+                                    alt=""
+                                    className="ProfesProfileImg"
+                                  />
+                                  &nbsp;
+                                  <span className="">
+                                    {userGet.first_name}&nbsp;
+                                    {userGet.last_name}
                                   </span>
-                                </div>
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
+                                </TableCell>
+                                <TableCell>{userGet.email}</TableCell>
+                                <TableCell>{userGet.user_type}</TableCell>
+                                <TableCell>
+                                  {userGet.is_profile_setup === 1 ? (
+                                    <span className="text-success">Active</span>
+                                  ) : (
+                                    <span className="text-danger">
+                                      Inactive
+                                    </span>
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  <div className="App">
+                                    {" "}
+                                    <span
+                                      onClick={() => {
+                                        navigate("/UserDetail");
+                                      }}
+                                      className="fw-bolder view"
+                                    >
+                                      <VisibilityOutlinedIcon />
+                                    </span>{" "}
+                                    <span className="view" onClick={() => {}}>
+                                      <DeleteIcon />
+                                    </span>
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
                     </TableBody>
                   </Table>
                 </TableContainer>

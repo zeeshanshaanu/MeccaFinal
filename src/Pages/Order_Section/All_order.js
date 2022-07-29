@@ -133,23 +133,33 @@ const All_Orders = () => {
   const [done, setdone] = useState(false);
   const [GetOrders, setGetOrders] = useState([]);
   const [pageCount, setPageCount] = useState(1);
+  const [orderentries, setOrderentries] = useState("");
+  const [Totalorderentries, setTotalorderentries] = useState("");
 
-  const GetAllOrders = () => {
+  const GetAllOrders = (currentPage) => {
     axios
-      .get(`/orders`, {
+      .get(`/orders?per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setGetOrders(response.data.data.orders);
+        setPageCount(response.data.data.last_page);
+        setOrderentries(response.data.data.to);
+        setTotalorderentries(response.data.data.total);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const Events = await GetAllOrders(currentPage);
+    setGetOrders(Events);
+  };
   useEffect(() => {
     sessionStorage.setItem("id", "8");
-    GetAllOrders();
+    GetAllOrders(1);
     setdone(true);
   }, []);
   const navigate = useNavigate();
@@ -315,11 +325,8 @@ const All_Orders = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {GetOrders.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                        .filter((admin) => {
+                      {GetOrders &&
+                        GetOrders.filter((admin) => {
                           if (filter === "") {
                             return GetOrders;
                           } else if (
@@ -343,8 +350,7 @@ const All_Orders = () => {
                           ) {
                             return GetOrders;
                           }
-                        })
-                        .map((getorderss) => {
+                        }).map((getorderss) => {
                           return (
                             <TableRow
                               hover
@@ -391,7 +397,8 @@ const All_Orders = () => {
                 </TableContainer>
                 <div className="d-flex mt-5 my-auto">
                   <p className="text-muted ms-3">
-                    Showing&nbsp;1&nbsp;of&nbsp;11 &nbsp; enteries
+                    Showing&nbsp;{orderentries}&nbsp;of&nbsp;{Totalorderentries}{" "}
+                    &nbsp; enteries
                   </p>
                   <div className="ms-auto my-auto">
                     <ReactPaginate
@@ -400,7 +407,7 @@ const All_Orders = () => {
                       pageCount={pageCount}
                       pageRange={5}
                       marginPagesDisplayed={2}
-                      // onPageChange={handlePageChange}
+                      onPageChange={handlePageChange}
                       containerClassName={"paginationBttns"}
                       previousLinkClassName={"previousBttn"}
                       nextLinkClassName={"nextBttn"}
