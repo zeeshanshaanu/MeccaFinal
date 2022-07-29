@@ -241,6 +241,12 @@
  .formarginBotoom{
   margin-bottom: 1rem !important;
  }
+ .CommentImg{
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  border-radius: 50%;
+ }
 /*  */
 /*  */
 /*  */
