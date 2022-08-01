@@ -128,7 +128,6 @@ const AllBlogs = () => {
   };
   ////////////=============/////////////============
   ////////////=============/////////////============
-
   const [BlogCat, setBlogCat] = useState([]);
   const [filter, setfilter] = useState("");
 

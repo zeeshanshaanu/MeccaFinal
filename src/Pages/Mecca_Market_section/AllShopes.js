@@ -34,6 +34,9 @@ import AllShopsgridView from "./AllShopsgridView";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import CircularIndeterminate from "../../Components/Loader/Loader";
 //
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -158,8 +161,12 @@ const AllShops = () => {
       </span>
     </Typography>,
   ];
+  const [pageCount, setPageCount] = useState(1);
   const [showList, setshowList] = useState(false);
   const [showGrid, setshowGrid] = useState(true);
+  const [user_data, setuser_data] = useState("");
+  const [user_data_total, setuser_data_total] = useState("");
+  const [pageNumber, setPageNumber] = useState(0);
   const HandleList = () => {
     setshowList(!showList);
     setshowGrid(false);
@@ -202,20 +209,31 @@ const AllShops = () => {
   const [GetShopes, setGetShopes] = useState([]);
   const [filter, setfilter] = useState("");
 
-  const GetServices = () => {
+  const GetServices = (currentPage) => {
     axios
-      .get(`/shop/view-all`, {
+      .get(`/shop/view-all?per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setGetShopes(response.data.data.shops);
-        console.log(response.data.data.shops);
+        setPageCount(response.data.data.last_page);
+        setuser_data(response.data.data.to);
+        setuser_data_total(response.data.data.total);
         setdone(false);
       })
       .catch((err) => console.log(err));
   };
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const blogs = await GetServices(currentPage);
+    setGetShopes(blogs);
+  };
+  //
+  //
+  //
+
   useEffect(() => {
     sessionStorage.setItem("id", "4");
     GetServices();
@@ -345,7 +363,7 @@ const AllShops = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {GetShopes.slice(
+                      {GetShopes && GetShopes.slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
@@ -364,7 +382,7 @@ const AllShops = () => {
                             (admin.address &&
                               admin.address
                                 .toString()
-                                                               .includes(filter.toString().toLowerCase()))
+                                .includes(filter.toString().toLowerCase()))
                           ) {
                             return GetShopes;
                           }
@@ -470,15 +488,27 @@ const AllShops = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={GetShopes.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                <div className="d-flex mt-5">
+                  <p className="text-muted ms-3">
+                    Showing&nbsp;{user_data}&nbsp;of{" "}
+                    {user_data_total} enteries
+                  </p>
+                  <div className="ms-auto">
+                    <ReactPaginate
+                      previousLabel={<ArrowCircleLeftRoundedIcon />}
+                      nextLabel={<ArrowCircleRightRoundedIcon />}
+                      pageCount={pageCount}
+                      pageRange={5}
+                      marginPagesDisplayed={2}
+                      onPageChange={handlePageChange}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
+                  </div>
+                </div>
               </Paper>
             </div>
           )}

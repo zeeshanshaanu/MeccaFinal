@@ -35,6 +35,10 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import CircularIndeterminate from "../../Components/Loader/Loader";
 //
 //
+//
+import ReactPaginate from "react-paginate";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -157,6 +161,7 @@ const AllItems = () => {
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -170,7 +175,7 @@ const AllItems = () => {
   const [filter, setfilter] = useState("");
   const [GetItems, setGetItems] = useState([]);
   const [done, setdone] = useState(false);
-  // const [per_page, setper_page] = useState(100);
+  const [pageCount, setPageCount] = useState(1);
 
   const breadcrumbs = [
     <Typography
@@ -188,19 +193,31 @@ const AllItems = () => {
       </span>
     </Typography>,
   ];
-  const GetAllProductItem = () => {
+  const [user_data, setuser_data] = useState("");
+  const [user_data_total, setuser_data_total] = useState("");
+  //
+  //
+  //
+  const GetAllProductItem = (currentPage) => {
     axios
-      .get(`product/view-all?per_page=${100}`, {
+      .get(`product/view-all?per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
         setGetItems(response.data.data.products);
-        // console.log(response.data.data.products);
+        setPageCount(response.data.data.last_page);
+        setuser_data(response.data.data.to);
+        setuser_data_total(response.data.data.total);
         setdone(false);
       })
       .catch((err) => console.log(err));
+  };
+  const handlePageChange = async (data) => {
+    let currentPage = data.selected + 1;
+    const blogs = await GetAllProductItem(currentPage);
+    setGetItems(blogs);
   };
   useEffect(() => {
     sessionStorage.setItem("id", "4");
@@ -322,134 +339,140 @@ const AllItems = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {GetItems.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                        .filter((admin) => {
-                          if (filter === "") {
-                            return GetItems;
-                          } else if (
-                            (admin.title &&
-                              admin.title
-                                .toString()
-                                .includes(filter.toString().toLowerCase())) ||
-                            (admin.category &&
-                              admin.category
-                                .toString()
-                                .includes(filter.toString().toLowerCase())) ||
-                            (admin.sku &&
-                              admin.sku
-                                .toString()
-                                .includes(filter.toString().toLowerCase())) ||
-                            (admin.shops.name &&
-                              admin.shops.name
-                                .toString()
-                                .includes(filter.toString().toLowerCase()))
-                          ) {
-                            return GetItems;
-                          }
-                        })
-                        .map((index) => {
-                          return (
-                            <TableRow
-                              hover
-                              role="checkbox"
-                              tabIndex={-1}
-                              key={index.code}
-                            >
-                              <TableCell>
-                                <img
-                                  src={Logo1}
-                                  alt="Logo1.ong"
-                                  className="w-25"
-                                />
-                                &nbsp;
-                                <span>{index.title}</span>
-                              </TableCell>
-                              <TableCell>{index.sku}</TableCell>
-                              <TableCell>
-                                {index.shops.map((getshopname) => {
-                                  return (
-                                    <>
-                                      {getshopname.name}
-                                      <br />
-                                    </>
-                                  );
-                                })}
-                              </TableCell>
-                              <TableCell>{index.category}</TableCell>
-                              <TableCell>${index.price}</TableCell>
-                              {/* <TableCell>
-                              <span className="S">{index.compare_at_price}</span>{" "}
-                              <span className="M">{index.compare_at_price}</span>
-                            </TableCell> */}
-                              <TableCell>
-                                {index.available_quantity}&nbsp;
-                                <span className="fw-bolder">In stock</span>
-                              </TableCell>
-                              <TableCell>
-                                <GradeIcon className="text-warning Rating_Icon" />
-                                <GradeIcon className="text-warning Rating_Icon" />
-                                <GradeOutlinedIcon className="text-warning Rating_Icon" />
-                              </TableCell>
-                              {/* <TableCell className="">
-                              <span className="Orange">{index.compare_at_price}</span>&nbsp;
-                              <span className="Green">{index.compare_at_price}</span>&nbsp;
-                              <span className="Blue">{index.compare_at_price}</span>
-                              </TableCell> */}
-                              <TableCell>
-                                {index.added_by.first_name}&nbsp;
-                                {index.added_by.last_name}
-                              </TableCell>
-
-                              <TableCell>
-                                {" "}
-                                <span>
-                                  {index.isActive === 1 ? (
-                                    <small className="Available">
-                                      Available
-                                    </small>
-                                  ) : (
-                                    <small className="UnAvailable">
-                                      Out&nbsp;of&nbsp;Stock
-                                    </small>
-                                  )}
-                                </span>
-                              </TableCell>
-                              <TableCell>
-                                <div className="App">
-                                  <span
-                                    onClick={() => {
-                                      navigate("/Viewitem");
-                                    }}
-                                    className="view"
-                                  >
-                                    <VisibilityOutlinedIcon />
+                      {GetItems &&
+                        GetItems.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                          .filter((admin) => {
+                            if (filter === "") {
+                              return GetItems;
+                            } else if (
+                              (admin.title &&
+                                admin.title
+                                  .toString()
+                                  .includes(filter.toString().toLowerCase())) ||
+                              (admin.category &&
+                                admin.category
+                                  .toString()
+                                  .includes(filter.toString().toLowerCase())) ||
+                              (admin.sku &&
+                                admin.sku
+                                  .toString()
+                                  .includes(filter.toString().toLowerCase())) ||
+                              (admin.shops.name &&
+                                admin.shops.name
+                                  .toString()
+                                  .includes(filter.toString().toLowerCase()))
+                            ) {
+                              return GetItems;
+                            }
+                          })
+                          .map((index) => {
+                            return (
+                              <TableRow
+                                hover
+                                role="checkbox"
+                                tabIndex={-1}
+                                key={index.code}
+                              >
+                                <TableCell>
+                                  <img
+                                    src={index.shops.map((getpic) => {
+                                      return getpic.cover_image;
+                                    })}
+                                    alt=""
+                                    className="itemimge"
+                                  />
+                                  &nbsp;
+                                  <span>{index.title}</span>
+                                </TableCell>
+                                <TableCell>{index.sku}</TableCell>
+                                <TableCell>
+                                  {index.shops.map((getshopname) => {
+                                    return (
+                                      <>
+                                        {getshopname.name}
+                                        <br />
+                                      </>
+                                    );
+                                  })}
+                                </TableCell>
+                                <TableCell>{index.category}</TableCell>
+                                <TableCell>${index.price}</TableCell>
+                                <TableCell>
+                                  {index.available_quantity}&nbsp;
+                                  <span className="fw-bolder">In stock</span>
+                                </TableCell>
+                                <TableCell>
+                                  <GradeIcon className="text-warning Rating_Icon" />
+                                  <GradeIcon className="text-warning Rating_Icon" />
+                                  <GradeOutlinedIcon className="text-warning Rating_Icon" />
+                                </TableCell>
+                                <TableCell>
+                                  {index.added_by.first_name}&nbsp;
+                                  {index.added_by.last_name}
+                                </TableCell>
+                                <TableCell>
+                                  {" "}
+                                  <span>
+                                    {index.isActive === 1 ? (
+                                      <small className="Available">
+                                        Available
+                                      </small>
+                                    ) : (
+                                      <small className="UnAvailable">
+                                        Out&nbsp;of&nbsp;Stock
+                                      </small>
+                                    )}
                                   </span>
-                                  <span
-                                    className="view mx-2"
-                                    onClick={() => {}}
-                                  >
-                                    <DeleteIcon />
-                                  </span>
-                                </div>
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
+                                </TableCell>
+                                <TableCell>
+                                  <div className="App">
+                                    <span
+                                      onClick={() => {
+                                        navigate(
+                                          `/Viewitem/${index.product_id}`
+                                        );
+                                      }}
+                                      className="view"
+                                    >
+                                      <VisibilityOutlinedIcon />
+                                    </span>
+                                    <span
+                                      className="view mx-2"
+                                      onClick={() => {}}
+                                    >
+                                      <DeleteIcon />
+                                    </span>
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <TablePagination
-                  rowsPerPageOptions={[10, 25, 100]}
-                  component="div"
-                  count={GetItems.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                <div className="d-flex mt-5">
+                  <p className="text-muted ms-3">
+                    Showing&nbsp;{user_data}&nbsp;of {user_data_total} enteries
+                  </p>
+                  <div className="ms-auto">
+                    <ReactPaginate
+                      previousLabel={<ArrowCircleLeftRoundedIcon />}
+                      nextLabel={<ArrowCircleRightRoundedIcon />}
+                      pageCount={pageCount}
+                      pageRange={5}
+                      marginPagesDisplayed={2}
+                      onPageChange={handlePageChange}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
+                  </div>
+                </div>
               </Paper>
             </div>
           )}
