@@ -231,6 +231,42 @@
   justify-content: space-between;
   margin-left: 2rem;
 }
+.BoxWidth{
+  width: 500px;
+  height: 450px;
+}
+.Sub_Box{
+  border: .5px dashed silver ;
+ }
+ .formarginBotoom{
+  margin-bottom: 1rem !important;
+ }
+ .CommentImg{
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  border-radius: 50%;
+ }
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
  @media screen and (min-width: 1957px) {
   .properties {
     height: 164px;

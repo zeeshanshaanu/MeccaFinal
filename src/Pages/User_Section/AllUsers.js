@@ -33,6 +33,7 @@ import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRound
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import CircularIndeterminate from "../../Components/Loader/Loader";
 import axios from "axios";
+import UserFilter from "../../Components/All Filters/UsersFilters/UserFilter";
 const columns = [
   { label: "Name", minWidth: 50, align: "left" },
   { label: "Email", minWidth: 50, align: "left" },
@@ -160,13 +161,10 @@ const AllUsers = () => {
           </div>
           {/*  */}
           <div className="d-flex justify-content-between my-4">
-            <div className="FilterIcon px-3">
-              <FilterAltIcon className="" />
-              <span>Filter</span>
-            </div>
+           
             <div className="position-relative w-75">
               {/* <small className="fw-bolder">Search&nbsp;Users</small> */}
-              <Form.Group className="me-3" controlId="#">
+              <Form.Group className="" controlId="#">
                 <Form.Control
                   type="search"
                   className="forpaaddingleft input_field w-100"
@@ -176,6 +174,10 @@ const AllUsers = () => {
                 />
               </Form.Group>
               <SearchIcon className="Kliquesearch_icon" />
+            </div>
+            <div className="FilterIcon px-3 me-3">
+              {/* <FilterAltIcon className="" /> */}
+               <UserFilter /> 
             </div>
           </div>
           {/* ===============TABLE================ */}

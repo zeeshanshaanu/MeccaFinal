@@ -3,18 +3,17 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
-import EventDetailBGImg from "../../Assets/Images/EventDetailBGImg.png";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import DateRangeIcon from "@mui/icons-material/DateRange";
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import "./Events.css";
 import AppBar from "@mui/material/AppBar";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import EventImg1 from "../../Assets/Images/EventImg1.png";
 //////////////============///////////==============///////
 //////////////============///////////==============///////
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
@@ -25,10 +24,15 @@ import CircularIndeterminate from "../../Components/Loader/Loader";
 //////////////============///////////==============///////
 //////////////============///////////==============///////
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import { styled } from "@mui/material/styles";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+//////////////============///////////==============///////
+//////////////============///////////==============///////
+import { styled, alpha } from "@mui/material/styles";
+import Menu from "@mui/material/Menu";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ChatIcon from "@mui/icons-material/Chat";
 //////////////============///////////==============///////
 //////////////============///////////==============///////
 const Accordion = styled((props) => (
@@ -67,14 +71,79 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 //
 //////////////============///////////==============///////
+const StyledMenu = styled((props) => (
+  <Menu
+    elevation={0}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "right",
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  "& .MuiPaper-root": {
+    borderRadius: 6,
+    marginTop: theme.spacing(1),
+    minWidth: 180,
+    color:
+      theme.palette.mode === "light"
+        ? "rgb(55, 65, 81)"
+        : theme.palette.grey[300],
+    boxShadow:
+      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+    "& .MuiMenu-list": {
+      padding: "4px 0",
+    },
+    "& .MuiMenuItem-root": {
+      "& .MuiSvgIcon-root": {
+        fontSize: 18,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      "&:active": {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity
+        ),
+      },
+    },
+  },
+}));
+//////////////============///////////==============///////
+//////////////============///////////==============///////
 const drawerWidth = 100;
 //////////////============///////////==============///////
 const EventDetail = () => {
+  //////////////============///////////==============///////
+  //////////////============///////////==============///////
+  //////////////============///////////==============///////
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    event.preventDefault();
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  //////////////============///////////==============///////
+  //////////////============///////////==============///////
   const [expanded, setExpanded] = React.useState("panel1");
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
   const { id } = useParams();
+  //////////////============///////////==============///////
+  const [ReplayHide, setReplayHide] = useState(true);
+  //////////////============///////////==============///////
+  const HandleHide = () => {
+    setReplayHide(!ReplayHide);
+  };
+  //////////////============///////////==============///////
   //////////////============///////////==============///////
   const [done, setdone] = useState(false);
   const [title, settitle] = useState([]);
@@ -105,6 +174,12 @@ const EventDetail = () => {
   //////////////============///////////==============///////
   const [Attendees, setAttendees] = useState([]);
   const [Faqs, setFaqs] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [Totalcomments, setTotalComments] = useState([]);
+  //////////////============///////////==============///////
+  //////////////============///////////==============///////
+  //////////////============///////////==============///////
+  //////////////============///////////==============///////
   //////////////============///////////==============///////
   const GetShopDetail = () => {
     axios
@@ -140,10 +215,12 @@ const EventDetail = () => {
         //////////////============///Attendees////////==============///////
         setAttendees(response.data.data.attendees);
         setFaqs(response.data.data.faqs);
+        setComments(response.data.data.comments);
         //////////////============///////////==============///////
         //////////////============///////////==============///////
         setticket_available_from(response.data.data.ticket_available_from);
         setticket_available_to(response.data.data.ticket_available_to);
+        setTotalComments(response.data.data.total_comments);
         //////////////============///////////==============///////
         setdone(false);
       })
@@ -156,11 +233,6 @@ const EventDetail = () => {
   //////////////============///////////==============///////
   //////////////============///////////==============///////
   const navigate = useNavigate();
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
-
   const breadcrumbs = [
     <div
       className="fw-bolder AllUsersBredCrumbs"
@@ -182,14 +254,7 @@ const EventDetail = () => {
       color="text.primary"
       className="fw-bolder AllUsersBredCrumbs"
     >
-      <span
-        className="foractive"
-        onClick={() => {
-          navigate("/EventDetail");
-        }}
-      >
-        EventDetail
-      </span>
+      <span className="foractive">EventDetail</span>
     </Typography>,
   ];
   return (
@@ -226,14 +291,6 @@ const EventDetail = () => {
                 </Breadcrumbs>
               </Stack>
               <div className="d-flex">
-                {/* <button
-                  // onClick={() => {
-                  //   history.push("#");
-                  // }}
-                  className="Download px-5 py-2 mx-2"
-                >
-                  <small>Edit</small>
-                </button> */}
                 <button
                   onClick={() => {
                     navigate("/All_Events");
@@ -290,6 +347,142 @@ const EventDetail = () => {
                           )}
                         </h5>
                       </div>
+                      {/* /////////////==========COMMENT BOX=///////////////========////////// */}
+                      {/* /////////////==========COMMENT BOX=///////////////========////////// */}
+                      {/* /////////////==========COMMENT BOX=///////////////========////////// */}
+                      <div className="Comment_Box mt-5">
+                        <div className="">
+                          <div>
+                            <span
+                              className="forcolor pb-3"
+                              id="demo-customized-button"
+                              aria-controls={
+                                open ? "demo-customized-menu" : undefined
+                              }
+                              aria-haspopup="true"
+                              aria-expanded={open ? "true" : undefined}
+                              variant="contained"
+                              disableElevation
+                              onClick={handleClick}
+                              endIcon={<KeyboardArrowDownIcon />}
+                            >
+                              <ChatIcon />
+                              &nbsp; Total {Totalcomments} Comments
+                            </span>
+                            <StyledMenu
+                              id="demo-customized-menu"
+                              anchorEl={anchorEl}
+                              open={open}
+                              onClose={handleClose}
+                            >
+                              <div className="BoxWidth p-4">
+                                <span className="text-end forcolor">
+                                  Comment & Replys
+                                </span>
+                                <div className="mb-4">
+                                  {comments.map((GetComments) => {
+                                    return (
+                                      <>
+                                        <div className="mt-3">
+                                          <div className="d-flex">
+                                            <div className="">
+                                              <img
+                                                src={EventImg1}
+                                                alt=""
+                                                className="CommentImg"
+                                              />
+                                            </div>
+                                            &nbsp;
+                                            <div>
+                                              <small>
+                                                {
+                                                  GetComments.comment_by
+                                                    .first_name
+                                                }
+                                                &nbsp;
+                                                {
+                                                  GetComments.comment_by
+                                                    .last_name
+                                                }
+                                              </small>
+                                              <div className="">
+                                                <small>
+                                                  {GetComments.body}
+                                                </small>
+                                              </div>
+                                            </div>
+                                            <div className="text-end w-100">
+                                              <small>
+                                                {GetComments.published_at}
+                                              </small>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        {GetComments.childs &&
+                                          GetComments.childs.map((GetRplys) => {
+                                            return (
+                                              <>
+                                                {/* <span
+                                                  className="float-end forcolor"
+                                                  onClick={HandleHide}
+                                                >
+                                                  {" "}
+                                                  <small>Hide Reply</small>
+                                                </span> */}
+                                                <div className="my-4 ms-4 ">
+                                                  {ReplayHide ? (
+                                                    <div className="d-flex my-auto">
+                                                      <div className="my-auto">
+                                                        <img
+                                                          src={EventImg1}
+                                                          alt=""
+                                                          className="CommentImg"
+                                                        />
+                                                      </div>
+                                                      &nbsp;
+                                                      <div className="my-auto">
+                                                        <small>
+                                                          {
+                                                            GetRplys.comment_by
+                                                              .first_name
+                                                          }
+                                                          &nbsp;
+                                                          {
+                                                            GetRplys.comment_by
+                                                              .last_name
+                                                          }
+                                                        </small>
+                                                        <div className="">
+                                                          <small>
+                                                            {GetRplys.body}
+                                                          </small>
+                                                        </div>
+                                                      </div>
+                                                      <div className="text-end w-100">
+                                                        <small>
+                                                          {
+                                                            GetRplys.published_at
+                                                          }
+                                                        </small>
+                                                      </div>
+                                                    </div>
+                                                  ) : null}
+                                                </div>
+                                              </>
+                                            );
+                                          })}
+                                      </>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            </StyledMenu>
+                          </div>
+                        </div>
+                      </div>
+                      {/* /////////////==========COMMENT BOX=///////////////========////////// */}
+                      {/* /////////////==========COMMENT BOX=///////////////========////////// */}
+                      {/* /////////////==========COMMENT BOX=///////////////========////////// */}
                     </div>
                   </div>
                   <div className="d-flex">
@@ -391,11 +584,12 @@ const EventDetail = () => {
                   {/*  */}
                   {/*  */}
                   {/*  */}
-                  <div className="mt-4">
+                  {/*  */}
+                  <div className="mt-4 w-50">
                     <p className="fw-bolder">Description</p>
                     <small className="">
-                      <span className="w-50">{description}</span>
-                     </small>
+                      <span className=" ">{description}</span>
+                    </small>
                   </div>
                   {/*  */}
                   {/*  */}
