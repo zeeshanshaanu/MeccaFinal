@@ -85,82 +85,14 @@ const PrettoSlider = styled(Slider)({
 export default function UserFilter() {
   ///////=============//////////////=============//////
   ///////=============//////////////=============//////
+  const [name, setname] = useState(false);
+  const [name_data, setname_data] = useState("");
+  const [email, setemail] = useState(false);
+  const [email_data, setemail_data] = useState("");
+  const [usertype, setusertype] = useState(false);
+  const [usertype_data, setusertype_data] = useState(false);
   const [show, setshow] = useState(true);
-  const [address, setaddress] = useState("");
-  const [locationtogle, setlocationtogle] = useState(false);
-  const [pricerangetogle, setpricerangetogle] = useState(false);
-  const [daterangetogle, setdaterangetogle] = useState(false);
-  const [bedroomsrangetogle, setbedroomsrangetogle] = useState(false);
-  const [bathroomsrangetogle, setbathroomsrangetogle] = useState(false);
-  const [garagesrangetogle, setgaragesrangetogle] = useState(false);
-  const [kitchentoggle, setkitchentoggle] = useState(false);
-  const [byameneties, setbyameneties] = useState(false);
-  const [listedby, setlistedby] = useState(false);
-  const [statusby, setstatusby] = useState(false);
-  const [errormessage, seterrormessage] = useState("");
-  const [ameneties, setameneties] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [mindate, setmindate] = useState("");
-  const [maxdate, setmaxdate] = useState("");
-  const [added_by, setadded_by] = useState("");
-  const [claim_status, setclaim_status] = useState("");
-  ///////=============//////////////=============//////
-  ///////=============//////////////=============//////
-  const [valueprice, setValueprice] = useState([20, 37]);
-  const [bedroomsvalue, setbedroomsvalue] = useState([0, 2]);
-  const [bathrooms, setbathrooms] = useState([0, 2]);
-  const [garages, setgarages] = useState([0, 2]);
-  const [kitchenvalue, setkitchenvalue] = useState([0, 2]);
-  const [pricerange, setpricerange] = useState([]);
-  const [Text, setText] = useState("");
-  const handleChange = (event, newValue) => {
-    console.log("Price");
-    console.log(newValue);
-    setValueprice(newValue);
-  };
-  const handleChangeBathrooms = (event, newValue) => {
-    console.log(newValue);
-    setbathrooms(newValue);
-  };
-  const handleChangeBedrooms = (event, newValue) => {
-    console.log(newValue);
-    setbedroomsvalue(newValue);
-  };
-  const handlekitchen = (event, newValue) => {
-    console.log(newValue);
-    setkitchenvalue(newValue);
-  };
-  const handleChangeGarages = (event, newValue) => {
-    console.log(newValue);
-    setgarages(newValue);
-  };
-  const [lat, setlat] = useState("");
-  const [long, setlong] = useState("");
-  const handleSelect = async (value) => {
-    console.log(value);
-    geocodeByAddress(value)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        console.log("Success", latLng);
-        setlat(latLng.lat);
-        setlong(latLng.lng);
-      })
-      .catch((error) => console.error("Error", error));
 
-    setaddress(value);
-  };
-  const handleKeyDown = (e) => {
-    if (e.key !== "Enter") return;
-    const value = e.target.value;
-    if (!value.trim()) return;
-    setTags([...tags, value]);
-    e.target.value = "";
-    setText("");
-  };
-  const removeTag = (index) => {
-    setTags(tags.filter((el, i) => i !== index));
-    console.log(tags && tags);
-  };
   ///////=============//////////////=============//////
   ///////=============//////////////=============//////
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -171,7 +103,9 @@ export default function UserFilter() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleSubmit = () => {
+    sessionStorage.setItem(name_data);
+  };
   return (
     <div>
       <span
@@ -231,330 +165,63 @@ export default function UserFilter() {
                 </div>
               </div>
 
-              {/* ///Location/// */}
-              <div className="d-flex flex-column">
-                <div>
-                  <div className="d-flex justify-content-between">
-                    <small className="mt-1">Location</small>
-                    <Switch onClick={() => setlocationtogle(!locationtogle)} />
-                  </div>
-                </div>
-                {locationtogle ? (
-                  <div className="">
-                    <PlacesAutocomplete
-                      value={address}
-                      onChange={setaddress}
-                      onSelect={handleSelect}
-                    >
-                      {({
-                        getInputProps,
-                        suggestions,
-                        getSuggestionItemProps,
-                        loading,
-                      }) => (
-                        <div>
-                          <input
-                            className="form-control"
-                            {...getInputProps({
-                              placeholder: "Type address",
-                            })}
-                            required
-                          />
-                          <div>
-                            {loading ? <div>...loading</div> : null}
-                            {suggestions.map((suggestion) => {
-                              const style = {
-                                backgroundColor: suggestion.active
-                                  ? "#7d59e6"
-                                  : "#fff",
-                                color: suggestion.active ? "#fff" : "black",
-                              };
-                              return (
-                                <div
-                                  key={suggestion.id}
-                                  {...getSuggestionItemProps(suggestion, {
-                                    style,
-                                  })}
-                                  className="adresdesc"
-                                >
-                                  {suggestion.description}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                    </PlacesAutocomplete>
-                  </div>
-                ) : null}
-              </div>
-              {/* ///Price Range/// */}
+              {/* ///Name/// */}
               <div className="d-flex flex-column">
                 <div>
                   <div className="d-flex justify-content-between">
                     <small className="mt-1">Name</small>
-                    <Switch
-                      onClick={() => setpricerangetogle(!pricerangetogle)}
-                    />
+                    <Switch onClick={() => setname(!name)} />
                   </div>
                 </div>
-                {pricerangetogle ? (
+                {name ? (
                   <div>
-                  <input type="text" className="form-control" placeholder="Enter Name here" />
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={name_data}
+                      onChange={(e) => setname_data(e.target.value)}
+                      placeholder="Enter Name here"
+                    />
                   </div>
                 ) : null}
               </div>
-              {/* ///Date Added/// */}
+              {/* ///Email/// */}
               <div className="d-flex flex-column">
                 <div>
                   <div className="d-flex justify-content-between">
-                    <small className="mt-1">Date</small>
-                    <Switch
-                      onClick={() => setdaterangetogle(!daterangetogle)}
-                    />
+                    <small className="mt-1">Email</small>
+                    <Switch onClick={() => setemail(!email)} />
                   </div>
                 </div>
-                {daterangetogle ? (
+                {email ? (
                   <div>
-                    <form>
-                      <div className="d-flex">
-                        <span className="me-4">
-                          <label for="startDate" className="">
-                            From
-                          </label>
-                          <input
-                            id="startDate"
-                            class="form-control form-date m"
-                            type="date"
-                            onChange={(e) => setmindate(e.target.value)}
-                          />
-                        </span>
-                        <span className="my-auto ml-3">
-                          <label for="startDate" className="">
-                            To
-                          </label>
-                          <input
-                            id="startDate"
-                            class="form-control form-date"
-                            type="date"
-                            onChange={(e) => setmaxdate(e.target.value)}
-                          />
-                        </span>
-                        <span></span>
-                      </div>
-                    </form>
+                    <input
+                      type="email"
+                      className="form-control"
+                      value={email_data}
+                      placeholder="Enter Email here"
+                      onChange={(e) => setemail_data(e.target.value)}
+                    />
                   </div>
                 ) : null}
               </div>
-              {/* ///Kitchen/// */}
+              {/* ///User&nbsp;Type/// */}
               <div className="d-flex flex-column">
                 <div>
                   <div className="d-flex justify-content-between">
-                    <small className="mt-1">Kitchens</small>
-                    <Switch onClick={() => setkitchentoggle(!kitchentoggle)} />
+                    <small className="mt-1">User&nbsp;Type</small>
+                    <Switch onClick={() => setusertype(!usertype)} />
                   </div>
                 </div>
-                {kitchentoggle ? (
+                {usertype ? (
                   <div>
-                    <Slider
-                      getAriaLabel={() => "Temperature range"}
-                      value={kitchenvalue}
-                      onChange={handlekitchen}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                      className="slidercolor"
-                      max="5"
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={usertype_data}
+                      placeholder="Enter User Type"
+                      onChange={(e) => setusertype_data(e.target.value)}
                     />
-                  </div>
-                ) : null}
-              </div>
-              {/* ///Bed Rooms/// */}
-              <div className="d-flex flex-column">
-                <div>
-                  <div className="d-flex justify-content-between">
-                    <small className="mt-1">Bed Rooms</small>
-                    <Switch
-                      onClick={() => setbedroomsrangetogle(!bedroomsrangetogle)}
-                    />
-                  </div>
-                </div>
-                {bedroomsrangetogle ? (
-                  <div>
-                    <Slider
-                      getAriaLabel={() => "Temperature range"}
-                      value={bedroomsvalue}
-                      onChange={handleChangeBedrooms}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                      className="slidercolor"
-                      max="5"
-                    />
-                  </div>
-                ) : null}
-              </div>
-              {/* ///Bath Rooms/// */}
-              <div className="d-flex flex-column">
-                <div>
-                  <div className="d-flex justify-content-between">
-                    <small className="mt-1">Bath Rooms</small>
-                    <Switch
-                      onClick={() =>
-                        setbathroomsrangetogle(!bathroomsrangetogle)
-                      }
-                    />
-                  </div>
-                </div>
-                {bathroomsrangetogle ? (
-                  <div>
-                    <Slider
-                      getAriaLabel={() => "Temperature range"}
-                      value={bathrooms}
-                      onChange={handleChangeBathrooms}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                      className="slidercolor"
-                      max="5"
-                    />
-                  </div>
-                ) : null}
-              </div>
-              {/* ///Garages/// */}
-              <div className="d-flex flex-column">
-                <div>
-                  <div className="d-flex justify-content-between">
-                    <small className="mt-1">Garages</small>
-                    <Switch
-                      onClick={() => setgaragesrangetogle(!garagesrangetogle)}
-                    />
-                  </div>
-                </div>
-                {garagesrangetogle ? (
-                  <div>
-                    <Slider
-                      getAriaLabel={() => "Temperature range"}
-                      value={garages}
-                      onChange={handleChangeGarages}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={valuetext}
-                      className="slidercolor"
-                      max="5"
-                    />
-                  </div>
-                ) : null}
-              </div>
-              {/* ///By Amenities/// */}
-              <div className="d-flex flex-column">
-                <p>
-                  {ameneties.amenities &&
-                    ameneties.amenities.map((data) => (
-                      <small key={data}>{data}</small>
-                    ))}
-                </p>
-                <div>
-                  <div className="d-flex justify-content-between">
-                    <small className="mt-1">By Amenities</small>
-                    <Switch onClick={() => setbyameneties(!byameneties)} />
-                  </div>
-                </div>
-                {byameneties ? (
-                  <div>
-                    <div className="tags-input-container">
-                      {tags &&
-                        tags.map((tag, index) => (
-                          <div className="tag-item" key={index}>
-                            <span className="text">{tag}</span>
-                            <span
-                              className="close"
-                              onClick={() => removeTag(index)}
-                            >
-                              &times;
-                            </span>
-                          </div>
-                        ))}
-                      <Hint options={options}>
-                        <input
-                          type="text"
-                          className="tags-input"
-                          placeholder="Type Ameneties"
-                          onKeyDown={handleKeyDown}
-                          value={Text}
-                          onChange={(e) => setText(e.target.value)}
-                        />
-                      </Hint>
-                    </div>
-                    <small className="text-danger">{errormessage}</small>
-                  </div>
-                ) : null}
-              </div>
-              {/* ///Added by/// */}
-              <div className="d-flex flex-column mt-3">
-                <div>
-                  <div className="d-flex justify-content-between">
-                    <small className="mt-1">Added By</small>
-                    <Switch onClick={() => setlistedby(!listedby)} />
-                  </div>
-                </div>
-                {listedby ? (
-                  <div>
-                    <div className="form-check mt-1 d-flex flex row">
-                      <RadioGroup
-                        row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="admin"
-                          control={<Radio />}
-                          label="Admin"
-                          onClick={() => setadded_by("admin")}
-                        />
-                        <FormControlLabel
-                          value="agent"
-                          control={<Radio />}
-                          label="Agent"
-                          onClick={() => setadded_by("agent")}
-                        />
-                        <FormControlLabel
-                          value="complex agent"
-                          control={<Radio />}
-                          label="Complex Agent"
-                          onClick={() => setadded_by("complex agent")}
-                        />
-                      </RadioGroup>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
-              {/* ///Status/// */}
-              <div className="d-flex flex-column mt-3">
-                <div>
-                  <div className="d-flex justify-content-between">
-                    <small className="mt-1">Status</small>
-                    <Switch onClick={() => setstatusby(!statusby)} />
-                  </div>
-                </div>
-                {statusby ? (
-                  <div>
-                    <div className="form-check mt-1 d-flex flex row">
-                      <RadioGroup
-                        row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="row-radio-buttons-group"
-                      >
-                        <FormControlLabel
-                          value="claimed"
-                          control={<Radio />}
-                          label="Claimed"
-                          onClick={() => setclaim_status("claimed")}
-                        />
-                        <FormControlLabel
-                          value="unclaimed"
-                          control={<Radio />}
-                          label="UnClaimed"
-                          onClick={() => setclaim_status("unclaimed")}
-                        />
-                      </RadioGroup>
-                    </div>
                   </div>
                 ) : null}
               </div>
@@ -564,7 +231,7 @@ export default function UserFilter() {
           <div className="d-flex justify-content-end ">
             <Button
               className="filterbuttonprop "
-              //   onClick={() => handleSubmit()}
+              onClick={() => handleSubmit()}
               variant="outlined"
             >
               Apply

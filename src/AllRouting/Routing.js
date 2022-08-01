@@ -24,7 +24,7 @@ import ProfessionalsDetail from "../Pages/Professionals_Section/ProfessionalsDet
 import AllItems from "../Pages/Mecca_Market_section/AllItems";
 import EditProductDetails from "../Pages/Mecca_Market_section/EditProductDetails";
 import EditShopDetails from "../Pages/Mecca_Market_section/EditShopDetails";
- import AllShopsgridView from "../Pages/Mecca_Market_section/AllShopsgridView";
+import AllShopsgridView from "../Pages/Mecca_Market_section/AllShopsgridView";
 import ShopDetail from "../Pages/Mecca_Market_section/ShopDetail";
 //
 import AddKalique from "../Pages/Kliques_Section/AddKalique";
@@ -82,7 +82,8 @@ import AllFaqs from "../Pages/ServicesAndCatgeory/FAQs Categories/AllFaqs";
 import UpdateQuoraFaqCategory from "../Pages/ServicesAndCatgeory/FAQs Categories/UpdateQuoraFaqCategory";
 import Viewitem from "../Pages/Mecca_Market_section/Viewitem";
 import AllShops from "../Pages/Mecca_Market_section/AllShopes";
-   // import { I18nextProvider } from "react-i18next";
+import AllUsersState from "../Contexts/AllUsers/AllUsersState";
+// import { I18nextProvider } from "react-i18next";
 // import i18n from "./configs/i18n/i18n";
 const LazyAllProfessionals = React.lazy(() =>
   import("../Pages/Professionals_Section/AllProfessionals")
@@ -110,6 +111,7 @@ const Routing = () => {
         ) : null}{" "}
         <Notifications />
       </div>{" "}
+      <AllUsersState />
       <BrowserRouter>
         <Routes>
           {" "}
@@ -185,10 +187,15 @@ const Routing = () => {
           <Route path="/AllShops" element={<AllShops />}>
             {" "}
           </Route>{" "}
+<<<<<<< HEAD
           <Route path="/AllItems" element={<AllItems />}>
           </Route>{" "}
           <Route path="/Viewitem/:id" element={<Viewitem />}></Route>{" "}
             {" "}
+=======
+          <Route path="/AllItems" element={<AllItems />}></Route>{" "}
+          <Route path="/Viewitem" element={<Viewitem />}></Route>{" "}
+>>>>>>> fa955045b76c2c11608cd0cee37195ab1769353f
           <Route path="/ShopDetail/:id" element={<ShopDetail />}>
             {" "}
           </Route>{" "}
@@ -319,6 +326,7 @@ const Routing = () => {
           </Route>{" "}
         </Routes>{" "}
       </BrowserRouter>{" "}
+      <AllUsersState />
     </div>
   );
 };
