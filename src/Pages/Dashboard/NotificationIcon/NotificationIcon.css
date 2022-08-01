@@ -1,0 +1,69 @@
+.Dashboardnavbar {
+    margin-left: auto !important;
+    cursor: pointer;
+    
+}
+
+.Dashboardnavbar:hover {
+    animation: shake 1s forwards;
+}
+
+@keyframes shake {
+    10% {
+        transform: rotate(15deg);
+    }
+
+    20% {
+        transform: rotate(-15deg);
+    }
+
+    30% {
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+}
+.notiicon{
+    margin-left: auto;
+ 
+}
+.height-menu{
+    height: 50vh;
+    overflow: none;
+}
+.dropnoti{
+    margin-right: 20% !important;
+}
+.notiveiw{
+    cursor: pointer;
+    
+    text-decoration: underline;
+    font-family: 'Saira',
+    sans-serif;
+text-align: center;
+display:inline-block;
+text-decoration: none !important;
+margin:0 auto;
+-webkit-transition: all 0.2s ease-in-out;
+-moz-transition: all 0.2s ease-in-out;
+-ms-transition: all 0.2s ease-in-out;
+-o-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
+  
+}
+.notiveiw:hover{
+    text-decoration: none;
+}
+.closeiconnnn{
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 2%;
+}
+.closeiconhead{
+    font-size: 20px !important;
+}
+.text-notii{
+    font-size: 10px;
+}

@@ -43,6 +43,7 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import NotificationIcon from "./NotificationIcon/NotificationIcon";
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -132,10 +133,7 @@ export default function ResponsiveDrawer(props) {
     setshow(true);
   };
   const [idside, setidside] = useState("1");
-  const [notifyshow, setnotifyshow] = useState(true);
-  const shownotification = () => {
-    setnotifyshow(!notifyshow);
-  };
+
   const classes = useStyles();
   const ItemList = [
     {
@@ -386,21 +384,7 @@ export default function ResponsiveDrawer(props) {
               }}
               className="Dashboardnavbar"
             >
-              <Tooltip title="Notifications">
-                <IconButton
-                  onClick={handleClick}
-                  size="small"
-                  sx={{ ml: 2 }}
-                  aria-controls={open ? "account-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                >
-                  <NotificationsIcon
-                    className="text-dark Dashboardnavbar"
-                    onClick={shownotification}
-                  />
-                </IconButton>
-              </Tooltip>
+              <NotificationIcon />
             </Box>
             <Menu
               anchorEl={anchorEl}
@@ -465,11 +449,22 @@ export default function ResponsiveDrawer(props) {
             </Menu>
           </React.Fragment>
           <p className="Dashboardparanavbar">Jhon Doe@gmail.com</p>
-          <img
-            src={SideBarLogo}
-            alt="SideBarLogo.png"
-            className="ProfileLogo"
-          />
+          <Tooltip title="Notifications">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={open ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+            >
+              <img
+                src={SideBarLogo}
+                alt="SideBarLogo.png"
+                className="ProfileLogo"
+              />{" "}
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
