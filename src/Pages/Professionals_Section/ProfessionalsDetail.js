@@ -17,6 +17,7 @@ import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useNavigate } from "react-router-dom";
 import GradeIcon from "@mui/icons-material/Grade";
+import CloseIcon from "@mui/icons-material/Close";
 import { Player } from "video-react";
 const drawerWidth = 100;
 const ProfessionalsDetail = () => {
@@ -46,12 +47,19 @@ const ProfessionalsDetail = () => {
   const [gettestimonials, setGettestimonials] = useState([]);
   const [getservices, setGetservices] = useState([]);
   const [getMedia, setGetMedia] = useState([]);
+  const [show, setshow] = useState(false);
+  const [tempimgsrc, setTempImgsrc] = useState("");
 
   //////////////////==================////////////////============
   function handleClick(event) {
     event.preventDefault();
     console.info("You clicked a breadcrumb.");
   }
+  const getImg = (imgSrc) => {
+    setTempImgsrc(imgSrc);
+    setshow(true);
+    console.log(tempimgsrc);
+  };
   const breadcrumbs = [
     <Typography
       key="3"
@@ -290,16 +298,40 @@ const ProfessionalsDetail = () => {
                   ) : (
                     getMedia.map((MediaGets) => {
                       return (
-                        <div className="col col-lg-4 col-md-6 col-sm-12  mb-5">
-                          <div className="card_image">
-                            <img
-                              src={MediaGets.file}
-                              alt=""
-                              className="KliquesDetailBGIMg"
-                            />
+                        <>
+                          <div className="col col-lg-4 col-md-6 col-sm-12  mb-5">
+                            <div className="card_image">
+                              <img
+                                src={MediaGets.file}
+                                onClick={() => {
+                                  setshow(!show);
+                                  getImg(MediaGets.file);
+                                }}
+                                alt=""
+                                className="KliquesDetailBGIMg"
+                              />
+                              {show ? (
+                                <dialog
+                                  className="dialog model"
+                                  // style={{ position: "" }}
+                                  open
+                                  onClick={() => setshow(!show)}
+                                >
+                                  <CloseIcon
+                                    className="text-white closeiconn"
+                                    onClick={() => setshow(!show)}
+                                  />
+                                  <img
+                                    src={tempimgsrc}
+                                    onClick={() => setshow(!show)}
+                                    alt=""
+                                    className=""
+                                  />
+                                </dialog>
+                              ) : null}
+                            </div>
                           </div>
-                          <div></div>
-                        </div>
+                        </>
                       );
                     })
                   )}

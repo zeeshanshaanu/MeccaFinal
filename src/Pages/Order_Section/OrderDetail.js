@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import ResponsiveDrawer from "../../Pages/Dashboard/Drawer";
 import "../../Pages/User_Section/AllUser.css";
@@ -20,6 +20,8 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import CircularIndeterminate from "../../Components/Loader/Loader";
+import { useReactToPrint } from "react-to-print";
+
 //
 const StyledMenu = styled((props) => (
   <Menu
@@ -80,6 +82,9 @@ const OrderDetail = () => {
   const [CustEmail, setCustEmail] = useState("");
   const [CustShopName, setCustShopName] = useState("");
   const [CustShopAddress, setCustShopAddress] = useState("");
+  const [CustShopemail, setCustShopemail] = useState("");
+  const [CustShopphoneno, setCustShopphoneno] = useState("");
+  const [CustShopwebsite, setCustShopwebsite] = useState("");
   ////////////=====/////////shipping addres//===============/////////////====
   ////////////=====/////////shipping addres//===============/////////////====
   ////////////=====/////////shipping addres//===============/////////////====
@@ -120,6 +125,9 @@ const OrderDetail = () => {
         setCustEmail(response.data.data.customer.email);
         setCustShopName(response.data.data.shop.name);
         setCustShopAddress(response.data.data.shop.address);
+        setCustShopemail(response.data.data.shop.email);
+        setCustShopphoneno(response.data.data.shop.phone);
+        setCustShopwebsite(response.data.data.shop.email);
         ////////////=====/////////shipping addres//===============/////////////====
         ////////////=====/////////shipping addres//===============/////////////====
         setcompany(response.data.data.shipping_address.company);
@@ -190,8 +198,18 @@ const OrderDetail = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  var TotalPrices = 0;
+  const UnitPrice = (Price) => {
+    TotalPrices += Price;
+  };
+  var Totalqty = 0;
+  const QTYY = (qty) => {
+    Totalqty += qty;
+  };
   //
   //
+  const [pdf, setpdf] = useState([]);
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -203,6 +221,10 @@ const OrderDetail = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   return (
     <div className="TopDiv pb-5">
@@ -238,8 +260,17 @@ const OrderDetail = () => {
               </Breadcrumbs>
             </Stack>
             <div className="">
-              <button className="download button1 px-4 py-2">
+              {/* <button
+                className="download button1 px-4 py-2"
+                onClick={() => handlePrint}
+              >
                 Download Invoice
+              </button> */}
+              <button
+                className="download button1 px-4 py-2"
+                onClick={handlePrint}
+              >
+                <small>Download&nbsp;Invoice</small>
               </button>
             </div>
           </div>
@@ -251,106 +282,176 @@ const OrderDetail = () => {
             <Container fluid>
               <Row className=" mt-5">
                 <Col lg={8} md={6} sm={12} className="">
-                  {/* BasicInfo */}
-                  {/* BasicInfo */}
-                  {/* BasicInfo */}
-                  <div className="BasicInfo">
-                    <div className="d-flex justify-content-between">
-                      <h6 className=" fw-bolder">Basic Information</h6>
-                      <div className=" ">
-                        {status === "pending" ? (
-                          <span className="px-3 py-1 bg-warning text-white">
-                            {status}
-                          </span>
-                        ) : (
-                          <span className="px-3 py-1 bg-success text-white">
-                            {status}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <div className=" py-3 px-3 bg-light forBorderTop">
-                      {/*  */}
-                      {/*  */}
+                  <div className="card p-3">
+                    {/* BasicInfo */}
+                    {/* BasicInfo */}
+                    {/* BasicInfo */}
+                    <div className="BasicInfo">
                       <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Customer Name</p>
-                        </div>
-                        <div>
-                          <p>
-                            {customerFName}&nbsp;{customerLName}
-                          </p>
+                        <h6 className=" fw-bolder">Basic Information</h6>
+                        <div className=" ">
+                          {status === "pending" ? (
+                            <span className="px-3 py-1 bg-warning text-white">
+                              {status}
+                            </span>
+                          ) : (
+                            <span className="px-3 py-1 bg-success text-white">
+                              {status}
+                            </span>
+                          )}
                         </div>
                       </div>
+                      <div className=" py-3 px-3 bg-light forBorderTop">
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Customer Name</p>
+                          </div>
+                          <div>
+                            <p>
+                              {customerFName}&nbsp;{customerLName}
+                            </p>
+                          </div>
+                        </div>
 
-                      {/*  */}
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Customer Email</p>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Customer Email</p>
+                          </div>
+                          <div>
+                            <p>{CustEmail}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p>{CustEmail}</p>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Shop Name</p>
+                          </div>
+                          <div>
+                            <p>{CustShopName}</p>
+                          </div>
                         </div>
-                      </div>
-                      {/*  */}
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Shop Name</p>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Shop Address</p>
+                          </div>
+                          <div>
+                            <p>{CustShopAddress}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p>{CustShopName}</p>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Shop Phone#</p>
+                          </div>
+                          <div>
+                            <p> Dummy data!!</p>
+                          </div>
                         </div>
-                      </div>
-                      {/*  */}
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Shop Address</p>
-                        </div>
-                        <div>
-                          <p>{CustShopAddress}</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Shop Phone#</p>
-                        </div>
-                        <div>
-                          <p> Dummy data!!</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Shop website</p>
-                        </div>
-                        <div>
-                          <p> Dummy data!!</p>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Shop website</p>
+                          </div>
+                          <div>
+                            <p> Dummy data!!</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  {/* Shipping Address */}
-                  {/* Shipping Address */}
-                  {/* Shipping Address */}
-                  <div className="Shipping_Address mt-4">
-                    <h6 className=" mb-2 fw-bolder">Shipping Address</h6>
-                    <div className="py-3 px-3 bg-light forBorderTop">
-                      {/*  */}
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Company</p>
+                    {/* Shipping Address */}
+                    {/* Shipping Address */}
+                    {/* Shipping Address */}
+                    <div className="Shipping_Address mt-4">
+                      <h6 className=" mb-2 fw-bolder">Shipping Address</h6>
+                      <div className="py-3 px-3 bg-light forBorderTop">
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Company</p>
+                          </div>
+                          <div>
+                            <p>{company}</p>
+                          </div>
                         </div>
-                        <div>
-                          <p>{company}</p>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Phone Number</p>
+                          </div>
+                          <div>
+                            <p>{Custphone}</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Address</p>
+                          </div>
+                          <div>
+                            <p>{address1}</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">City</p>
+                          </div>
+                          <div>
+                            <p>{customercity}</p>
+                          </div>
+                        </div>
+
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">State</p>
+                          </div>
+                          <div>
+                            <p>{customerstate}</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Country</p>
+                          </div>
+                          <div>
+                            <p>{Custcountry}</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Zip</p>
+                          </div>
+                          <div>
+                            <p>{Custzip}</p>
+                          </div>
                         </div>
                       </div>
+                    </div>
+                    {/* Billing_Address */}
+                    {/* Billing_Address */}
+                    {/* Billing_Address */}
+                    {/* Billing_Address */}
+                    <h6 className=" mt-4 mb-2 fw-bolder">Billing Address</h6>
+                    <div className="Billing_Address py-3 px-3 bg-light forBorderTop">
                       {/*  */}
                       {/*  */}
                       <div className="d-flex justify-content-between">
@@ -358,7 +459,7 @@ const OrderDetail = () => {
                           <p className="text-dark ">Phone Number</p>
                         </div>
                         <div>
-                          <p>{Custphone}</p>
+                          <p>{BillCustphone}</p>
                         </div>
                       </div>
                       {/*  */}
@@ -368,7 +469,7 @@ const OrderDetail = () => {
                           <p className="text-dark ">Address</p>
                         </div>
                         <div>
-                          <p>{address1}</p>
+                          <p>{Billaddress1}</p>
                         </div>
                       </div>
                       {/*  */}
@@ -378,7 +479,7 @@ const OrderDetail = () => {
                           <p className="text-dark ">City</p>
                         </div>
                         <div>
-                          <p>{customercity}</p>
+                          <p>{Billcustomercity}</p>
                         </div>
                       </div>
 
@@ -389,7 +490,7 @@ const OrderDetail = () => {
                           <p className="text-dark ">State</p>
                         </div>
                         <div>
-                          <p>{customerstate}</p>
+                          <p>{Billcustomerstate}</p>
                         </div>
                       </div>
                       {/*  */}
@@ -399,7 +500,7 @@ const OrderDetail = () => {
                           <p className="text-dark ">Country</p>
                         </div>
                         <div>
-                          <p>{Custcountry}</p>
+                          <p>{BillCustcountry}</p>
                         </div>
                       </div>
                       {/*  */}
@@ -409,144 +510,103 @@ const OrderDetail = () => {
                           <p className="text-dark ">Zip</p>
                         </div>
                         <div>
-                          <p>{Custzip}</p>
+                          <p>{BillCustzip}</p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  {/* Billing_Address */}
-                  {/* Billing_Address */}
-                  {/* Billing_Address */}
-                  {/* Billing_Address */}
-                  <h6 className=" mt-4 mb-2 fw-bolder">Billing Address</h6>
-                  <div className="Billing_Address py-3 px-3 bg-light forBorderTop">
-                    {/*  */}
-                    {/*  */}
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="text-dark ">Phone Number</p>
-                      </div>
-                      <div>
-                        <p>{BillCustphone}</p>
-                      </div>
-                    </div>
-                    {/*  */}
-                    {/*  */}
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="text-dark ">Address</p>
-                      </div>
-                      <div>
-                        <p>{Billaddress1}</p>
-                      </div>
-                    </div>
-                    {/*  */}
-                    {/*  */}
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="text-dark ">City</p>
-                      </div>
-                      <div>
-                        <p>{Billcustomercity}</p>
-                      </div>
-                    </div>
-
-                    {/*  */}
-                    {/*  */}
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="text-dark ">State</p>
-                      </div>
-                      <div>
-                        <p>{Billcustomerstate}</p>
-                      </div>
-                    </div>
-                    {/*  */}
-                    {/*  */}
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="text-dark ">Country</p>
-                      </div>
-                      <div>
-                        <p>{BillCustcountry}</p>
-                      </div>
-                    </div>
-                    {/*  */}
-                    {/*  */}
-                    <div className="d-flex justify-content-between">
-                      <div className="">
-                        <p className="text-dark ">Zip</p>
-                      </div>
-                      <div>
-                        <p>{BillCustzip}</p>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Products */}
-                  {/* Products */}
-                  {/* Products */}
-                  <div className="products mt-4 ">
-                    <h6 className="fw-bolder">Products Details</h6>
-                    <div className=" ForProductsHeight">
-                      {ShopProducts.map((productsGets) => {
-                        return (
-                          <div className="d-flex justify-content-between bg-light p-2 mt-3">
-                            <div className="d-flex">
-                              <div>
-                                <img
-                                  src={productsGets.image}
-                                  alt="EventImg1.png"
-                                  className="OrderDetailImgWidth"
-                                />
-                              </div>
-                              <div className="">
-                                <p className="ms-3 ">{productsGets.title}</p>
-                                {/*  */}
-                                <p className="ms-3 ">
-                                  {productsGets.product_variant_name}
-                                </p>
-                                {/*  */}
-                                <p className="ms-3 ">
-                                  {productsGets.link_variant_name}
-                                </p>
-                              </div>
-                            </div>
-                            {/*  */}
-                            <div className="">
-                              <div className=" ProductCardTextColor ">
+                    {/* Products */}
+                    {/* Products */}
+                    {/* Products */}
+                    <div className="products mt-4 ">
+                      <h6 className="fw-bolder">Products Details</h6>
+                      <div className=" ForProductsHeight">
+                        {ShopProducts.map((productsGets) => {
+                          return (
+                            <div className="d-flex justify-content-between bg-light p-2 mt-3">
+                              <div className="d-flex">
+                                <div>
+                                  <img
+                                    src={productsGets.image}
+                                    alt="EventImg1.png"
+                                    className="OrderDetailImgWidth"
+                                  />
+                                </div>
                                 <div className="">
+                                  <p className="ms-3 ">{productsGets.title}</p>
+                                  {/*  */}
+                                  <p className="ms-3 ">
+                                    {productsGets.product_variant_name}
+                                  </p>
+                                  {/*  */}
+                                  <p className="ms-3 ">
+                                    {productsGets.link_variant_name}
+                                  </p>
+                                </div>
+                              </div>
+                              {/*  */}
+                              <div className="">
+                                <div className=" ProductCardTextColor ">
+                                  <div className="">
+                                    <span className="">
+                                      <small> Unit Price </small>:&nbsp;
+                                      <span
+                                        className="float-end"
+                                        onClick={UnitPrice(
+                                          productsGets.unit_price
+                                        )}
+                                      >
+                                        ${productsGets.unit_price}
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                                {/*  */}
+                                <div className=" mt-3">
+                                  <span className="me-1">
+                                    <small>QTY </small>:&nbsp;
+                                    <span
+                                      className="float-end"
+                                      onClick={QTYY(productsGets.quantity)}
+                                    >
+                                      {" "}
+                                      {productsGets.quantity}
+                                    </span>
+                                  </span>
+                                </div>
+                                {/*  */}
+                                <div className=" mt-3">
                                   <span className="">
-                                    <small> Unit Price </small>:&nbsp;
+                                    <small> Total Price:&nbsp; </small>
                                     <span className="float-end">
-                                      ${productsGets.unit_price}
+                                      {" "}
+                                      ${productsGets.total_price}
                                     </span>
                                   </span>
                                 </div>
                               </div>
-                              {/*  */}
-                              <div className=" mt-3">
-                                <span className="me-1">
-                                  <small>QTY </small>:&nbsp;
-                                  <span className="float-end">
-                                    {" "}
-                                    {productsGets.quantity}
-                                  </span>
-                                </span>
-                              </div>
-                              {/*  */}
-                              <div className=" mt-3">
-                                <span className="">
-                                  <small> Total Price:&nbsp; </small>
-                                  <span className="float-end">
-                                    {" "}
-                                    ${productsGets.total_price}
-                                  </span>
-                                </span>
-                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="Billing_Address py-3 px-3 bg-light forBorderTop mt-4">
+                      <div className="d-flex justify-content-between ">
+                        <div className="">
+                          <p className="text-dark ">Total&nbsp;Quantity</p>
+                        </div>
+                        <div>
+                          <span className="float-end">{Totalqty}</span>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-between mt-3">
+                        <div className="">
+                          <p className="text-dark ">Total&nbsp;Price</p>
+                        </div>
+                        <div>
+                          <span className="float-end">${TotalPrices}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </Col>
@@ -554,218 +614,253 @@ const OrderDetail = () => {
                 {/*  */}
                 {/*  */}
                 {/*  */}
-                <Col lg={4} md={6} sm={12} className="">
-                  <div className="MainDiv">
-                    <center>
-                      <img src={Logo1} alt="" className="" />
-                      <div className="">
-                        Order No: # <span className="">31531831351</span>
-                      </div>
-                      <div className="">
-                        <p>
-                          Date:
-                          <span className=""> 07/12/2022 </span>
-                        </p>
-                      </div>
-                    </center>
-                    <h6 className=" mb-2 fw-bolder">Customer&nbsp;Details</h6>
-                    <div className="py-3 px-3 bg-light forBorderTop">
-                      {/*  */}
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
+                <Col lg={4} md={6} sm={12} className="" ref={componentRef}>
+                  <div className="card p-3">
+                    <div className="Shipping_Address">
+                      <center>
+                        <img src={Logo1} alt="" className="w-25" />
                         <div className="">
-                          <p className="text-dark ">Customer&nbsp;Name</p>
+                          Order No: # <span className="">31531831351</span>
                         </div>
-                        <div>
-                          <p>John&nbsp;Doe</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Email</p>
-                        </div>
-                        <div>
-                          <p>John&nbsp;Doe</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Phone&nbsp;No</p>
-                        </div>
-                        <div>
-                          <p>+923004567198</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                    </div>
-                    {/*  */}
-                    <h6 className=" mb-2 fw-bolder">Shop&nbsp;Details</h6>
-                    <div className="py-3 px-3 bg-light forBorderTop">
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Shope&nbsp;Name</p>
-                        </div>
-                        <div>
-                          <p>Mecca&nbsp;Fitness</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Email</p>
-                        </div>
-                        <div>
-                          <p>Abc@gmail.com</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Phone&nbsp;Number</p>
-                        </div>
-                        <div>
-                          <p>+92300434343</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Website</p>
-                        </div>
-                        <div>
-                          <p>www.meccafitness.com</p>
-                        </div>
-                      </div>
-                    </div>
-                    <h6 className=" mb-2 fw-bolder">Shipping&nbsp;Details</h6>
-                    <div className="py-3 px-3 bg-light forBorderTop">
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Shipping&nbsp;Address</p>
-                        </div>
-                        <div>
+                        <div className=" pt-3">
                           <p>
-                            &nbsp;&nbsp;&nbsp;mukhtar&nbsp;arcade&nbsp;university{" "}
-                            <br /> road haripur{" "}
+                            Date:
+                            <span className=""> 07/12/2022 </span>
                           </p>
                         </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between">
-                        <div className="">
-                          <p className="text-dark ">Billing&nbsp;Address</p>
-                        </div>
-                        <div>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mukhtar&nbsp;arcade&nbsp;university{" "}
-                          <br /> road haripur{" "}
-                        </div>
-                      </div>
-                      {/*  */}
-                    </div>
-                    <h6 className=" mb-2 fw-bolder">Order&nbsp;Details</h6>
-                    <div className="py-3 px-3 bg-light forBorderTop">
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <img className="" src={EventImg1} alt="" />
-                          <div className="ms-3 my-auto">
-                            <p className="fw-bolder ">Casual&nbsp;Shirt</p>
-                            <p className="text-muted ">Regular</p>
-                            <p className="text-muted ">Qty:05</p>
-                          </div>
-                        </div>
-                        <div>
-                          <p className="fw-bolder">$25</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <img src={EventImg1} alt="" />
-                          <div className="ms-3 my-auto">
-                            <p className="fw-bolder ">Casual&nbsp;Shirt</p>
-                            <p className="text-muted ">Regular</p>
-                            <p className="text-muted ">Qty:05</p>
-                          </div>
-                        </div>
-                        <div>
-                          <p className="fw-bolder">$25</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <img src={EventImg1} alt="" />
-                          <div className="ms-3 my-auto">
-                            <p className="fw-bolder ">Casual&nbsp;Shirt</p>
-                            <p className="text-muted ">Regular</p>
-                            <p className="text-muted ">Qty:05</p>
-                          </div>
-                        </div>
-                        <div>
-                          <p className="fw-bolder">$25</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <p className="fw-bolder">Total Quantity</p>
-                        </div>
-                        <div>
-                          <p>03</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <p className="fw-bolder">Sub Total</p>
-                        </div>
-                        <div>
-                          <p>$75</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <p className="fw-bolder">Inc.Tax</p>
-                        </div>
-                        <div>
-                          <p>$2</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <p className="fw-bolder">Shipping Charges</p>
-                        </div>
-                        <div>
-                          <p>$12</p>
-                        </div>
-                      </div>
-                      {/*  */}
-                      <div className="d-flex justify-content-between mt-2">
-                        <div className="d-flex">
-                          <p className="fw-bolder">Discount Price</p>
-                        </div>
-                        <div>
-                          <p>-$5</p>
-                        </div>
-                      </div>
-                      {/*  */}
+                      </center>
+                      <h6 className=" mb-2 fw-bolder">Customer&nbsp;Details</h6>
                       <div className="py-3 px-3 bg-light forBorderTop">
-                        <div className="d-flex justify-content-between mt-2">
-                          <div className="d-flex">
-                            <p className="fw-bolder">Total</p>
+                        {/*  */}
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Customer&nbsp;Name</p>
                           </div>
                           <div>
-                            <p>$89</p>
+                            <p>
+                              {" "}
+                              {customerFName}&nbsp;{customerLName}
+                            </p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Email</p>
+                          </div>
+                          <div>
+                            <p>{CustEmail}</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Phone&nbsp;No</p>
+                          </div>
+                          <div>
+                            <p>+923004567198</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                      </div>
+                      {/*  */}
+                      <h6 className=" mb-2 fw-bolder mt-1">
+                        Shop&nbsp;Details
+                      </h6>
+                      <div className="py-3 px-3 bg-light forBorderTop">
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Shope&nbsp;Name</p>
+                          </div>
+                          <div>
+                            <p>{CustShopName}</p>
+                          </div>
+                        </div>
+                        {/*  */}
+
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Email</p>
+                          </div>
+                          <div>
+                            <p>{CustShopemail === "" ? "" : CustShopemail}</p>
+                          </div>
+                        </div>
+
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Phone&nbsp;Number</p>
+                          </div>
+                          <div>
+                            <p>
+                              {" "}
+                              {CustShopphoneno === "" ? "" : CustShopphoneno}
+                            </p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Website</p>
+                          </div>
+                          <div>
+                            <p>
+                              {" "}
+                              {CustShopwebsite === "" ? "" : CustShopwebsite}
+                            </p>
                           </div>
                         </div>
                       </div>
-                      <p className="text-center fw-bolder">
-                        Thanku for Shopping with us
-                      </p>
+                      <h6 className=" mb-2 fw-bolder mt-1">
+                        Shipping&nbsp;Details
+                      </h6>
+                      <div className="py-3 px-3 bg-light forBorderTop">
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Shipping&nbsp;Address</p>
+                          </div>
+                          <div>
+                            <p className="line-h">
+                              {address1 === "" ? "" : address1}
+                            </p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between">
+                          <div className="">
+                            <p className="text-dark ">Billing&nbsp;Address</p>
+                          </div>
+                          <div>{!Billaddress1 ? "" : Billaddress1}</div>
+                        </div>
+                        {/*  */}
+                      </div>
+                      <h6 className=" mb-2 fw-bolder mt-1">
+                        Order&nbsp;Details
+                      </h6>
+                      <div className="py-3 px-3 bg-light forBorderTop">
+                        {ShopProducts.map((productsGets) => {
+                          return (
+                            <div className="d-flex justify-content-between bg-light p-2 mt-3">
+                              <div className="d-flex">
+                                <div>
+                                  <img
+                                    src={productsGets.image}
+                                    alt="EventImg1.png"
+                                    className="OrderDetailImgWidth "
+                                  />
+                                </div>
+                                <div className="">
+                                  <p className="ms-1">{productsGets.title}</p>
+                                  {/*  */}
+                                  <p className="ms-1">
+                                    {productsGets.product_variant_name}
+                                  </p>
+                                  {/*  */}
+                                  <p className="ms-1">
+                                    {productsGets.link_variant_name}&nbsp;
+                                  </p>
+                                </div>
+                              </div>
+                              {/*  */}
+                              <div className="">
+                                <div className=" ProductCardTextColor ">
+                                  <div className="">
+                                    <span className="">
+                                      <small>Unit&nbsp;Price</small>:&nbsp;
+                                      <span className="">
+                                        ${productsGets.unit_price}
+                                      </span>
+                                    </span>
+                                  </div>
+                                </div>
+                                {/*  */}
+                                <div className=" mt-3">
+                                  <span className="me-1">
+                                    <small>QTY </small>:&nbsp;
+                                    <span className="float-end">
+                                      {" "}
+                                      {productsGets.quantity}
+                                    </span>
+                                  </span>
+                                </div>
+                                {/*  */}
+                                <div className=" mt-3">
+                                  <span className=" d-flex justify-content-between">
+                                    <small>Total&nbsp;Price:</small>&nbsp;
+                                    <span className="ms-auto">
+                                      {" "}
+                                      ${productsGets.total_price}
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                        {/*  */}
+
+                        {/*  */}
+                        <div className="d-flex justify-content-between mt-2">
+                          <div className="d-flex">
+                            <p className="fw-bolder">Total Quantity</p>
+                          </div>
+                          <div>
+                            <p>03</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between mt-2">
+                          <div className="d-flex">
+                            <p className="fw-bolder">Sub Total</p>
+                          </div>
+                          <div>
+                            <p>$75</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between mt-2">
+                          <div className="d-flex">
+                            <p className="fw-bolder">Inc.Tax</p>
+                          </div>
+                          <div>
+                            <p>$2</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between mt-2">
+                          <div className="d-flex">
+                            <p className="fw-bolder">Shipping Charges</p>
+                          </div>
+                          <div>
+                            <p>$12</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="d-flex justify-content-between mt-2">
+                          <div className="d-flex">
+                            <p className="fw-bolder">Discount Price</p>
+                          </div>
+                          <div>
+                            <p>-$5</p>
+                          </div>
+                        </div>
+                        {/*  */}
+                        <div className="py-3 px-3 bg-light forBorderTop">
+                          <div className="d-flex justify-content-between mt-2">
+                            <div className="d-flex">
+                              <p className="fw-bolder">Total</p>
+                            </div>
+                            <div>
+                              <p>$89</p>
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-center fw-bolder">
+                          Thanku for Shopping with us
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </Col>
