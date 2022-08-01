@@ -347,9 +347,6 @@ const AllBlogs = () => {
                       }
                       onClick={() => setcategory("all")}
                     >
-                      {/* {category === "all" ? (
-                        <img src={TickIcon} alt="" className="" />
-                      ) : null} */}
                       &nbsp;All
                     </button>
                     {BlogCat.slice(0, 10).map((data, index) => (

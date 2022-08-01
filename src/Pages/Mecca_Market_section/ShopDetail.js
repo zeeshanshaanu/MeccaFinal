@@ -82,9 +82,9 @@ const drawerWidth = 100;
   // 
   // 
   const [GetAllShopProducts, setGetAllShopProducts] = useState([])
-  const GetShopProducts = () => {
+  const GetShopProducts = (currentPage) => {
     axios
-      .get(`/get-products-by-shop?shop_id=${id}`, {
+      .get(`/get-products-by-shop?shop_id=${id}&per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
@@ -139,6 +139,9 @@ const drawerWidth = 100;
   const [Description, setDescription] = useState("")
   const [added_by, setadded_by] = useState("")
   const [cover_image, setcover_image] = useState("")
+  // 
+  // 
+  // 
   const GetShopDetail = () => {
     axios
       .get(`/shop/view?shop_id=${id}`, {
@@ -219,14 +222,7 @@ const drawerWidth = 100;
                 {Description}
               </small>
             </div>
-            {/* <div className="mt-4">
-              <p className="fw-bolder">
-                <LocationOnIcon style={{ color: "#F11D35" }} />
-                Location:&nbsp;
-                <span>XYZ</span>
-              </p>
-            </div> */}
-            <div className="">
+                        <div className="">
               <h4 className="mt-5 fw-bolder"> Products:</h4>
             </div>
           </div>
