@@ -70,11 +70,11 @@ const UserDetail = () => {
                   </div>
                   {/*  */}
                   <div className="ms-4 my-auto">
-                    <p className="">
+                    <p className="text-left">
                       {GetSpecficUser.first_name}&nbsp;
                       {GetSpecficUser.last_name}
                     </p>
-                      <p className="">
+                      <p className="text-left">
                         {GetSpecficUser.title === null ? (
                           <span className="text-danger">
                             <small>No Title</small>
@@ -83,7 +83,7 @@ const UserDetail = () => {
                           <>{GetSpecficUser.title}</>
                         )}
                       </p>
-                      <p className="">
+                      <p className="text-left">
                         {GetSpecficUser.organization === null ? (
                           <span className="text-danger">
                             <small>No Organization found</small>

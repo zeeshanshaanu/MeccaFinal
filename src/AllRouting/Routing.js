@@ -187,15 +187,8 @@ const Routing = () => {
           <Route path="/AllShops" element={<AllShops />}>
             {" "}
           </Route>{" "}
-<<<<<<< HEAD
-          <Route path="/AllItems" element={<AllItems />}>
-          </Route>{" "}
-          <Route path="/Viewitem/:id" element={<Viewitem />}></Route>{" "}
-            {" "}
-=======
           <Route path="/AllItems" element={<AllItems />}></Route>{" "}
           <Route path="/Viewitem" element={<Viewitem />}></Route>{" "}
->>>>>>> fa955045b76c2c11608cd0cee37195ab1769353f
           <Route path="/ShopDetail/:id" element={<ShopDetail />}>
             {" "}
           </Route>{" "}
