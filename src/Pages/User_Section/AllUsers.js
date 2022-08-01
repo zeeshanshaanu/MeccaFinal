@@ -84,6 +84,7 @@ const AllUsers = () => {
         setuser_data(response.data.data.to);
         setuser_data_total(response.data.data.total);
         console.log(response.data);
+        console.log(sessionStorage.getItem("Name_data"));
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -161,7 +162,6 @@ const AllUsers = () => {
           </div>
           {/*  */}
           <div className="d-flex justify-content-between my-4">
-           
             <div className="position-relative w-75">
               {/* <small className="fw-bolder">Search&nbsp;Users</small> */}
               <Form.Group className="" controlId="#">
@@ -177,7 +177,7 @@ const AllUsers = () => {
             </div>
             <div className="FilterIcon px-3 me-3">
               {/* <FilterAltIcon className="" /> */}
-               <UserFilter /> 
+              <UserFilter />
             </div>
           </div>
           {/* ===============TABLE================ */}
