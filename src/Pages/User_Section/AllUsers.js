@@ -11,20 +11,14 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import Logo1 from "../../Assets/Images/Logo1.png";
 import AppBar from "@mui/material/AppBar";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Dropdown from "react-bootstrap/Dropdown";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 //
@@ -73,7 +67,7 @@ const AllUsers = () => {
   //
   const GetAllUser = (currentPage) => {
     axios
-      .get(`get-all-users?users_type=user&per_page=10&page=${currentPage}`, {
+      .get(`get-all-users?users_type=user&per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
@@ -120,7 +114,7 @@ const AllUsers = () => {
     <div className="TopDiv">
       <Box sx={{ display: "flex" }}>
         <div className="for_drawer">
-          <ResponsiveDrawer heading="All Users" className="alluser" />
+          <ResponsiveDrawer heading="Users" className="alluser" />
         </div>
         <AppBar
           className="fortrans"
@@ -283,7 +277,7 @@ const AllUsers = () => {
                                     {" "}
                                     <span
                                       onClick={() => {
-                                        navigate("/UserDetail");
+                                        navigate(`/UserDetail/${userGet.user_id}`);
                                       }}
                                       className="fw-bolder view"
                                     >

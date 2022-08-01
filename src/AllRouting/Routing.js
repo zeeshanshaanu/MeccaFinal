@@ -157,7 +157,7 @@ const Routing = () => {
           <Route exact path="/EditUser" element={<EditUser />}>
             {" "}
           </Route>{" "}
-          <Route exact path="/UserDetail" element={<UserDetail />}>
+          <Route exact path="/UserDetail/:id" element={<UserDetail />}>
             {" "}
           </Route>{" "}
           {/* ============Professionals_Section========== */} {/*  */}{" "}

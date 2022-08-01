@@ -122,7 +122,7 @@ const AllProfessionals = () => {
   const [Professional_data_total, setProfessional_data_total] = useState("");
   const GetAllProf = (currentPage) => {
     axios
-      .get(`/get-all-professionals?per_page=16&page=${currentPage}`, {
+      .get(`/get-all-professionals?per_page=8&page=${currentPage}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
@@ -267,31 +267,35 @@ const AllProfessionals = () => {
                           ) {
                             return GetProfessionals;
                           }
-                        }).map((index) => {
+                        }).map((findProf) => {
                           return (
                             <TableRow
                               hover
                               role="checkbox"
                               tabIndex={-1}
-                              key={index.code}
+                              key={findProf.code}
                             >
                               <TableCell>
                                 <img
-                                  src={index.profile.image}
+                                  src={
+                                    findProf.image 
+                                  }
                                   alt=""
                                   className="ProfesProfileImg"
                                 />
                                 &nbsp;
                                 <span className="">
-                                  {index.first_name}&nbsp;{index.last_name}
+                                  {findProf.first_name}&nbsp;{findProf.last_name}
                                 </span>
                               </TableCell>
                               <TableCell>Nothing form server</TableCell>
 
-                              <TableCell>{index.email}</TableCell>
+                              <TableCell>
+                                {findProf.email}
+                              </TableCell>
                               <TableCell>Nothing form server</TableCell>
                               <TableCell className="w-25">
-                                {index.profile.address}
+                                {findProf.address && findProf.address}
                               </TableCell>
                               <TableCell>
                                 {" "}
@@ -300,7 +304,7 @@ const AllProfessionals = () => {
                                 <GradeIcon className="text-warning Rating_Icon" />
                               </TableCell>
                               {/* <TableCell>
-                                {index.is_profile_setup === 1 ? (
+                                {findProf.is_profile_setup === 1 ? (
                                   <div className="text-success">Active</div>
                                 ) : (
                                   <div className="text-danger">Inactive</div>
@@ -312,7 +316,7 @@ const AllProfessionals = () => {
                                   <span
                                     onClick={() => {
                                       navigate(
-                                        `/ProfessionalsDetail/${index.id}`
+                                        `/ProfessionalsDetail/${findProf.id}`
                                       );
                                     }}
                                     className="view fw-bolder"
