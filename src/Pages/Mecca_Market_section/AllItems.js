@@ -298,19 +298,19 @@ const AllItems = () => {
               </StyledMenu>
             </div>
             {/*  */}
-            <div className="d-flex justify-content-between  ">
-              <small className="fw-bolder  my-auto">Search&nbsp;Items</small>
-              <div className="position-relative w-100 my-auto">
-                <Form.Group className="mx-3" controlId="#">
+            <div className="d-flex justify-content-between w-100">
+              {/* <small className="fw-bolder my-auto">Search&nbsp;Items</small> */}
+              <div className="position-relative w-100">
+                <Form.Group className="me-3" controlId="#">
                   <Form.Control
                     type="search"
                     className="input_field"
-                    placeholder="Search..."
+                    placeholder="Search by Name, Sku or Added By"
                     value={filter}
                     onChange={(e) => setfilter(e.target.value)}
                   />
                 </Form.Group>
-                <SearchIcon className="search_icon ps-1" />
+                <SearchIcon className="Kliquesearch_icon" />
               </div>
             </div>
           </div>
@@ -360,8 +360,8 @@ const AllItems = () => {
                                 admin.sku
                                   .toString()
                                   .includes(filter.toString().toLowerCase())) ||
-                              (admin.shops.name &&
-                                admin.shops.name
+                              (admin.shops &&
+                                admin.shops
                                   .toString()
                                   .includes(filter.toString().toLowerCase()))
                             ) {

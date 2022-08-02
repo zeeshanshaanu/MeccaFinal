@@ -176,7 +176,7 @@ const AllFaqs = () => {
                     <div className="">
                       <div className="">
                         <h4 className="fw-bolder">
-                          Add&nbsp;Quore&nbsp;FAQ 
+                          Add&nbsp;Community&nbsp;Category 
                         </h4>
                         <Form.Label className="text-dark">
                           Enter Name*
@@ -222,14 +222,14 @@ const AllFaqs = () => {
                     <div className=" d-flex justify-content-between">
                       <div className="">
                         <h4 className="text-dark mb-5 fw-bolder">
-                          All&nbsp;Quora FAQ
+                          All&nbsp;Community Categories
                         </h4>
                       </div>
                       {/*  */}
                       <div className="position-relative w-75">
                         <Form.Group className="mx-3" controlId="#">
                           <Form.Control
-                            placeholder="Search by Faq name"
+                            placeholder="Search by Community Category"
                             type="search"
                             className="input_field "
                             value={filter}
@@ -245,7 +245,7 @@ const AllFaqs = () => {
                         <thead>
                           <tr>
                             <th>S.No#</th>
-                            <th>Quora FAQ</th>
+                            <th>Category</th>
                             <th>Description</th>
                             {/* <th>Status</th> */}
                             <th>Action</th>

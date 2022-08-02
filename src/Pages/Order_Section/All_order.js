@@ -254,7 +254,7 @@ const All_Orders = () => {
                   <Form.Control
                     type="search"
                     className="input_field w-100"
-                    placeholder="Professional Name, Email or Phone"
+                    placeholder="Search by Order ID , Customer or Shop"
                     value={filter}
                     onChange={(e) => setfilter(e.target.value)}
                   />
@@ -364,10 +364,31 @@ const All_Orders = () => {
                                 {getorderss.customer.first_name}&nbsp;
                                 {getorderss.customer.last_name}
                               </TableCell>
-                              <TableCell>no data</TableCell>
-                              <TableCell>no data</TableCell>
+                              <TableCell>
+                                {getorderss.customer.quantity}
+                              </TableCell>
+                              <TableCell>${getorderss.order_total}</TableCell>
                               <TableCell>{getorderss.shop.name}</TableCell>
-                              <TableCell>{getorderss.status}</TableCell>
+                              <TableCell>
+                                {getorderss.status === "pending" ? (
+                                  <span className="pending">
+                                    {getorderss.status}
+                                  </span>
+                                ) : getorderss.status === "cancelled" ? (
+                                  <span className="cancel">
+                                    {getorderss.status}
+                                  </span>
+                                ) : getorderss.status === "in progress" ? (
+                                  <span className="inprogress">
+                                    {getorderss.status}
+                                  </span>
+                                ) : (
+                                  <span className="complete">
+                                    {getorderss.status}
+                                  </span>
+                                )}
+                              </TableCell>
+                              {/* {getorderss.status==="pending"? ( <span className="pending">{getorderss.status}</span>) || {getorderss.status==="cancelled"?}(<span className="cancel">{getorderss.status}</span>)|| {getorderss.status==="dispatch"?}(<span className="complete">{getorderss.status}</span>) } */}{" "}
                               <TableCell>
                                 <div className="App">
                                   <span

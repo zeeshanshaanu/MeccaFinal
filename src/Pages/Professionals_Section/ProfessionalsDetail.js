@@ -19,6 +19,25 @@ import { useNavigate } from "react-router-dom";
 import GradeIcon from "@mui/icons-material/Grade";
 import CloseIcon from "@mui/icons-material/Close";
 import { Player } from "video-react";
+// import Carousel from 'react-multi-carousel';
+import "react-multi-carousel/lib/styles.css";
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    slidesToSlide: 3, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 2, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+};
 const drawerWidth = 100;
 const ProfessionalsDetail = () => {
   const navigate = useNavigate();
@@ -299,7 +318,7 @@ const ProfessionalsDetail = () => {
                     getMedia.map((MediaGets) => {
                       return (
                         <>
-                          <div className="col col-lg-4 col-md-6 col-sm-12  mb-5">
+                          <div className="col col-lg-4 col-md-6 col-sm-12 mb-5">
                             <div className="card_image">
                               <img
                                 src={MediaGets.file}
@@ -342,7 +361,7 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="Services">
-                <h3 className="fw-bolder mb-4">Services</h3>
+                             ;<h3 className="fw-bolder mb-4">Services</h3>
                 <Row>
                   {getservices.length == 0 ? (
                     <span className="fw-bolder h5">
@@ -351,7 +370,7 @@ const ProfessionalsDetail = () => {
                   ) : (
                     getservices.map((servic) => {
                       return (
-                        <div className="col col-lg-4 col-md-6 col-sm-12  Services_card mb-5">
+                        <div className="col col-lg-4 col-md-6 col-sm-12  Services_card mb-5 me-3">
                           <div className="mt-2 d-flex justify-content-between">
                             <p class="fw-bolder">Tittle:</p>
                             <p>

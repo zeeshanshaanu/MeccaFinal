@@ -216,6 +216,7 @@
   border-radius: 10px;
 }
 .icon {
+  cursor: pointer;
   color: #f11139;
 }
 .likhai {
@@ -247,6 +248,10 @@
   margin-top: 4px;
   border-radius: 50%;
  }
+ .EventDetailProductImg{
+  height: 200px;
+  width: 230px;
+  }
 /*  */
 /*  */
 /*  */

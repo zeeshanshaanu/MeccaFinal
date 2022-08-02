@@ -253,7 +253,7 @@ const AllUsers = () => {
                                   <img
                                     src={userGet.profile.image}
                                     alt=""
-                                    className="ProfesProfileImg"
+                                    className="usersimges"
                                   />
                                   &nbsp;
                                   <span className="">
