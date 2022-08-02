@@ -20,10 +20,6 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 const drawerWidth = 100;
 const Viewitem = () => {
   const navigate = useNavigate();
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
   const breadcrumbs = [
     <Typography
       key="3"
@@ -59,9 +55,11 @@ const Viewitem = () => {
   // const [users, setUsers] = useState(MeccaMarket_data.slice(0, 50));
   const [pageNumber, setPageNumber] = useState(0);
   const [done, setdone] = useState(false);
-  const { id } = useParams();
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
+  
+  
+  
   useEffect(() => {
     sessionStorage.setItem("id", "4");
     GetShopDetail();
@@ -75,18 +73,20 @@ const Viewitem = () => {
   // 
   // 
   // 
+  const { id } = useParams();
   const [GetAllShopProducts, setGetAllShopProducts] = useState([])
+  const [getInfo, setgetInfo] = useState({})
   const GetShopProducts = () => {
     axios
-      .get(`/get-products-by-shop?shop_id=${id}`, {
+      .get(`/product/view?product_id=${id}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
         },
       })
       .then((response) => {
-        setGetAllShopProducts(response.data.data.products)
-        console.log(response.data.data.products)
-        setdone(false);
+        setGetAllShopProducts(response.data.data.shops)
+        setgetInfo(response.data.data)
+         setdone(false);
       })
       .catch((err) => console.log(err.response));
   };
@@ -97,22 +97,22 @@ const Viewitem = () => {
   // 
   // 
   // 
-  const displayUsers = GetAllShopProducts
+  const displayUsers = GetAllShopProducts && GetAllShopProducts
     .slice(pagesVisited, pagesVisited + usersPerPage)
     .map((user) => {
       return (
         <>
-          <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
-            <div className="Product_card mb-5">
+          <Col xxl={3} lg={4} md={6} sm={12} className="mt-3">
+            <div className="Product_card mb-4">
               <div className="card_image">
                 <img
-                  src={KliquesDetailBGIMg}
+                  src={user.cover_image}
                   alt="KliquesDetailBGIMg.png"
                   className="ProductImg w-100"
                 />
               </div>
               <div className="">
-                <p class="">{user.title}</p>
+                <p class="">{user.name}</p>
                 <p class="fw-bolder ProductCardTextColor">{user.price}</p>
                 <p class="">{user.sku}</p>
               </div>
@@ -121,19 +121,10 @@ const Viewitem = () => {
         </>
       );
     });
-  const pageCount = Math.ceil(GetAllShopProducts.length / usersPerPage);
-  const changePage = ({ selected }) => {
-    setPageNumber(selected);
-  };
   // 
   // 
   // 
-  const [name, setName] = useState("")
-  const [categ, setCateg] = useState("")
-  const [Description, setDescription] = useState("")
-  const [added_by, setadded_by] = useState("")
-  const [cover_image, setcover_image] = useState("")
-  const GetShopDetail = () => {
+   const GetShopDetail = () => {
     axios
       .get(`/shop/view?shop_id=${id}`, {
         headers: {
@@ -141,12 +132,7 @@ const Viewitem = () => {
         },
       })
       .then((response) => {
-        setName(response.data.data.name);
-        setCateg(response.data.data.category);
-        setDescription(response.data.data.description);
-        setadded_by(response.data.data.added_by);
-        setcover_image(response.data.data.cover_image);
-        setdone(false);
+                 setdone(false);
       })
       .catch((err) => console.log(err));
   };
@@ -200,74 +186,74 @@ const Viewitem = () => {
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
-                    <p className="fw-bolder">Product Name:</p>
-                    <p>XYZ</p>
+                    <p className="fw-bolder">Title:</p>
+                    <p>{getInfo.title}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Category:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.category}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Link with shops:</p>
-                    <p>XYZ</p>
+                    <p> Dummy data !</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Availabe Quantity:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.available_quantity}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Incoming Quantity:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.incoming_quantity}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Price:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.price}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Cost Price:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.cost_price}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Compare at Price:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.compare_at_price}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Sku:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.sku}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Barcode:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.barcode}</p>
                   </div>
                 {/*  */}
                 {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Tags:</p>
-                    <p>XYZ</p>
+                    <p>{getInfo.is_contain_tags}</p>
                   </div>
                 {/*  */}
                 {/*  */}
-                  <div className="d-flex justify-content-between">
+                  <div className="">
                     <p className="fw-bolder">Production Description:</p>
-                    <p>XYZ</p>
+                    <p className="ms-5">{getInfo.description}</p>
                   </div>
                               {/* <div className="mt-2">
                     <span className="S">M</span>{" "}
