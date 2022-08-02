@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Menu from "@mui/material/Menu";
 import { Button } from "react-bootstrap";
 // import "./NotificationIcon.css";
@@ -18,6 +18,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { Hint } from "react-autocomplete-hint";
 import axios from "axios";
+import AllUserContext from "../../../Contexts/AllUsers/AllUserContext";
 ///////=============//////////////=============//////
 ///////=============//////////////=============//////
 const options = [];
@@ -83,6 +84,7 @@ const PrettoSlider = styled(Slider)({
 ///////=============//////////////=============//////
 
 export default function UserFilter() {
+  const user = useContext(AllUserContext);
   ///////=============//////////////=============//////
   ///////=============//////////////=============//////
   const [name, setname] = useState(false);
@@ -90,7 +92,7 @@ export default function UserFilter() {
   const [email, setemail] = useState(false);
   const [email_data, setemail_data] = useState("");
   const [usertype, setusertype] = useState(false);
-  const [usertype_data, setusertype_data] = useState(false);
+  const [usertype_data, setusertype_data] = useState("");
   const [show, setshow] = useState(true);
 
   ///////=============//////////////=============//////
@@ -99,12 +101,20 @@ export default function UserFilter() {
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setshow(true);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
   const handleSubmit = () => {
-    sessionStorage.setItem(name_data);
+    setshow(false);
+    user.setnames(name_data);
+    user.setemails(email_data);
+    user.setusertypes(usertype_data);
+    console.log(user.reload);
+    user.setreload(!user.reload);
+    console.log(user.reload);
+    user.setsearchid(true);
   };
   return (
     <div>
@@ -118,43 +128,43 @@ export default function UserFilter() {
       >
         <FilterAltIcon className="" /> Filter
       </span>
-      <Menu
-        className="height-menu px-4"
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
+      {show ? (
+        <Menu
+          className="height-menu px-4"
+          anchorEl={anchorEl}
+          id="account-menu"
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 1.5,
+              "& .MuiAvatar-root": {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              "&:before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+                zIndex: 0,
+              },
             },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      >
-        <div className="px-4">
-          {show ? (
+          }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
+          <div className="px-4">
             <div className="d-flex flex-column wrapr">
               <div className="d-flex justify-content-between">
                 <div className="me-5">
@@ -226,19 +236,20 @@ export default function UserFilter() {
                 ) : null}
               </div>
             </div>
-          ) : null}
-          <hr />
-          <div className="d-flex justify-content-end ">
-            <Button
-              className="filterbuttonprop "
-              onClick={() => handleSubmit()}
-              variant="outlined"
-            >
-              Apply
-            </Button>
+
+            <hr />
+            <div className="d-flex justify-content-end ">
+              <Button
+                className="filterbuttonprop "
+                onClick={handleSubmit}
+                variant="outlined"
+              >
+                Apply
+              </Button>
+            </div>
           </div>
-        </div>
-      </Menu>
+        </Menu>
+      ) : null}
     </div>
   );
 }

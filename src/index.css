@@ -289,3 +289,6 @@ icon img {
 .line-h {
   line-height: 80% !important;
 }
+.order-details-hidden {
+  /* visibility: hidden; */
+}
