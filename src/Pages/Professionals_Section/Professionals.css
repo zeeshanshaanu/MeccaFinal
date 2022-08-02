@@ -102,3 +102,7 @@
   color: #eeb85a;
   font-size: 17px;
 }
+.forscroll-gallery {
+  width: 1000px;
+  overflow-x: auto;
+}

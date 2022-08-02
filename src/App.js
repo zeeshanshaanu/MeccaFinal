@@ -2,6 +2,7 @@
 import React from "react";
 import Routing from "./AllRouting/Routing";
 import "./Components/FontawsomeIcons";
+import AllUsersState from "./Contexts/AllUsers/AllUsersState";
 //////////============///////////============/////////
 //////////============///////////============/////////
 //////////============///////////============/////////
@@ -9,7 +10,9 @@ import "./Components/FontawsomeIcons";
 function App() {
   return (
     <div className="">
-      <Routing />
+      <AllUsersState>
+        <Routing />
+      </AllUsersState>
     </div>
   );
 }

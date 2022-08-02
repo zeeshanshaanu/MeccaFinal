@@ -18,6 +18,9 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useNavigate } from "react-router-dom";
 import GradeIcon from "@mui/icons-material/Grade";
 import CloseIcon from "@mui/icons-material/Close";
+// import { Carousel } from "@trendyol-js/react-carousel";
+// import { Slide } from "react-slideshow-image";
+// import "react-slideshow-image/dist/styles.css";
 import { Player } from "video-react";
 // import Carousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
@@ -309,52 +312,56 @@ const ProfessionalsDetail = () => {
               <hr />
               <div className="Media">
                 <h3 className="fw-bolder mb-4">Gallery</h3>
-                <Row>
-                  {getMedia.length == 0 ? (
-                    <span className="fw-bolder h5">
-                      No Certifications Found
-                    </span>
-                  ) : (
-                    getMedia.map((MediaGets) => {
-                      return (
-                        <>
-                          <div className="col col-lg-4 col-md-6 col-sm-12 mb-5">
-                            <div className="card_image">
-                              <img
-                                src={MediaGets.file}
-                                onClick={() => {
-                                  setshow(!show);
-                                  getImg(MediaGets.file);
-                                }}
-                                alt=""
-                                className="KliquesDetailBGIMg"
-                              />
-                              {show ? (
-                                <dialog
-                                  className="dialog model"
-                                  // style={{ position: "" }}
-                                  open
-                                  onClick={() => setshow(!show)}
-                                >
-                                  <CloseIcon
-                                    className="text-white closeiconn"
-                                    onClick={() => setshow(!show)}
-                                  />
-                                  <img
-                                    src={tempimgsrc}
-                                    onClick={() => setshow(!show)}
-                                    alt=""
-                                    className=""
-                                  />
-                                </dialog>
-                              ) : null}
+                {/* <Carousel show={3.5} slide={3} swiping={true}> */}
+                < >
+                  <div className="d-flex">
+                    {getMedia.length == 0 ? (
+                      <span className="fw-bolder h5">
+                        No Certifications Found
+                      </span>
+                    ) : (
+                      getMedia.map((MediaGets) => {
+                        return (
+                          <>
+                            <div className="col-4  mb-5">
+                              <div className="card_image">
+                                <img
+                                  src={MediaGets.file}
+                                  onClick={() => {
+                                    setshow(!show);
+                                    getImg(MediaGets.file);
+                                  }}
+                                  alt=""
+                                  className="KliquesDetailBGIMg "
+                                />
+                              </div>
                             </div>
-                          </div>
-                        </>
-                      );
-                    })
-                  )}
-                </Row>
+                          </>
+                        );
+                      })
+                    )}
+                  </div>
+                </>
+                {show ? (
+                  <dialog
+                    className="dialog model"
+                    // style={{ position: "" }}
+                    open
+                    onClick={() => setshow(!show)}
+                  >
+                    <CloseIcon
+                      className="text-white closeiconn"
+                      onClick={() => setshow(!show)}
+                    />
+                    <img
+                      src={tempimgsrc}
+                      onClick={() => setshow(!show)}
+                      alt=""
+                      className=""
+                    />
+                  </dialog>
+                ) : null}
+                {/* </Carousel> */}
               </div>
               {/*  */}
               {/*  */}

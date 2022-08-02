@@ -35,6 +35,8 @@ import UpdateKlique from "../Pages/Kliques_Section/UpdateKlique";
 import AddNewEvent from "../Pages/Events_Section/AddNewEvent";
 import All_Events from "../Pages/Events_Section/All_Events";
 import EventDetail from "../Pages/Events_Section/EventDetail";
+import AttendeesDetails from "../Pages/Events_Section/AttendeesDetails";
+
 //
 import AddNewBlog from "../Pages/Blog_Section/AddNewBlog";
 import AllBlogs from "../Pages/Blog_Section/AllBlogs";
@@ -82,7 +84,6 @@ import AllFaqs from "../Pages/ServicesAndCatgeory/FAQs Categories/AllFaqs";
 import UpdateQuoraFaqCategory from "../Pages/ServicesAndCatgeory/FAQs Categories/UpdateQuoraFaqCategory";
 import Viewitem from "../Pages/Mecca_Market_section/Viewitem";
 import AllShops from "../Pages/Mecca_Market_section/AllShopes";
-import AllUsersState from "../Contexts/AllUsers/AllUsersState";
 // import { I18nextProvider } from "react-i18next";
 // import i18n from "./configs/i18n/i18n";
 const LazyAllProfessionals = React.lazy(() =>
@@ -111,7 +112,6 @@ const Routing = () => {
         ) : null}{" "}
         <Notifications />
       </div>{" "}
-      <AllUsersState />
       <BrowserRouter>
         <Routes>
           {" "}
@@ -232,6 +232,9 @@ const Routing = () => {
           <Route path="/EventDetail/:id" element={<EventDetail />}>
             {" "}
           </Route>{" "}
+          <Route path="/AttendeesDetails/:id" element={<AttendeesDetails />}>
+            {" "}
+          </Route>{" "}
           {/* ============Blog_Section========== */}{" "}
           <Route path="/AllBlogs" element={<AllBlogs />}>
             {" "}
@@ -319,7 +322,6 @@ const Routing = () => {
           </Route>{" "}
         </Routes>{" "}
       </BrowserRouter>{" "}
-      <AllUsersState />
     </div>
   );
 };

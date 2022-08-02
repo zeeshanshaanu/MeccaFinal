@@ -12,18 +12,20 @@
 .Triatholon {
   background: rgb(181, 190, 204);
   color: rgb(56, 68, 91);
-    border-radius: 50px;
+  border-radius: 50px;
 }
-.TypeStyle{
+.TypeStyle {
   display: inline-block;
-  position: relative; top: 4.5rem;
+  position: relative;
+  top: 4.5rem;
   z-index: 1;
   background-color: #f1b103a6;
-  color: #F22632;
+  color: #f22632;
 }
-.TypeStyleOnline{
+.TypeStyleOnline {
   display: inline-block;
-  position: relative; top: 4.5rem;
+  position: relative;
+  top: 4.5rem;
   z-index: 1;
   background-color: #14c96ea6;
   color: rgb(7, 255, 7);
@@ -36,15 +38,15 @@
   margin-left: -20px;
   z-index: -1;
 }
-.AttendeesImgWidth{
+.AttendeesImgWidth {
   width: 50px;
   height: 50px;
 }
-.SpecficImg{
+.SpecficImg {
   height: 700px;
   display: inline-block;
 }
-.OrganizerImg{
+.OrganizerImg {
   width: 60px;
   height: 60px;
 }
@@ -232,26 +234,22 @@
   justify-content: space-between;
   margin-left: 2rem;
 }
-.BoxWidth{
+.BoxWidth {
   width: 500px;
   height: 450px;
 }
-.Sub_Box{
-  border: .5px dashed silver ;
- }
- .formarginBotoom{
+.Sub_Box {
+  border: 0.5px dashed silver;
+}
+.formarginBotoom {
   margin-bottom: 1rem !important;
- }
- .CommentImg{
+}
+.CommentImg {
   width: 40px;
   height: 40px;
   margin-top: 4px;
   border-radius: 50%;
- }
- .EventDetailProductImg{
-  height: 200px;
-  width: 230px;
-  }
+}
 /*  */
 /*  */
 /*  */
@@ -272,7 +270,7 @@
 /*  */
 /*  */
 /*  */
- @media screen and (min-width: 1957px) {
+@media screen and (min-width: 1957px) {
   .properties {
     height: 164px;
   }
@@ -281,4 +279,8 @@
   .target {
     margin-top: 1% !important;
   }
+}
+.width-attende {
+  width: 100px;
+  height: 100px;
 }
