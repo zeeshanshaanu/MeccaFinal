@@ -176,13 +176,16 @@ const EventDetail = () => {
   const [Faqs, setFaqs] = useState([]);
   const [comments, setComments] = useState([]);
   const [Totalcomments, setTotalComments] = useState([]);
+  const [show, setshow] = useState(false);
+  const [eventid, seteventid] = useState("");
   //////////////============///////////==============///////
   //////////////============///////////==============///////
   //////////////============///////////==============///////
   //////////////============///////////==============///////
   //////////////============///////////==============///////
-  const GetShopDetail = () => {
-    axios
+  const images = [];
+  const GetShopDetail = async () => {
+    await axios
       .get(`/event/view?event_id=${id}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
@@ -190,6 +193,12 @@ const EventDetail = () => {
       })
 
       .then((response) => {
+        console.log(response);
+        seteventid(response.data.data.event_id);
+        response.data.data.attendees.map((data) =>
+          images.push(data.profile.image)
+        );
+        console.log(images && images);
         settitle(response.data.data.title);
         settype(response.data.data.type);
         setstatus(response.data.data.status);
@@ -239,7 +248,7 @@ const EventDetail = () => {
       underline="hover"
       key="1"
       color="inherit"
-      onClick={handleClick}
+      onClick={() => handleClick()}
     >
       <span
         onClick={() => {
@@ -599,31 +608,36 @@ const EventDetail = () => {
                     <div className="mt-4">
                       <p className="fw-bolder">Attendees</p>
                     </div>
-                    <div class="avatars">
-                      {Attendees.length == 0 ? (
-                        <span className="fw-bolder h5">
-                          No Registrations yet
-                        </span>
-                      ) : (
-                        Attendees.slice(0, 4).map((getattendees) => {
-                          return (
-                            <span class="avatar">
-                              <img
-                                src={
-                                  getattendees.profile.image === ""
-                                    ? "No registrations yet"
-                                    : getattendees.profile.image
-                                }
-                                alt="EventImg1.png"
-                                className="AttendeesImgWidth"
-                              />
-                            </span>
-                          );
-                        })
-                      )}
-                      {/* <div className="">
-                    +all
-                  </div> */}
+                    <div className="d-flex">
+                      <div class="avatars d-flex">
+                        {Attendees.length === 0
+                          ? "Not Registration Yet"
+                          : Attendees.slice(0, 4).map((data) => (
+                              <div
+                                className="avatar"
+                                onClick={() => {
+                                  navigate(`/AttendeesDetails/${eventid}`);
+                                }}
+                              >
+                                <img
+                                  className="AttendeesImgWidth"
+                                  src={data.profile.image}
+                                />
+                              </div>
+                            ))}
+                      </div>
+                      {Attendees.map((data) => data.profile.image).length >
+                      4 ? (
+                        <p className="text-muted my-auto ms-3">
+                          {Attendees.map((data) => data.profile.image).length >
+                          4
+                            ? Attendees.map((data) => data.profile.image)
+                                .length - 4
+                            : Attendees.map((data) => data.profile.image)
+                                .length}{" "}
+                          Total Attendees
+                        </p>
+                      ) : null}
                     </div>
                   </div>
                   {/*  */}

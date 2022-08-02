@@ -35,6 +35,8 @@ import UpdateKlique from "../Pages/Kliques_Section/UpdateKlique";
 import AddNewEvent from "../Pages/Events_Section/AddNewEvent";
 import All_Events from "../Pages/Events_Section/All_Events";
 import EventDetail from "../Pages/Events_Section/EventDetail";
+import AttendeesDetails from "../Pages/Events_Section/AttendeesDetails";
+
 //
 import AddNewBlog from "../Pages/Blog_Section/AddNewBlog";
 import AllBlogs from "../Pages/Blog_Section/AllBlogs";
@@ -228,6 +230,9 @@ const Routing = () => {
             {" "}
           </Route>{" "}
           <Route path="/EventDetail/:id" element={<EventDetail />}>
+            {" "}
+          </Route>{" "}
+          <Route path="/AttendeesDetails/:id" element={<AttendeesDetails />}>
             {" "}
           </Route>{" "}
           {/* ============Blog_Section========== */}{" "}

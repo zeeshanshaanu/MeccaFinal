@@ -212,55 +212,41 @@ const AllUsers = () => {
                         ? allusers &&
                           allusers
                             .filter((admin) => {
-                              if (
-                                user.names ||
-                                user.emails ||
-                                user.usertypes === ""
-                              ) {
+                              if (user.names === "") {
                                 return allusers;
                               } else if (
                                 (admin.last_name &&
                                   admin.last_name
                                     .toString()
                                     .includes(
-                                      user.names ||
-                                        user.emails ||
-                                        user.usertypes
-                                          .toString()
-                                          .toUpperCase()
-                                          .toLowerCase()
+                                      user.names
+                                        .toString()
+                                        .toUpperCase()
+                                        .toLowerCase()
                                     )) ||
                                 (admin.email &&
                                   admin.email
                                     .toString()
                                     .includes(
-                                      user.names ||
-                                        user.emails ||
-                                        user.usertypes
-                                          .toString()
-                                          .toUpperCase()
-                                          .toLowerCase()
+                                      user.names
+                                        .toString()
+                                        .toUpperCase()
+                                        .toLowerCase()
                                     )) ||
                                 (admin.first_name &&
                                   admin.first_name
                                     .toString()
                                     .toUpperCase()
                                     .includes(
-                                      user.names ||
-                                        user.emails ||
-                                        user.usertypes
-                                          .toString()
-                                          .toUpperCase()
-                                          .toLowerCase()
+                                      user.names
+                                        .toString()
+                                        .toUpperCase()
+                                        .toLowerCase()
                                     )) ||
                                 (admin.user_type &&
                                   admin.user_type
                                     .toString()
-                                    .includes(
-                                      user.names ||
-                                        user.emails ||
-                                        user.usertypes.toString()
-                                    ))
+                                    .includes(user.names.toString()))
                               ) {
                                 return allusers;
                               }
