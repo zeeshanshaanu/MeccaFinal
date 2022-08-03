@@ -45,6 +45,8 @@ const Community = () => {
   //////////////============///////////==============///////
   //////////////============///////////==============///////
 
+
+
   //   const { id } = useParams();
   const GetCommunity = (currentPage) => {
     setdone(true);
@@ -127,17 +129,10 @@ const Community = () => {
           navigate("/All_Events");
         }}
       >
-        AllEvents
+        Community
       </span>
     </div>,
-    <Typography
-      key="3"
-      color="text.primary"
-      className="fw-bolder AllUsersBredCrumbs"
-    >
-      <span className="foractive">Community</span>
-    </Typography>,
-  ];
+       ];
   return (
     <div className="TopDiv px-3 pb-5">
       <Box sx={{ display: "flex" }}>

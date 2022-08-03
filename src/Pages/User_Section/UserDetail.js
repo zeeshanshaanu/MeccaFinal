@@ -98,8 +98,20 @@ const UserDetail = () => {
                         </p>
                       </p>
                       <div className="d-flex justify-content-between">
+                        <div className=" ">
                         <p className="text-start">{GetSpecficUser.from_date}</p>
-                        <p className="text-start">{GetSpecficUser.is_currently_work===null?"Not working yet":GetSpecficUser.is_currently_work}</p>
+                        </div>
+                        <div className="ms-5 ps-5">
+                          <p className="text-end">
+                            {GetSpecficUser.is_currently_work === null ? (
+                              <small className="text-danger float-lg-end">
+                                Not working yet
+                              </small>
+                            ) : (
+                              <small className="text-success">Present</small>
+                            )}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>

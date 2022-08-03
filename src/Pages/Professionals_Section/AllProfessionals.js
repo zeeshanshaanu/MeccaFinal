@@ -121,6 +121,7 @@ const AllProfessionals = () => {
   const [Professional_data, setProfessional_data] = useState("");
   const [Professional_data_total, setProfessional_data_total] = useState("");
   const GetAllProf = (currentPage) => {
+    setdone(true);
     axios
       .get(`/get-all-professionals?per_page=8&page=${currentPage}`, {
         headers: {

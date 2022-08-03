@@ -720,8 +720,8 @@ const EventDetail = () => {
                       <div className="card_image">
                         <img
                           src={OrganizerImg}
-                          alt="EventImg1.png"
-                          className="EventDetailProductImg"
+                          alt=""
+                          className="width-attende"
                         />
                       </div>
                       <div className="mt-2">
