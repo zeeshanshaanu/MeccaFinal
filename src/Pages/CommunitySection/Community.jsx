@@ -45,8 +45,6 @@ const Community = () => {
   //////////////============///////////==============///////
   //////////////============///////////==============///////
 
-
-
   //   const { id } = useParams();
   const GetCommunity = (currentPage) => {
     setdone(true);
@@ -118,30 +116,7 @@ const Community = () => {
   const [pageNumber, setPageNumber] = useState(0);
 
   const navigate = useNavigate();
-  const breadcrumbs = [
-    <div
-      className="fw-bolder AllUsersBredCrumbs"
-      underline="hover"
-      key="1"
-      color="inherit"
-      onClick={() => handleClick()}
-    >
-      <span
-        onClick={() => {
-          navigate("/All_Events");
-        }}
-      >
-        Community
-      </span>
-    </div>,
-    <Typography
-      key="3"
-      color="text.primary"
-      className="fw-bolder AllUsersBredCrumbs"
-    >
-      <span className="foractive">Community</span>
-    </Typography>,
-  ];
+
   const [filter, setfilter] = useState("");
   return (
     <div className="TopDiv px-3 pb-5">
@@ -171,14 +146,6 @@ const Community = () => {
         >
           <div className="mt-5">
             <div className=" d-flex">
-              <Stack spacing={2} className="my-auto">
-                <Breadcrumbs
-                  separator={<NavigateNextIcon fontSize="small" />}
-                  aria-label="breadcrumb"
-                >
-                  {breadcrumbs}
-                </Breadcrumbs>
-              </Stack>
               <div className="d-flex my-auto ms-3">
                 <div className="card postcards px-2 py-1 ">
                   <p className="m-auto" onClick={() => setfilter("post")}>
@@ -199,7 +166,7 @@ const Community = () => {
               </div>
             ) : (
               <>
-                <div className="d-flex mt-5">
+                <div className="d-flex mt-4">
                   <div className="row ">
                     {Community &&
                       Community.filter((data) =>
