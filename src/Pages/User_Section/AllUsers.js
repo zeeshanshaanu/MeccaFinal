@@ -413,6 +413,7 @@ const AllUsers = () => {
                     &nbsp; enteries
                   </p>
                   <div className="ms-auto my-auto">
+                    {console.log(pageCount)}
                     <ReactPaginate
                       previousLabel={<ArrowCircleLeftRoundedIcon />}
                       nextLabel={<ArrowCircleRightRoundedIcon />}

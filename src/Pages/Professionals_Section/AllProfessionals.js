@@ -278,7 +278,7 @@ const AllProfessionals = () => {
                                 <img
                                   src={findProf.image}
                                   alt=""
-                                  className="usersimges"
+                                  className="ProfesProfileImg"
                                 />
                                 &nbsp;
                                 <span className="">
