@@ -190,7 +190,7 @@ const Routing = () => {
             {" "}
           </Route>{" "}
           <Route path="/AllItems" element={<AllItems />}></Route>{" "}
-          <Route path="/Viewitem" element={<Viewitem />}></Route>{" "}
+          <Route path="/Viewitem/:id" element={<Viewitem />}></Route>{" "}
           <Route path="/ShopDetail/:id" element={<ShopDetail />}>
             {" "}
           </Route>{" "}

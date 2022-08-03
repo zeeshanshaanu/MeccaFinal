@@ -138,11 +138,16 @@ const EventDetail = () => {
   };
   const { id } = useParams();
   //////////////============///////////==============///////
-  const [ReplayHide, setReplayHide] = useState(true);
+  const [ReplayHide, setReplayHide] = useState(false);
+  const [CommentID, setCommentID] = useState(0);
   //////////////============///////////==============///////
+
   const HandleHide = () => {
-    setReplayHide(!ReplayHide);
-  };
+    // CommentID == id ? setReplayHide(!ReplayHide) : console.log("hello");
+    // console.log(CommentID);
+    setReplayHide(!ReplayHide)
+   };
+
   //////////////============///////////==============///////
   //////////////============///////////==============///////
   const [done, setdone] = useState(false);
@@ -211,7 +216,7 @@ const EventDetail = () => {
         setRegistrationFee(response.data.data.registration_fee);
         setlocationAddress(response.data.data.location_address);
         setschedule_at(response.data.data.schedule_at);
-        //////////////===========LINKS=///////////==============///////
+        //////////////===========LINKS=///////////==============///////////
         setwebsite_url(response.data.data.website_url);
         setvideo_url(response.data.data.video_url);
         setmedia_url(response.data.data.media_url);
@@ -225,8 +230,8 @@ const EventDetail = () => {
         setAttendees(response.data.data.attendees);
         setFaqs(response.data.data.faqs);
         setComments(response.data.data.comments);
-        //////////////============///////////==============///////
-        //////////////============///////////==============///////
+        //////////////============///////////==============////////////////
+        //////////////============///////////==============////////////////
         setticket_available_from(response.data.data.ticket_available_from);
         setticket_available_to(response.data.data.ticket_available_to);
         setTotalComments(response.data.data.total_comments);
@@ -421,9 +426,28 @@ const EventDetail = () => {
                                               </div>
                                             </div>
                                             <div className="text-end w-100">
-                                              <small>
-                                                {GetComments.published_at}
-                                              </small>
+                                              <div className="">
+                                                <small>
+                                                  {GetComments.published_at}
+                                                </small>
+                                              </div>
+                                              <span
+                                                className="float-end text-primary forcolor"
+                                                onClick={() => {
+                                                  // setCommentID(GetComments.id);
+                                                  HandleHide()
+                                                }}
+                                              >
+                                                {" "}
+                                                {ReplayHide ? (
+                                                  <small>Hide Replys</small>
+                                                ) : (
+                                                  <small>
+                                                    {GetComments.childs.length}
+                                                    &nbsp;Replys
+                                                  </small>
+                                                )}
+                                              </span>
                                             </div>
                                           </div>
                                         </div>
@@ -431,13 +455,6 @@ const EventDetail = () => {
                                           GetComments.childs.map((GetRplys) => {
                                             return (
                                               <>
-                                                {/* <span
-                                                  className="float-end forcolor"
-                                                  onClick={HandleHide}
-                                                >
-                                                  {" "}
-                                                  <small>Hide Reply</small>
-                                                </span> */}
                                                 <div className="my-4 ms-4 ">
                                                   {ReplayHide ? (
                                                     <div className="d-flex my-auto">
@@ -480,6 +497,7 @@ const EventDetail = () => {
                                               </>
                                             );
                                           })}
+                                        <hr />
                                       </>
                                     );
                                   })}
@@ -698,12 +716,12 @@ const EventDetail = () => {
                   {/*  */}
                   <Col xxl={2} lg={3} md={4} sm={6} className="mt-3">
                     <p className="fw-bolder">Organizer</p>
-                    <div className="Product_card mb-5">
+                    <div className="Product_card mb-5 h-auto">
                       <div className="card_image">
                         <img
                           src={OrganizerImg}
                           alt="EventImg1.png"
-                          className="ProductImg"
+                          className="EventDetailProductImg"
                         />
                       </div>
                       <div className="mt-2">

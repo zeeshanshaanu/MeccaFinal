@@ -186,7 +186,7 @@ const MainMenu = () => {
             disableRipple
             className="hovereffect"
           >
-            FAQ Categories
+            Community Categories
           </MenuItem>
         </StyledMenu>
       </div>

@@ -16,7 +16,8 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-// 
+import CircularIndeterminate from "../../Components/Loader/Loader";
+//
 const drawerWidth = 100;
 const Viewitem = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Viewitem = () => {
           navigate("/AllItems");
         }}
       >
-       All Items
+        All Items
       </span>
     </Typography>,
     <Typography
@@ -40,11 +41,7 @@ const Viewitem = () => {
       color="text.primary"
       className="fw-bolder AllUsersBredCrumbs"
     >
-      <span
-        className="foractive"
-             >
-         Item Details
-      </span>
+      <span className="foractive">Item Details</span>
     </Typography>,
   ];
   const [togle, settogle] = useState(true);
@@ -57,9 +54,7 @@ const Viewitem = () => {
   const [done, setdone] = useState(false);
   const usersPerPage = 9;
   const pagesVisited = pageNumber * usersPerPage;
-  
-  
-  
+
   useEffect(() => {
     sessionStorage.setItem("id", "4");
     GetShopDetail();
@@ -68,14 +63,14 @@ const Viewitem = () => {
     sessionStorage.setItem("id", "4");
     togle ? setstatus("Published") : setstatus("UnPublished");
   }, [togle]);
-  // 
-  // 
-  // 
-  // 
-  // 
+  //
+  //
+  //
+  //
+  //
   const { id } = useParams();
-  const [GetAllShopProducts, setGetAllShopProducts] = useState([])
-  const [getInfo, setgetInfo] = useState({})
+  const [GetAllShopProducts, setGetAllShopProducts] = useState([]);
+  const [getInfo, setgetInfo] = useState({});
   const GetShopProducts = () => {
     axios
       .get(`/product/view?product_id=${id}`, {
@@ -84,47 +79,82 @@ const Viewitem = () => {
         },
       })
       .then((response) => {
-        setGetAllShopProducts(response.data.data.shops)
-        setgetInfo(response.data.data)
-         setdone(false);
+        setGetAllShopProducts(response.data.data.shops);
+        setgetInfo(response.data.data);
+        setdone(false);
       })
       .catch((err) => console.log(err.response));
   };
-  // 
-  // 
-  // 
-  // 
-  // 
-  // 
-  // 
-  const displayUsers = GetAllShopProducts && GetAllShopProducts
-    .slice(pagesVisited, pagesVisited + usersPerPage)
-    .map((user) => {
-      return (
-        <>
-          <Col xxl={3} lg={4} md={6} sm={12} className="mt-3">
-            <div className="Product_card mb-4">
-              <div className="card_image">
-                <img
-                  src={user.cover_image}
-                  alt="KliquesDetailBGIMg.png"
-                  className="ProductImg w-100"
-                />
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  const displayUsers =
+    GetAllShopProducts &&
+    GetAllShopProducts.slice(pagesVisited, pagesVisited + usersPerPage).map(
+      (user) => {
+        return (
+          <>
+            <Col xxl={3} lg={4} md={12} sm={12} className="text-small mt-4">
+              <div className="Product_card mb-5 w-auto h-100">
+                <div className="">
+                  {user.cover_image === "" ? (
+                    <img
+                      src={KliquesDetailBGIMg}
+                      alt=""
+                      className="KliquesDetailBGIMg"
+                    />
+                  ) : (
+                    <img
+                      src={user.cover_image}
+                      alt=""
+                      className="KliquesDetailBGIMg"
+                    />
+                  )}
+                </div>
+
+                <div className="mt-3">
+                  {/*  */}
+                  <div className="">
+                    <p class="">
+                      <span className="fw-bolder">Name:</span>&nbsp; {user.name}
+                    </p>
+                  </div>
+                  {/*  */}
+                  <div className="">
+                    <p class="">
+                      <span className="fw-bolder">Location:</span>&nbsp;{" "}
+                      {user.location_address}
+                    </p>
+                  </div>
+                  {/*  */}
+                  <div className="">
+                    <p class="">
+                      <span className="fw-bolder">Email:</span>&nbsp;{" "}
+                      {user.email}
+                    </p>
+                  </div>
+                  {/*  */}
+                  <div className="">
+                    <p class="">
+                      <span className="fw-bolder">Phone:</span>&nbsp;{" "}
+                      {user.phone}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="">
-                <p class="">{user.name}</p>
-                <p class="fw-bolder ProductCardTextColor">{user.price}</p>
-                <p class="">{user.sku}</p>
-              </div>
-            </div>
-          </Col>
-        </>
-      );
-    });
-  // 
-  // 
-  // 
-   const GetShopDetail = () => {
+            </Col>
+          </>
+        );
+      }
+    );
+  //
+  //
+  //
+  const GetShopDetail = () => {
     axios
       .get(`/shop/view?shop_id=${id}`, {
         headers: {
@@ -132,7 +162,7 @@ const Viewitem = () => {
         },
       })
       .then((response) => {
-                 setdone(false);
+        setdone(false);
       })
       .catch((err) => console.log(err));
   };
@@ -161,111 +191,121 @@ const Viewitem = () => {
           }}
         >
           <div className="">
-          <div className="mb-5">
-          <Stack spacing={2}>
-              <Breadcrumbs
-                separator={<NavigateNextIcon fontSize="small" />}
-                aria-label="breadcrumb"
-              >
-                {breadcrumbs}
-              </Breadcrumbs>
-            </Stack>
-          </div>
-          </div>
-          <div className="">
-            <div className="">
-              <img
-                src={KliquesDetailBGIMg}
-                alt="KliquesDetailBGIMg.png"
-                className="w-100 KliquesDetailBGIMg"
-              />
-              <img src={KliquesImg} alt="KliquesImg.png" className="KliquesImg" />
+            <div className="mb-5">
+              <Stack spacing={2}>
+                <Breadcrumbs
+                  separator={<NavigateNextIcon fontSize="small" />}
+                  aria-label="breadcrumb"
+                >
+                  {breadcrumbs}
+                </Breadcrumbs>
+              </Stack>
             </div>
-            <div className="forBorderSet">
-              <div className="p-4">
-                {/*  */}
-                {/*  */}
+          </div>
+          {/*  */}
+          {done ? (
+            <div className="stylishLoader">
+              <CircularIndeterminate className="allagentsLoader" />
+            </div>
+          ) : (
+            <div className="">
+              <div className="">
+                <img
+                  src={KliquesDetailBGIMg}
+                  alt="KliquesDetailBGIMg.png"
+                  className="w-100 KliquesDetailBGIMg"
+                />
+                <img
+                  src={KliquesImg}
+                  alt="KliquesImg.png"
+                  className="KliquesImg"
+                />
+              </div>
+              <div className="forBorderSet">
+                <div className="p-4">
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Title:</p>
                     <p>{getInfo.title}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Category:</p>
                     <p>{getInfo.category}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Link with shops:</p>
                     <p> Dummy data !</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Availabe Quantity:</p>
                     <p>{getInfo.available_quantity}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Incoming Quantity:</p>
                     <p>{getInfo.incoming_quantity}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Price:</p>
                     <p>{getInfo.price}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Cost Price:</p>
                     <p>{getInfo.cost_price}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Compare at Price:</p>
                     <p>{getInfo.compare_at_price}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Sku:</p>
                     <p>{getInfo.sku}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Barcode:</p>
                     <p>{getInfo.barcode}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="d-flex justify-content-between">
                     <p className="fw-bolder">Tags:</p>
                     <p>{getInfo.is_contain_tags}</p>
                   </div>
-                {/*  */}
-                {/*  */}
+                  {/*  */}
+                  {/*  */}
                   <div className="">
                     <p className="fw-bolder">Production Description:</p>
                     <p className="ms-5">{getInfo.description}</p>
                   </div>
-                              {/* <div className="mt-2">
+                  {/* <div className="mt-2">
                     <span className="S">M</span>{" "}
                     <span className="M">S</span>
                     <span className="ms-1 M">xs</span>{" "}
                     <span className="M">xxl</span>
                   </div> */}
+                </div>
               </div>
-            </div>
 
-            <div className="row ">{displayUsers}</div>
-            {/* <div className="mt-5">
+              <div className="row ">{displayUsers}</div>
+              {/* <div className="mt-5">
             <ReactPaginate
               previousLabel={<ArrowCircleLeftRoundedIcon />}
               nextLabel={<ArrowCircleRightRoundedIcon />}
@@ -278,7 +318,8 @@ const Viewitem = () => {
               activeClassName={"paginationActive"}
             />
           </div> */}
-          </div>
+            </div>
+          )}
         </Box>
       </Box>
     </div>

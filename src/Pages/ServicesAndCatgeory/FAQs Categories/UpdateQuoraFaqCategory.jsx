@@ -168,7 +168,7 @@ const UpdateQuoraFaqCategory = () => {
             <div class="form-group mt-5 pt-5">
               <Row>
                 <Form.Label className="text-dark mb-5 fw-bolder">
-                  Update&nbsp;FAQ Category
+                  Update&nbsp;Community Category
                 </Form.Label>
                 {/*  */}
                 {/*  */}

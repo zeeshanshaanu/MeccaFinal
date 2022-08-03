@@ -36,7 +36,7 @@ const ShopDetail = () => {
       <span
         className=""
         onClick={() => {
-          navigate("/AllShopes");
+          navigate("/AllShops");
         }}
       >
         All Shops

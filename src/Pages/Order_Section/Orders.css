@@ -42,3 +42,15 @@
 .BasicInfo,.Shipping_Address,.Billing_Address{
     line-height: 10px;
 }
+.pending{
+    color: orange;
+}
+.cancel{
+    color: red;
+}
+.complete{
+    color: green;
+}
+.inprogress{
+    color: blue;
+}

@@ -62,18 +62,21 @@ const UserDetail = () => {
             </div>
           ) : (
             <>
-              <div className="Product_card Content mt-5 w-50">
+              <div className="Product_card Content mt-5 w-50 h-100">
                 <center>
                   <div className="d-flex">
-                  <div className="">
-                    <img src={GetSpecficUser.image} className="UserDetailImg" />
-                  </div>
-                  {/*  */}
-                  <div className="ms-4 my-auto">
-                    <p className="text-left">
-                      {GetSpecficUser.first_name}&nbsp;
-                      {GetSpecficUser.last_name}
-                    </p>
+                    <div className="">
+                      <img
+                        src={GetSpecficUser.image}
+                        className="UserDetailImg"
+                      />
+                    </div>
+                    {/*  */}
+                    <div className="ms-4 my-auto">
+                      <p className="text-left">
+                        {GetSpecficUser.first_name}&nbsp;
+                        {GetSpecficUser.last_name}
+                      </p>
                       <p className="text-left">
                         {GetSpecficUser.title === null ? (
                           <span className="text-danger">
@@ -92,30 +95,19 @@ const UserDetail = () => {
                           <>{GetSpecficUser.organization}</>
                         )}
                       </p>
-
-                  </div>
+                    </div>
                   </div>
                 </center>
                 <div className="">
-                  {/* <div className="d-flex">
-                    <p className="fw-bolder ms-2">Name:</p>
-                    <div className="d-flex">
-                      <p className="fw-bolder ms-3">Title:</p>
-                    </div>
-                    <div className="d-flex ms-4">
-                      <p className="fw-bolder">Organization :</p>
-                    </div>
-                  </div> */}
-                                   <div className="w-100 text-end">
+                  <div className="w-100 text-end">
                     <span className="">
                       {GetSpecficUser.is_profile_setup === 1 ? (
-                        <span className="fw-bolder text-success">Present</span>
-                        ) : (
-                          <>{GetSpecficUser.is_profile_setup}</>
-                          )}
+                        <span className="fw-bolder text-success">Active</span>
+                      ) : (
+                        <span className="fw-bolder text-danger">Inactive</span>
+                      )}
                     </span>
                   </div>
-                          
                 </div>
                 <div className="table mx-0">
                   <tr>
@@ -173,18 +165,18 @@ const UserDetail = () => {
                     </td>
                   </tr>
                 </div>
-              <div className="Description mt-4">
-                <p className="fw-bolder">Biography</p>
-                <div className="pe-5">
-                  <p class="w-50">
-                    <small
-                      dangerouslySetInnerHTML={{
-                        __html: GetSpecficUser.biography,
-                      }}
-                    />
-                  </p>
+                <div className="Description mt-4">
+                  <p className="fw-bolder">Biography</p>
+                  <div className="pe-5">
+                    <p class="">
+                      <small
+                        dangerouslySetInnerHTML={{
+                          __html: GetSpecficUser.biography,
+                        }}
+                      />
+                    </p>
+                  </div>
                 </div>
-              </div>
               </div>
             </>
           )}
