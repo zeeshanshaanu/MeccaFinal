@@ -313,7 +313,7 @@ const ProfessionalsDetail = () => {
               <div className="Media">
                 <h3 className="fw-bolder mb-4">Gallery</h3>
                 {/* <Carousel show={3.5} slide={3} swiping={true}> */}
-                < >
+                <>
                   <div className="d-flex">
                     {getMedia.length == 0 ? (
                       <span className="fw-bolder h5">
@@ -368,46 +368,55 @@ const ProfessionalsDetail = () => {
               {/*  */}
               <hr />
               <div className="Services">
-                             ;<h3 className="fw-bolder mb-4">Services</h3>
+                <h3 className="fw-bolder mb-4">Services</h3>
                 <Row>
                   {getservices.length == 0 ? (
                     <span className="fw-bolder h5">
                       No Certifications Found
                     </span>
                   ) : (
-                    getservices.map((servic) => {
-                      return (
-                        <div className="col col-lg-4 col-md-6 col-sm-12  Services_card mb-5 me-3">
-                          <div className="mt-2 d-flex justify-content-between">
-                            <p class="fw-bolder">Tittle:</p>
-                            <p>
-                              <samall>{servic.name}</samall>
-                            </p>
+                 <>
+                 
+                 {
+                  <div className="Service-content">
+                    {
+                    getservices.map((servic) => (      
+                        <div className=" d-flex">
+                          <div className=" Services_card mb-5 me-3">
+                            <div className="mt-2 d-flex justify-content-between">
+                              <p class="fw-bolder">Tittle:</p>
+                              <p>
+                                <samall>{servic.name}</samall>
+                              </p>
+                            </div>
+                            <div className="mt-2 d-flex justify-content-between">
+                              <p class="fw-bolder ProductCardTextColor">
+                                Experience:
+                              </p>
+                              <p>
+                                <samall>{servic.experience}</samall>
+                              </p>
+                            </div>
+                            <div className="mt-2 d-flex justify-content-end">
+                              <p class="fw-bolder ProductCardTextColor ">
+                                {servic.isPremium === 1 ? (
+                                  <div className="text-success fw-bolder">
+                                    <small>Premium</small>
+                                  </div>
+                                ) : (
+                                  <div className="text-danger fw-bolder">
+                                    <small>Free</small>
+                                  </div>
+                                )}
+                              </p>
+                            </div>
                           </div>
-                          <div className="mt-2 d-flex justify-content-between">
-                            <p class="fw-bolder ProductCardTextColor">
-                              Experience:
-                            </p>
-                            <p>
-                              <samall>{servic.experience}</samall>
-                            </p>
                           </div>
-                          <div className="mt-2 d-flex justify-content-end">
-                            <p class="fw-bolder ProductCardTextColor ">
-                              {servic.isPremium === 1 ? (
-                                <div className="text-success fw-bolder">
-                                  <small>Premium</small>
-                                </div>
-                              ) : (
-                                <div className="text-danger fw-bolder">
-                                  <small>Free</small>
-                                </div>
-                              )}
-                            </p>
-                          </div>
-                        </div>
-                      );
-                    })
+                    )
+                    )
+                                }
+                    </div> }
+                    </>
                   )}
                 </Row>
               </div>
@@ -422,10 +431,13 @@ const ProfessionalsDetail = () => {
                       No Certifications Found
                     </span>
                   ) : (
-                    GetCertificates.map((CertificatesGets) => {
-                      return (
-                        <Col lg={4} md={6} sm={12}>
-                          <div className="Events_card mb-5">
+                    <>
+                    {
+                      <div className="Service-content">
+                        {
+                    GetCertificates.map((CertificatesGets) => ( 
+                      <div className="d-flex">
+                          <div className="Events_card mb-5 me-3">
                             <div className="card_image">
                               <img
                                 src={CertificatesGets.file}
@@ -465,9 +477,11 @@ const ProfessionalsDetail = () => {
                               </div>
                             </div>
                           </div>
-                        </Col>
-                      );
-                    })
+                          </div>                
+                    )
+                    )}
+                    </div>      }
+                    </>
                   )}
                 </Row>
               </div>

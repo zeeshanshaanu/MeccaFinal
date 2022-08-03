@@ -152,16 +152,14 @@ const AddUser = () => {
             {/*  */}
             <div className="for_Form mt-5 mx-4">
               <Container fluid>
-                <div className="For_Image my-4">
+                {/* <div className="For_Image my-4">
                   <label htmlFor="icon-button-file">
                     <Input
                       accept="image/*"
                       id="icon-button-file"
                       type="file"
-                      // value={selectedFile}
-                      onChange={HandleChange}
-                      // required
-                    />
+                       onChange={HandleChange}
+                     />
 
                     {!upload ? (
                       <IconButton
@@ -185,7 +183,7 @@ const AddUser = () => {
                   <div className={size ? "sizeshow" : "sizehide"}>
                     <small>File size excedded than 1MB</small>
                   </div>
-                </div>
+                </div> */}
                 <Row xs="1" sm="1" md="2" lg="3" xl="3">
                   <Col>
                     <Form.Group className="mb-4" controlId="#">
@@ -235,7 +233,7 @@ const AddUser = () => {
                 </Row>
                 {/* ==============SECONDROW=============== */}
                 <Row xs="1" sm="1" md="2" lg="3" xl="3">
-                  <Col>
+                  {/* <Col>
                     <Form.Group className="mb-4" controlId="#">
                       <Form.Label>
                         <small className="text fw-bold">Phone</small>
@@ -249,7 +247,7 @@ const AddUser = () => {
                         required
                       />
                     </Form.Group>
-                  </Col>
+                  </Col> */}
                   <Col>
                     <Form.Group
                       className="mb-3"

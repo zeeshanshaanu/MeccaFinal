@@ -62,7 +62,7 @@ const UserDetail = () => {
             </div>
           ) : (
             <>
-              <div className="Product_card Content mt-5 w-50 h-100">
+              <div className="col col-lg-4 Product_card Content mt-5 h-100">
                 <center>
                   <div className="d-flex">
                     <div className="">
@@ -73,11 +73,11 @@ const UserDetail = () => {
                     </div>
                     {/*  */}
                     <div className="ms-4 my-auto">
-                      <p className="text-left">
+                      <p className="text-start">
                         {GetSpecficUser.first_name}&nbsp;
                         {GetSpecficUser.last_name}
                       </p>
-                      <p className="text-left">
+                      <p className="d-flex text-start">
                         {GetSpecficUser.title === null ? (
                           <span className="text-danger">
                             <small>No Title</small>
@@ -85,16 +85,22 @@ const UserDetail = () => {
                         ) : (
                           <>{GetSpecficUser.title}</>
                         )}
+                        <p className="text-start">
+                          &nbsp;
+                          <span>At </span>
+                          {GetSpecficUser.organization === null ? (
+                            <span className="text-danger">
+                              <small>No Organization found</small>
+                            </span>
+                          ) : (
+                            <>{GetSpecficUser.organization}</>
+                          )}
+                        </p>
                       </p>
-                      <p className="text-left">
-                        {GetSpecficUser.organization === null ? (
-                          <span className="text-danger">
-                            <small>No Organization found</small>
-                          </span>
-                        ) : (
-                          <>{GetSpecficUser.organization}</>
-                        )}
-                      </p>
+                      <div className="d-flex justify-content-between">
+                        <p className="text-start">{GetSpecficUser.from_date}</p>
+                        <p className="text-start">{GetSpecficUser.is_currently_work===null?"Not working yet":GetSpecficUser.is_currently_work}</p>
+                      </div>
                     </div>
                   </div>
                 </center>
