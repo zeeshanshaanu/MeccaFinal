@@ -55,8 +55,10 @@ const Community = () => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setCommunity(res.data.data.quora_questions);
         setPageCount(res.data.data.last_page);
+        console.log(pageCount);
         setentries(res.data.data.to);
         settotalentries(res.data.data.total);
         setdone(false);
@@ -138,6 +140,7 @@ const Community = () => {
       <span className="foractive">Community</span>
     </Typography>,
   ];
+  const [filter, setfilter] = useState("");
   return (
     <div className="TopDiv px-3 pb-5">
       <Box sx={{ display: "flex" }}>
@@ -166,7 +169,7 @@ const Community = () => {
         >
           <div className="mt-5">
             <div className=" d-flex">
-              <Stack spacing={2}>
+              <Stack spacing={2} className="my-auto">
                 <Breadcrumbs
                   separator={<NavigateNextIcon fontSize="small" />}
                   aria-label="breadcrumb"
@@ -174,8 +177,18 @@ const Community = () => {
                   {breadcrumbs}
                 </Breadcrumbs>
               </Stack>
-              <div>
-                <p></p>
+              <div className="d-flex my-auto ms-3">
+                <div className="card postcards px-2 py-1 ">
+                  <p className="m-auto" onClick={() => setfilter("post")}>
+                    Post
+                  </p>
+                </div>
+                <div
+                  className="card postcards px-2 ms-2"
+                  onClick={() => setfilter("question")}
+                >
+                  <p className="m-auto">Question</p>
+                </div>
               </div>
             </div>
             {done ? (
@@ -187,17 +200,21 @@ const Community = () => {
                 <div className="d-flex mt-5">
                   <div className="row ">
                     {Community &&
-                      Community.map((val) => (
+                      Community.filter((data) =>
+                        filter == "post" ? data.image != "" : data.image == ""
+                      ).map((val) => (
                         <div className="col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-4">
                           <div className="card p-3 Community_card">
                             <div className="d-flex flex-column">
                               <div className="d-flex">
-                                <img
-                                  className="postimgg my-auto"
-                                  // src={val.image}
-                                  src={Logo1}
-                                  alt=""
-                                />
+                                {val.image == "" ? null : (
+                                  <img
+                                    className="postimgg my-auto"
+                                    src={val.image}
+                                    //   src={Logo1}
+                                    alt=""
+                                  />
+                                )}
                                 <span className="my-auto">
                                   <p className="my-auto mb-0">
                                     {val.added_by.first_name}&nbsp;
@@ -213,7 +230,7 @@ const Community = () => {
                                 {val.quora_question}
                               </p>
                             </div>
-                            <div className="d-flex">
+                            <div className="d-flex mt-auto">
                               <div className="my-auto d-flex">
                                 <span className="d-flex my-auto">
                                   <img
