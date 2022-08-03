@@ -80,7 +80,6 @@ const AllUsers = () => {
         setPageCount(response.data.data.last_page);
         setuser_data(response.data.data.to);
         setuser_data_total(response.data.data.total);
-        console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -207,12 +206,16 @@ const AllUsers = () => {
                     </TableHead>
                     <TableBody>
                       {console.log(user.searchid)}
-                      {console.log(user.names)}
-                      {user.searchid === true
+
+                      {user.searchid === 1
                         ? allusers &&
                           allusers
                             .filter((admin) => {
-                              if (user.names === "") {
+                              if (
+                                user.names == "" &&
+                                user.emails === "" &&
+                                user.usertypes === ""
+                              ) {
                                 return allusers;
                               } else if (
                                 (admin.last_name &&

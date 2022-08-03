@@ -1,0 +1,48 @@
+.Likeicon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.commentsicon {
+  color: #2020204d;
+  cursor: pointer;
+}
+.BgImg {
+  width: 100% !important;
+  height: 700px;
+}
+.quoraquestion {
+  height: 50px;
+  overflow-y: auto;
+}
+
+.forcommunitydetails {
+  width: 130%;
+  right: 0 !important;
+}
+.Communityimgg {
+  height: 200px;
+  width: 100%;
+  border: none;
+  position: relative;
+}
+.postimgg {
+  width: 50px;
+}
+.forprofile_img {
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -210%);
+  /* right: auto; */
+}
+.for-closeicon {
+  cursor: pointer;
+}
+.Community_card {
+  background: #f7f9fc;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}

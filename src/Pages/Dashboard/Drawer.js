@@ -249,7 +249,7 @@ export default function ResponsiveDrawer(props) {
       onClick: (id) => {
         sessionStorage.setItem("id", "12");
         setidside(id && id);
-        navigate("/AppSetings");
+        navigate("/Community");
       },
     },
     {

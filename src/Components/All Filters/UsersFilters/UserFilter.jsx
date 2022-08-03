@@ -114,7 +114,7 @@ export default function UserFilter() {
     console.log(user.reload);
     user.setreload(!user.reload);
     console.log(user.reload);
-    user.setsearchid(true);
+    user.setsearchid(1);
   };
   return (
     <div>

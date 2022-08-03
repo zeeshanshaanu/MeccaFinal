@@ -5,7 +5,7 @@ const AllUsersState = (props) => {
   const [emails, setemails] = useState("");
   const [usertypes, setusertypes] = useState("");
   const [reload, setreload] = useState(false);
-  const [searchid, setsearchid] = useState(false);
+  const [searchid, setsearchid] = useState(0);
   return (
     <AllUserContext.Provider
       value={{

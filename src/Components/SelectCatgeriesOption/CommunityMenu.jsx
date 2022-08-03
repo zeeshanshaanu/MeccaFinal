@@ -82,7 +82,7 @@ const StyledMenu = styled((props) => (
     },
   },
 }));
-const MainMenu = () => {
+const CommunityMenu = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -94,7 +94,7 @@ const MainMenu = () => {
   };
   return (
     <div>
-      <div className="mb-5">
+      <div className="my-3">
         <Button
           className="SelectCategories"
           id="demo-customized-button"
@@ -116,77 +116,11 @@ const MainMenu = () => {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem
-            onClick={() => {
-              navigate("/AppSetings");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Services Categories
+          <MenuItem disableRipple className="hovereffect">
+            Post
           </MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate("/AllShopCategories");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Shop&nbsp;Categories
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate("/AllProductCategories");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Product&nbsp;Categories
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate("/Varients");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Variants Types
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate("/Tags");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Tags
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate("/Blogs");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Blog Categories
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate("/AllEventCategories");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Event Categories
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              navigate("/AllFaqs");
-            }}
-            disableRipple
-            className="hovereffect"
-          >
-            Community Categories
+          <MenuItem disableRipple className="hovereffect">
+            FAQ's
           </MenuItem>
         </StyledMenu>
       </div>
@@ -194,4 +128,4 @@ const MainMenu = () => {
   );
 };
 
-export default MainMenu;
+export default CommunityMenu;
