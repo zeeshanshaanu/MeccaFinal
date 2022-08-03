@@ -132,8 +132,6 @@ const AllProfessionals = () => {
         setPageCount(response.data.data.last_page);
         setProfessional_data(response.data.data.to);
         setProfessional_data_total(response.data.data.total);
-        console.log(response.data.to);
-        console.log(response.data);
         setdone(false);
       })
       .catch((err) => console.log(err));
@@ -277,22 +275,19 @@ const AllProfessionals = () => {
                             >
                               <TableCell>
                                 <img
-                                  src={
-                                    findProf.image 
-                                  }
+                                  src={findProf.image}
                                   alt=""
                                   className="ProfesProfileImg"
                                 />
                                 &nbsp;
                                 <span className="">
-                                  {findProf.first_name}&nbsp;{findProf.last_name}
+                                  {findProf.first_name}&nbsp;
+                                  {findProf.last_name}
                                 </span>
                               </TableCell>
                               <TableCell>Nothing form server</TableCell>
 
-                              <TableCell>
-                                {findProf.email}
-                              </TableCell>
+                              <TableCell>{findProf.email}</TableCell>
                               <TableCell>Nothing form server</TableCell>
                               <TableCell className="w-25">
                                 {findProf.address && findProf.address}

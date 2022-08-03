@@ -84,6 +84,8 @@ import AllFaqs from "../Pages/ServicesAndCatgeory/FAQs Categories/AllFaqs";
 import UpdateQuoraFaqCategory from "../Pages/ServicesAndCatgeory/FAQs Categories/UpdateQuoraFaqCategory";
 import Viewitem from "../Pages/Mecca_Market_section/Viewitem";
 import AllShops from "../Pages/Mecca_Market_section/AllShopes";
+import Community from "../Pages/CommunitySection/Community";
+import CommunityDetail from "../Pages/CommunitySection/CommunityDetail";
 // import { I18nextProvider } from "react-i18next";
 // import i18n from "./configs/i18n/i18n";
 const LazyAllProfessionals = React.lazy(() =>
@@ -313,6 +315,13 @@ const Routing = () => {
             element={<UpdateEventCategory />}
           ></Route>{" "}
           {/* ============Categories and services========== */}{" "}
+          {/* ============Community========== */}{" "}
+          <Route path="/Community" element={<Community />}></Route>{" "}
+          <Route
+            path="/CommunityDetail/:id"
+            element={<CommunityDetail />}
+          ></Route>{" "}
+          {/* ============Community========== */}{" "}
           {/* ============PageNotFound========== */}{" "}
           <Route path="*" element={<PageNotFound />}>
             {" "}
