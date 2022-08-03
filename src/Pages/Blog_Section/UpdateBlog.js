@@ -27,7 +27,7 @@ const UpdateBlog = () => {
   const navigate = useNavigate();
   function handleClick(event) {
     event.preventDefault();
-    console.info("You clicked a breadcrumb.");
+    // console.info("You clicked a breadcrumb.");
   }
   const breadcrumbs = [
     <div
@@ -115,7 +115,6 @@ const UpdateBlog = () => {
     let result = await response.data.data.filter(
       (data) => data.name.toLowerCase() == Text.toLowerCase()
     );
-    console.log(result && result);
     if (result.length > 0) {
       result.map((data) => {
         sessionStorage.setItem("cat_id", data.blog_category_id);
@@ -136,7 +135,7 @@ const UpdateBlog = () => {
       },
     });
     setdone(false);
-    console.log(response);
+    // console.log(response);
     response.data.data.map((data) =>
       options.push(data.name && data.name.toLowerCase())
     );
@@ -150,17 +149,20 @@ const UpdateBlog = () => {
 
   const [title, settitle] = useState([]);
   // const [date, setdate] = useState("");
-  const [description, setdescription] = useState("");
   const [cover_image, setcover_image] = useState("");
   const UpdateBlog = () => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category_id", sessionStorage.getItem("cat_id"));
+    formData.append("description", sessionStorage.getItem("description"));
+    formData.append(
+      "cover_image",
+      selectedFile == null ? "hello" : selectedFile.file
+    );
     axios
       .post(
-        `/blog/update?blog_id=${id}&title=${title}&category_id=${
-          sessionStorage.getItem("cat_id") || (cat_id && cat_id)
-        }&description=${sessionStorage.getItem(
-          "description"
-        )}&cover_image=${selectedFile.file}`,
-        {},
+        `/blog/update?blog_id=${id}`,
+         formData,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token_id")}`,
@@ -276,8 +278,8 @@ const UpdateBlog = () => {
             {/*  */}
             <div className=" mx-4">
               <Container fluid>
-                <div className="For_Image">
-                  <div className="d-inline-block">
+                <div className="For_Image mt-4">
+                  <div className="d-inline-block mt-4">
                     <label htmlFor="icon-button-file">
                       <Input
                         accept="image/*"
@@ -285,7 +287,7 @@ const UpdateBlog = () => {
                         type="file"
                         onChange={handleChange}
                       />
-                      {/* {console.log(upload)} */}
+                      {console.log(upload)}
                       {!upload ? (
                         <img className="previewimg" src={cover_image} alt="" />
                       ) : !uploadim ? (
@@ -307,13 +309,14 @@ const UpdateBlog = () => {
                       )}
                     </label>
                   </div>
-                  {/* {console.log(cover_image)} */}
+                  {console.log(cover_image)}
                   <div className={size ? "sizeshow" : "sizehide"}>
                     <div className="text-dark">
                       <small>File size excedded than 1MB</small>
                     </div>
                   </div>
                 </div>
+                {/*  */}
                 <Row xs="1" sm="1" md="2" lg="4" xl="3">
                   <Col>
                     <Form.Group className="mb-4" controlId="#">
